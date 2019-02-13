@@ -1,0 +1,10 @@
+// Change this filename to auth.config.ts
+
+export const AUTH_CONFIG = {
+  // Needed for Auth0 (capitalization: ID):
+  clientID: '{CLIENT_ID}',
+  // Needed for Auth0Cordova (capitalization: Id):
+  clientId: '{CLIENT_ID}',
+  domain: '{DOMAIN}', // e.g., you.auth0.com
+  packageIdentifier: 'com.outgogo.outgogo' // config.xml widget ID
+};
