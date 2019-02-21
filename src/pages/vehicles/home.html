@@ -1,0 +1,34 @@
+<ion-header>
+  <ion-navbar>
+    <ion-title>Home</ion-title>
+  </ion-navbar>
+</ion-header>
+
+<ion-content padding>
+  <p *ngIf="auth.loading" text-center>Loading...</p>
+  <ng-template [ngIf]="!auth.loading">
+    <!-- Not loading, not logged in: show login button -->
+    <button
+      ion-button
+      block
+      color="primary"
+      *ngIf="!auth.loggedIn"
+      (click)="auth.login()">Log In</button>
+    <!-- Not loading, logged in: show profile and logout button -->
+    <ng-template [ngIf]="auth.loggedIn">
+      <ion-card *ngIf="auth.user">
+        <img [src]="auth.user.picture">
+        <ion-card-content>
+          <ion-card-title>{{ auth.user.name }}</ion-card-title>
+          <pre>{{ auth.user | json }}</pre>
+        </ion-card-content>
+      </ion-card>
+      <button
+        ion-button
+        block
+        color="danger"
+        (click)="auth.logout()">Log Out</button>
+    </ng-template>
+  </ng-template>
+
+</ion-content>
