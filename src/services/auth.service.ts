@@ -11,6 +11,7 @@ export class AuthService {
   Auth0 = new auth0.WebAuth(AUTH_CONFIG);
   Client = new Auth0Cordova(AUTH_CONFIG);
   accessToken: string;
+  idToken: string;
   user: any;
   loggedIn: boolean;
   loading = true;
@@ -30,16 +31,19 @@ export class AuthService {
   login() {
     this.loading = true;
     const options = {
-      scope: 'openid profile offline_access'
+      scope: 'openid profile offline_access email'
     };
     // Authorize login request with Auth0: open login page and get auth results
     this.Client.authorize(options, (err, authResult) => {
       if (err) {
-        throw err;
+        //throw err;
+        alert(JSON.stringify(err));
       }
+      alert('authResult: ' + JSON.stringify(authResult));
       // Set access token
       this.storage.set('access_token', authResult.accessToken);
       this.accessToken = authResult.accessToken;
+      this.idToken = authResult.idToken;
       // Set access token expiration
       const expiresAt = JSON.stringify((authResult.expiresIn * 1000) + new Date().getTime());
       this.storage.set('expires_at', expiresAt);
@@ -49,7 +53,8 @@ export class AuthService {
       // Fetch user's profile info
       this.Auth0.client.userInfo(this.accessToken, (err, profile) => {
         if (err) {
-          throw err;
+          //throw err;
+          alert(JSON.stringify(err));
         }
         this.storage.set('profile', profile).then(val =>
           this.zone.run(() => this.user = profile)
@@ -65,5 +70,9 @@ export class AuthService {
     this.accessToken = null;
     this.user = null;
     this.loggedIn = false;
+
+
+    this.Client.logout();
+
   }
 }
