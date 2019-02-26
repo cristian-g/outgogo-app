@@ -22,6 +22,7 @@
     <preference name="AndroidLaunchMode" value="singleTask" />
     <preference name="loadUrlTimeoutValue" value="700000" />
     <platform name="android">
+        <preference name="loadUrlTimeoutValue" value="700000" />
         <allow-intent href="market:*" />
         <icon density="ldpi" src="resources/android/icon/drawable-ldpi-icon.png" />
         <icon density="mdpi" src="resources/android/icon/drawable-mdpi-icon.png" />
@@ -105,6 +106,11 @@
     <allow-navigation href="http://192.168.1.42:8105" />
     <allow-navigation href="http://192.168.1.42:8106" />
     <allow-navigation href="http://10.10.0.161:8100" />
+    <allow-navigation href="http://10.10.1.141:8100" />
+    <allow-navigation href="http://172.20.21.16:8100" />
+    <allow-navigation href="http://172.20.10.2:8100" />
+    <allow-navigation href="http://10.6.164.82:8100" />
+    <plugin name="cordova-plugin-statusbar" spec="^2.4.2" />
     <engine name="ios" spec="4.5.4" />
     <engine name="android" spec="7.1.4" />
 </widget>

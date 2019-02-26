@@ -14,6 +14,23 @@
       color="primary"
       *ngIf="!auth.loggedIn"
       (click)="auth.login()">Log In</button>
+
+
+
+
+    a
+    <div *ngFor="let vehicle of this.vehicles; let i = index">
+      1<span>{{ vehicle.id }}</span>
+    </div>
+    b
+    <div *ngFor="let error of this.errorsLoadingVehicles; let i = index">
+      2<span>{{ error }}</span>
+    </div>
+    c
+
+
+
+
     <!-- Not loading, logged in: show profile and logout button -->
     <ng-template [ngIf]="auth.loggedIn">
       <ion-card *ngIf="auth.user">
@@ -28,6 +45,34 @@
         block
         color="danger"
         (click)="auth.logout()">Log Out</button>
+
+
+      <button
+        ion-button
+        block
+        color="primary"
+        (click)="loadVehicles()">Load vehicles</button>
+
+      <button
+        ion-button
+        block
+        color="primary"
+        (click)="storeVehicle()">Register a vehicle</button>
+
+
+
+
+a
+      <div *ngFor="let vehicle of this.vehicles; let i = index">
+        1<span>{{ vehicle.id }}</span>
+      </div>
+      b
+      <div *ngFor="let error of this.errorsLoadingVehicles; let i = index">
+        2<span>{{ error }}</span>
+      </div>
+c
+
+
     </ng-template>
   </ng-template>
 
