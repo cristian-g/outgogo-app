@@ -1,1 +1,53 @@
-<ion-nav [root]="rootPage"></ion-nav>
+<ion-menu [content]="content">
+
+  <ion-toolbar>
+    <ion-title>Outgogo</ion-title>
+  </ion-toolbar>
+
+  <ion-content>
+    <ion-list>
+      <button menuClose ion-item *ngFor="let p of pages" (click)="openPage(p)">
+        {{p.title}}
+      </button>
+    </ion-list>
+
+
+    <p *ngIf="auth.loading" text-center>Loading...</p>
+    <ng-template [ngIf]="!auth.loading">
+
+      <!-- Not loading, not logged in: show login button -->
+      <button
+        ion-button
+        block
+        color="primary"
+        *ngIf="!auth.loggedIn"
+        (click)="auth.login()">Log In</button>
+
+      <!-- Not loading, logged in: show profile and logout button -->
+      <ng-template [ngIf]="auth.loggedIn">
+        <ion-card *ngIf="auth.user">
+          <img [src]="auth.user.picture">
+          <ion-card-content>
+            <ion-card-title>{{ auth.user.name }}</ion-card-title>
+            <pre>{{ auth.user | json }}</pre>
+          </ion-card-content>
+        </ion-card>
+        <button
+          ion-button
+          block
+          color="danger"
+          (click)="auth.logout()">Log Out</button>
+      </ng-template>
+
+    </ng-template>
+
+
+
+
+
+
+  </ion-content>
+
+</ion-menu>
+
+<ion-nav [root]="rootPage" id="nav" #content swipeBackEnabled="false"></ion-nav>

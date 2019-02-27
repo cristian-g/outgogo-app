@@ -1,6 +1,11 @@
 <ion-header>
   <ion-navbar>
-    <ion-title>Home</ion-title>
+    <ion-buttons left>
+      <button menuToggle>
+        <ion-icon name="menu"></ion-icon>
+      </button>
+    </ion-buttons>
+    <ion-title>Vehículos</ion-title>
   </ion-navbar>
 </ion-header>
 
@@ -13,83 +18,42 @@
   </ion-buttons>
 
 
-  <p *ngIf="auth.loading" text-center>Loading...</p>
-  <ng-template [ngIf]="!auth.loading">
-    <!-- Not loading, not logged in: show login button -->
-    <button
-      ion-button
-      block
-      color="primary"
-      *ngIf="!auth.loggedIn"
-      (click)="auth.login()">Log In</button>
 
 
-
-
-    a
-    <div *ngFor="let vehicle of this.vehicles; let i = index">
-      1<span>{{ vehicle.id }}</span>
-    </div>
-    b
-    <div *ngFor="let error of this.errorsLoadingVehicles; let i = index">
-      2<span>{{ error }}</span>
-    </div>
-    c
-
-
-
-
-    <!-- Not loading, logged in: show profile and logout button -->
-    <ng-template [ngIf]="auth.loggedIn">
-      <ion-card *ngIf="auth.user">
-        <img [src]="auth.user.picture">
-        <ion-card-content>
-          <ion-card-title>{{ auth.user.name }}</ion-card-title>
-          <pre>{{ auth.user | json }}</pre>
-        </ion-card-content>
-      </ion-card>
-      <button
-        ion-button
-        block
-        color="danger"
-        (click)="auth.logout()">Log Out</button>
-
-
-      <button
-        ion-button
-        block
-        color="primary"
-        (click)="loadVehicles()">Load vehicles</button>
+  <button
+    ion-button
+    block
+    color="primary"
+    (click)="loadVehicles()">Load vehicles</button>
 
 
 
 
 
-a
-      <div *ngFor="let vehicle of this.vehicles; let i = index">
-        1<span>{{ vehicle.id }}</span>
-      </div>
+  a
+  <div *ngFor="let vehicle of this.vehicles; let i = index">
+    1<span>{{ vehicle.id }}</span>
+  </div>
 
-      <ion-card *ngFor="let vehicle of this.vehicles; let i = index">
-        <ion-card-header>
-          <ion-card-title>{{ vehicle.id }}</ion-card-title>
-        </ion-card-header>
+  <ion-card *ngFor="let vehicle of this.vehicles; let i = index">
+    <ion-card-header>
+      <ion-card-title>{{ vehicle.id }}</ion-card-title>
+    </ion-card-header>
 
-        <ion-card-content>
-          Keep close to Nature's heart... and break clear away, once in awhile,
-          and climb a mountain or spend a week in the woods. Wash your spirit clean.
-        </ion-card-content>
-      </ion-card>
-
-
-      b
-      <div *ngFor="let error of this.errorsLoadingVehicles; let i = index">
-        2<span>{{ error }}</span>
-      </div>
-c
+    <ion-card-content>
+      Keep close to Nature's heart... and break clear away, once in awhile,
+      and climb a mountain or spend a week in the woods. Wash your spirit clean.
+    </ion-card-content>
+  </ion-card>
 
 
-    </ng-template>
-  </ng-template>
+  b
+  <div *ngFor="let error of this.errorsLoadingVehicles; let i = index">
+    2<span>{{ error }}</span>
+  </div>
+  c
+
+
+
 
 </ion-content>
