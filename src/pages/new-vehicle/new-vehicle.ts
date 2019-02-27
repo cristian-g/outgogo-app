@@ -28,14 +28,16 @@ export class NewVehiclePage {
 
   filmId = null;
 
-  public anArray:any=[];
+  public anArray = new Array<String>();
+
+  vehicle = new Vehicle();
 
   constructor(public navCtrl: NavController,
               public navParams: NavParams,
               public auth: AuthService,
               public vehiclesService: VehiclesService,) {
     this.filmId = this.navParams.get('filmId');
-    this.anArray.push({'value':''});
+    this.anArray.push('');
   }
 
 
@@ -45,7 +47,7 @@ export class NewVehiclePage {
 
 
   Add(){
-    this.anArray.push({'value':''});
+    this.anArray.push('');
   }
 
 
@@ -56,18 +58,20 @@ export class NewVehiclePage {
 
   public storeVehicle(): void {
     this.loadingStoreVehicle = true;
-    const vehicle = new Vehicle();
-    vehicle.id = 'id_sample';
-    this.vehiclesService.store(vehicle).pipe(first())
+    this.vehicle.emails = this.anArray;
+    alert('emails array1: ' + JSON.stringify(this.anArray));
+
+    this.vehiclesService.store(this.vehicle).pipe(first())
       .subscribe(
         data => {
           this.loadingStoreVehicle = false;
+          alert('emails array2: ' + JSON.stringify(this.anArray));
           alert('success storing');
         },
         error => {
           alert('error storing' + JSON.stringify(error));
           this.loadingStoreVehicle = false;
-          const errorObject = error.errors;
+          const errorObject = error.error.errors;
           const dataArray = new Array;
           for (const field in errorObject) {
             if (errorObject.hasOwnProperty(field)) {

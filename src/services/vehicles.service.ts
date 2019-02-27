@@ -18,11 +18,18 @@ export class VehiclesService {
   // URI: /vehicles
   // Action: index
   index() {
-    alert('Hey, get. Bearer ' + this.auth.accessToken);
-    const headers = new HttpHeaders({
-      'Content-Type': 'application/json',
-      'Authorization': 'Bearer ' + this.auth.idToken
-    });
+    var headers = null;
+    if (this.auth.idToken == null) {
+      headers = new HttpHeaders({
+        'Content-Type': 'application/json',
+      });
+    }
+    else {
+      headers = new HttpHeaders({
+        'Content-Type': 'application/json',
+        'Authorization': 'Bearer ' + this.auth.idToken
+      });
+    }
     return this.http.get<any>('http://192.168.10.10/api/vehicles', { headers: headers })
       .pipe(map((data: any) => {
         if (data) {
@@ -31,10 +38,14 @@ export class VehiclesService {
             const jsonObj = data.vehicles[i];
             const vehicle = new Vehicle();
             vehicle.id = jsonObj.id;
+            vehicle.brand = jsonObj.brand;
+            vehicle.model = jsonObj.model;
+            vehicle.key = jsonObj.public_key;
+            vehicle.year = jsonObj.purchase_year;
+            vehicle.price = jsonObj.purchase_price;
             vehiclesArray.push(vehicle);
           }
           return vehiclesArray;
-          //this.userService.user.availableVehicles = vehiclesArray;
         }
       }));
   }
@@ -43,12 +54,26 @@ export class VehiclesService {
   // URI: /vehicles
   // Action: store
   store(vehicle: Vehicle) {
-    alert('Hey, post. Bearer ' + this.auth.accessToken);
-    const headers = new HttpHeaders({
-      'Content-Type': 'application/json',
-      'Authorization': 'Bearer ' + this.auth.idToken
-    });
-    return this.http.post<any>('http://192.168.10.10/api/vehicle', { stamp_model: vehicle.id }, { headers: headers })
+    var headers = null;
+    if (this.auth.idToken == null) {
+      headers = new HttpHeaders({
+        'Content-Type': 'application/json',
+      });
+    }
+    else {
+      headers = new HttpHeaders({
+        'Content-Type': 'application/json',
+        'Authorization': 'Bearer ' + this.auth.idToken
+      });
+    }
+    return this.http.post<any>('http://192.168.10.10/api/vehicle', {
+      brand: vehicle.brand,
+      model: vehicle.model,
+      key: vehicle.key,
+      year: vehicle.year,
+      price: vehicle.price,
+      emails: vehicle.emails,
+    }, { headers: headers })
       .pipe(map((data: any) => {
         if (data) {
           // Show success message

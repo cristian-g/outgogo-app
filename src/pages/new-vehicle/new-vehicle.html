@@ -24,28 +24,33 @@
 
 <ion-content padding>
 
-
-
-
+  <div *ngFor="let error of this.errorsLoadingStoreVehicle; let i = index">
+    <span>{{ error }}</span>
+  </div>
 
   <ion-item>
     <ion-label position="floating">Marca</ion-label>
-    <ion-input></ion-input>
+    <ion-input [(ngModel)]="vehicle.brand"></ion-input>
   </ion-item>
 
   <ion-item>
     <ion-label position="floating">Modelo</ion-label>
-    <ion-input></ion-input>
+    <ion-input [(ngModel)]="vehicle.model"></ion-input>
   </ion-item>
 
   <ion-item>
     <ion-label position="floating">Año de compra</ion-label>
-    <ion-input></ion-input>
+    <ion-input [(ngModel)]="vehicle.year"></ion-input>
   </ion-item>
 
   <ion-item>
     <ion-label position="floating">Importe original de compra (€)</ion-label>
-    <ion-input></ion-input>
+    <ion-input [(ngModel)]="vehicle.price"></ion-input>
+  </ion-item>
+
+  <ion-item>
+    <ion-label position="floating">Clave del dispositivo Outgogo</ion-label>
+    <ion-input [(ngModel)]="vehicle.key"></ion-input>
   </ion-item>
 
   <ion-card>
@@ -61,7 +66,7 @@
 
     <ion-item *ngFor="let att of anArray; let idx = index">
       <ion-label color="primary">{{att.label}}{{idx+1}}</ion-label>
-      <ion-input type="text" text-left [(ngModel)]="anArray[idx].value"></ion-input>
+      <ion-input type="text" text-left [(ngModel)]="anArray[idx]"></ion-input>
     </ion-item>
 
     <ion-item class="activated" text-right>

@@ -39,12 +39,10 @@ export class HomePage implements OnInit {
         data => {
           this.loadingVehicles = false;
           this.vehicles = data;
-          alert('success');
         },
         error => {
-          alert('error' + JSON.stringify(error));
           this.loadingVehicles = false;
-          const errorObject = error.errors;
+          const errorObject = error.error.errors;
           const dataArray = new Array;
           for (const field in errorObject) {
             if (errorObject.hasOwnProperty(field)) {
