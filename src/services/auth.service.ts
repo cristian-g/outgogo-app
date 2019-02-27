@@ -39,7 +39,6 @@ export class AuthService {
         //throw err;
         alert(JSON.stringify(err));
       }
-      alert('authResult: ' + JSON.stringify(authResult));
       // Set access token
       this.storage.set('access_token', authResult.accessToken);
       this.accessToken = authResult.accessToken;
