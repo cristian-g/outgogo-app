@@ -5,6 +5,14 @@
 </ion-header>
 
 <ion-content padding>
+
+
+
+  <ion-buttons>
+    <button ion-button (click)="goToNewVehiclePage()">Register a vehicle</button>
+  </ion-buttons>
+
+
   <p *ngIf="auth.loading" text-center>Loading...</p>
   <ng-template [ngIf]="!auth.loading">
     <!-- Not loading, not logged in: show login button -->
@@ -53,11 +61,6 @@
         color="primary"
         (click)="loadVehicles()">Load vehicles</button>
 
-      <button
-        ion-button
-        block
-        color="primary"
-        (click)="storeVehicle()">Register a vehicle</button>
 
 
 
@@ -66,6 +69,19 @@ a
       <div *ngFor="let vehicle of this.vehicles; let i = index">
         1<span>{{ vehicle.id }}</span>
       </div>
+
+      <ion-card *ngFor="let vehicle of this.vehicles; let i = index">
+        <ion-card-header>
+          <ion-card-title>{{ vehicle.id }}</ion-card-title>
+        </ion-card-header>
+
+        <ion-card-content>
+          Keep close to Nature's heart... and break clear away, once in awhile,
+          and climb a mountain or spend a week in the woods. Wash your spirit clean.
+        </ion-card-content>
+      </ion-card>
+
+
       b
       <div *ngFor="let error of this.errorsLoadingVehicles; let i = index">
         2<span>{{ error }}</span>

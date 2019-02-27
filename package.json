@@ -23,6 +23,7 @@
     "@angular/platform-browser": "^5.2.8",
     "@angular/platform-browser-dynamic": "^5.2.8",
     "@auth0/cordova": "^0.3.0",
+    "@ionic-native/card-io": "^5.2.0",
     "@ionic-native/core": "^4.4.0",
     "@ionic-native/splash-screen": "4.4.0",
     "@ionic-native/status-bar": "4.4.0",
