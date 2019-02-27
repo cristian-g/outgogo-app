@@ -9,6 +9,20 @@
   <ng-template [ngIf]="!auth.loading">
     <!-- Mostrar cotxes -->
 
+
+    <ion-list>
+      <ion-item>
+        <ion-label floating  ><ion-icon name="mail"></ion-icon> Username</ion-label>
+        <ion-input name="username" type="text" spellcheck="false" autocapitalize="off" required></ion-input>
+      </ion-item>
+      <p ion-text color="danger" padding-left>Username is required</p>
+      <ion-item>
+        <ion-label floating  ><ion-icon name="lock"></ion-icon> Password</ion-label>
+        <ion-input name="password" type="password" required></ion-input>
+      </ion-item>
+      <p ion-text color="danger" padding-left>Password is required</p>
+    </ion-list>
+
     <!-- Cotxe1 -->
     <ion-card>
       <ion-item>
