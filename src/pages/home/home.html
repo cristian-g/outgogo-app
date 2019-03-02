@@ -24,7 +24,7 @@
     color="primary"
     (click)="loadVehicles()">Cargar vehículos</button>
 
-  <ion-card *ngFor="let vehicle of this.vehicles; let i = index">
+  <ion-card *ngFor="let vehicle of this.vehicles; let i = index" (click)="goToVehiclePage(vehicle.id)">
     <ion-card-header>
       <ion-card-title>{{ vehicle.brand }} {{ vehicle.model }}</ion-card-title>
     </ion-card-header>

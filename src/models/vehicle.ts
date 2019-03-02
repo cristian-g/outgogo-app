@@ -1,4 +1,4 @@
-﻿//import { User } from './user';
+﻿import {Action} from "./action";
 
 export class Vehicle {
     id: string;
@@ -8,4 +8,5 @@ export class Vehicle {
     price: number;
     key: string;
     emails: Array<String>;
+    actions: Array<Action>;
 }

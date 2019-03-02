@@ -32,6 +32,10 @@ export class HomePage implements OnInit {
     this.navCtrl.push('NewVehiclePage');
   }
 
+  goToVehiclePage(id:string) {
+    this.navCtrl.push('VehiclePage', {vehicleId: id});
+  }
+
   public loadVehicles(): void {
     this.loadingVehicles = true;
     this.vehiclesService.index().pipe(first())

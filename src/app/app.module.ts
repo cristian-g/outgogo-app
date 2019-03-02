@@ -15,6 +15,8 @@ import { TabsPage } from '../pages/tabs/tabs';
 
 import { StatusBar } from '@ionic-native/status-bar';
 import { SplashScreen } from '@ionic-native/splash-screen';
+import {ActionsService} from "../services/actions.service";
+import {OutgoesService} from "../services/outgoes.service";
 
 @NgModule({
   declarations: [
@@ -43,7 +45,9 @@ import { SplashScreen } from '@ionic-native/splash-screen';
     SplashScreen,
     {provide: ErrorHandler, useClass: IonicErrorHandler},
     AuthService,
-    VehiclesService
+    VehiclesService,
+    ActionsService,
+    OutgoesService,
   ]
 })
 export class AppModule {}

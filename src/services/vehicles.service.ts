@@ -4,6 +4,7 @@ import { Vehicle } from '../models/vehicle';
 import { map } from 'rxjs/operators';
 import { Storage } from '@ionic/storage';
 import {AuthService} from "./auth.service";
+import {Action} from "../models/action";
 
 @Injectable()
 export class VehiclesService {
@@ -85,8 +86,45 @@ export class VehiclesService {
   // Verb: GET
   // URI: /vehicles/{vehicle}
   // Action: show
-  show(vehicleId: number) {
-    return this.http.post<any>('/api/vehicles/' + vehicleId, {});
+  show(vehicleId: string) {
+    var headers = null;
+    if (this.auth.idToken == null) {
+      headers = new HttpHeaders({
+        'Content-Type': 'application/json',
+      });
+    }
+    else {
+      headers = new HttpHeaders({
+        'Content-Type': 'application/json',
+        'Authorization': 'Bearer ' + this.auth.idToken
+      });
+    }
+    alert(vehicleId);
+    return this.http.get<any>('http://192.168.10.10/api/vehicle/' + vehicleId, { headers: headers })
+      .pipe(map((data: any) => {
+        if (data) {
+          const vehicle = new Vehicle;
+          vehicle.id = data.vehicle.id;
+          vehicle.brand = data.vehicle.brand;
+          vehicle.model = data.vehicle.model;
+          vehicle.key = data.vehicle.public_key;
+          vehicle.year = data.vehicle.purchase_year;
+          vehicle.price = data.vehicle.purchase_price;
+
+          const actionsArray = new Array<Action>();
+          for (let i = 0; i < data.vehicle.actions.length; i++) {
+            const jsonObj = data.vehicle.actions[i];
+            const action = new Action();
+            action.id = jsonObj.id;
+            action.type = 'outgo';
+            action.quantity = jsonObj.quantity;
+            actionsArray.push(action);
+          }
+          vehicle.actions = actionsArray;
+
+          return vehicle;
+        }
+      }));
   }
 
   // Verb: PUT/PATCH

@@ -18,7 +18,6 @@ import {first} from "rxjs/operators";
   templateUrl: 'new-vehicle.html',
 })
 export class NewVehiclePage {
-  loadingVehicles: boolean;
   errorsLoadingVehicles: any[];
 
   vehicles: any[];
@@ -37,6 +36,7 @@ export class NewVehiclePage {
               public auth: AuthService,
               public vehiclesService: VehiclesService,) {
     this.filmId = this.navParams.get('filmId');
+    alert(this.filmId);
     this.anArray.push('');
   }
 
@@ -49,7 +49,6 @@ export class NewVehiclePage {
   Add(){
     this.anArray.push('');
   }
-
 
   goBack() {
     this.navCtrl.pop();
