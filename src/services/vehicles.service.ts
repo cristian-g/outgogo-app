@@ -99,7 +99,6 @@ export class VehiclesService {
         'Authorization': 'Bearer ' + this.auth.idToken
       });
     }
-    alert(vehicleId);
     return this.http.get<any>('http://192.168.10.10/api/vehicle/' + vehicleId, { headers: headers })
       .pipe(map((data: any) => {
         if (data) {

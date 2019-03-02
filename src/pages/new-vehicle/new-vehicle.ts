@@ -35,8 +35,6 @@ export class NewVehiclePage {
               public navParams: NavParams,
               public auth: AuthService,
               public vehiclesService: VehiclesService,) {
-    this.filmId = this.navParams.get('filmId');
-    alert(this.filmId);
     this.anArray.push('');
   }
 
@@ -58,17 +56,13 @@ export class NewVehiclePage {
   public storeVehicle(): void {
     this.loadingStoreVehicle = true;
     this.vehicle.emails = this.anArray;
-    alert('emails array1: ' + JSON.stringify(this.anArray));
 
     this.vehiclesService.store(this.vehicle).pipe(first())
       .subscribe(
         data => {
           this.loadingStoreVehicle = false;
-          alert('emails array2: ' + JSON.stringify(this.anArray));
-          alert('success storing');
         },
         error => {
-          alert('error storing' + JSON.stringify(error));
           this.loadingStoreVehicle = false;
           const errorObject = error.error.errors;
           const dataArray = new Array;

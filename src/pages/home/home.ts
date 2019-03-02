@@ -1,8 +1,14 @@
-import {Component, OnInit} from '@angular/core';
-import { NavController } from 'ionic-angular';
+import { Component, OnInit } from '@angular/core';
+import { NavController, Platform } from 'ionic-angular';
 import { AuthService } from './../../services/auth.service';
 import { VehiclesService } from './../../services/vehicles.service';
-import {first} from "rxjs/operators";
+import { StatusBar } from '@ionic-native/status-bar';
+import { SplashScreen } from '@ionic-native/splash-screen';
+import { NgZone } from '@angular/core';
+import { Storage } from '@ionic/storage';
+
+// Import Auth0Cordova
+import Auth0Cordova from '@auth0/cordova';
 
 @Component({
   selector: 'page-home',
@@ -17,43 +23,36 @@ export class HomePage implements OnInit {
   loadingStoreVehicle: boolean;
   errorsLoadingStoreVehicle: any[];
 
+
+
   constructor(
     public navCtrl: NavController,
     public auth: AuthService,
-    public vehiclesService: VehiclesService
+    public vehiclesService: VehiclesService,
+    platform: Platform,
+    statusBar: StatusBar,
+    splashScreen: SplashScreen,
+    public zone: NgZone,
+    private storage: Storage,
   ) {
+    platform.ready().then(() => {
+      // Redirect back to app after authenticating
+      (window as any).handleOpenURL = (url: string) => {
+        Auth0Cordova.onRedirectUri(url);
+      }
+    });
+  }
+
+  public login() {
+    this.auth.login(this.navCtrl);
   }
 
   ngOnInit(): void {
-    this.loadVehicles();
-  }
-
-  goToNewVehiclePage() {
-    this.navCtrl.push('NewVehiclePage');
-  }
-
-  goToVehiclePage(id:string) {
-    this.navCtrl.push('VehiclePage', {vehicleId: id});
-  }
-
-  public loadVehicles(): void {
-    this.loadingVehicles = true;
-    this.vehiclesService.index().pipe(first())
-      .subscribe(
-        data => {
-          this.loadingVehicles = false;
-          this.vehicles = data;
-        },
-        error => {
-          this.loadingVehicles = false;
-          const errorObject = error.error.errors;
-          const dataArray = new Array;
-          for (const field in errorObject) {
-            if (errorObject.hasOwnProperty(field)) {
-              dataArray.push(errorObject[field]);
-            }
-          }
-          this.errorsLoadingVehicles = dataArray;
-        });
+    this.storage.get('id_token').then(token => {
+      if (token != null) {
+        this.auth.idToken = token;
+        this.navCtrl.setRoot('VehiclesListPage');
+      }
+    });
   }
 }

@@ -7,52 +7,56 @@
 <ion-header>
 
   <ion-navbar>
-    <ion-title>vehicle</ion-title>
+    <ion-title>
+      <span (click)="loadVehicle(this.vehicleId)" *ngIf="!this.loadedVehicle">Vehículos</span>
+      <span (click)="loadVehicle(this.vehicleId)" *ngIf="this.loadedVehicle">{{ vehicle.brand }} {{ vehicle.model }}</span>
+      <img src="assets/imgs/loading.gif" width="30" *ngIf="this.loadingVehicle && this.loadedVehicle" style="vertical-align:middle">
+    </ion-title>
   </ion-navbar>
 
 </ion-header>
 
-
 <ion-content padding>
 
-  <div *ngFor="let error of this.errorsLoadingVehicle; let i = index">
-    <span>{{ error }}</span>
+  <span *ngIf="this.loadingVehicle && !this.loadedVehicle" style="text-align: center !important;">
+    <img src="assets/imgs/loading.gif" width="80" style="display: block; margin: 0 auto;">
+  </span>
+
+  <div *ngIf="this.loadedVehicle">
+    <div *ngFor="let error of this.errorsLoadingVehicle; let i = index">
+      <span>{{ error }}</span>
+    </div>
+
+    <ion-card>
+      <ion-card-header>
+        <ion-card-title>{{ vehicle.brand }} {{ vehicle.model }}</ion-card-title>
+      </ion-card-header>
+      <ion-card-content>
+        Purchase year: {{ vehicle.year }}<br>
+        Purchase_price: {{ vehicle.price }}
+      </ion-card-content>
+    </ion-card>
+
+    <div style="text-align: center">
+      <button
+        ion-button
+        color="primary"
+        style="width: 45%; display: inline"
+        (click)="goToNewOutgoPage()">Registrar un gasto</button>
+      <button
+        ion-button
+        color="primary"
+        style="width: 45%; display: inline"
+        (click)="goToNewOutgoPage()">Registrar un pago</button>
+    </div>
+
+    <ion-card *ngFor="let action of this.vehicle.actions; let i = index">
+      <ion-card-header>
+        <ion-card-title>{{ action.type }}: {{ action.quantity }}</ion-card-title>
+      </ion-card-header>
+      <ion-card-content>
+      </ion-card-content>
+    </ion-card>
   </div>
-
-
-  <ion-card>
-    <ion-card-header>
-      <ion-card-title>{{ vehicle.brand }} {{ vehicle.model }}</ion-card-title>
-    </ion-card-header>
-    <ion-card-content>
-      Purchase year: {{ vehicle.year }}<br>
-      Purchase_price: {{ vehicle.price }}
-    </ion-card-content>
-  </ion-card>
-
-  <button
-    ion-button
-    block
-    color="primary"
-    (click)="goToNewOutgoPage()">Registrar un gasto</button>
-
-  <button
-    ion-button
-    block
-    color="primary"
-    (click)="loadVehicle(this.vehicleId)">Reload vehicle and actions</button>
-
-  --------------
-  Gastos y pagos
-  --------------
-
-  <ion-card *ngFor="let action of this.vehicle.actions; let i = index">
-    <ion-card-header>
-      <ion-card-title>{{ action.type }}: {{ action.quantity }}</ion-card-title>
-    </ion-card-header>
-    <ion-card-content>
-    </ion-card-content>
-  </ion-card>
-
 
 </ion-content>

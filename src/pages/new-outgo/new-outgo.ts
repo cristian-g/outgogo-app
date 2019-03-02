@@ -47,11 +47,9 @@ export class NewOutgoPage {
       .subscribe(
         data => {
           this.loadingStoreOutgo = false;
-          alert('success storing');
           this.goBack();
         },
         error => {
-          alert('error storing' + JSON.stringify(error));
           this.loadingStoreOutgo = false;
           const errorObject = error.error.errors;
           const dataArray = new Array;

@@ -61,7 +61,6 @@ export class OutgoesService {
         'Authorization': 'Bearer ' + this.auth.idToken
       });
     }
-    alert(outgoId);
     return this.http.get<any>('http://192.168.10.10/api/outgo/' + outgoId, { headers: headers })
       .pipe(map((data: any) => {
         if (data) {

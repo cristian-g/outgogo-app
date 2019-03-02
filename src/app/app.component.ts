@@ -6,9 +6,6 @@ import { AuthService } from './../services/auth.service';
 
 import { TabsPage } from '../pages/tabs/tabs';
 
-// Import Auth0Cordova
-import Auth0Cordova from '@auth0/cordova';
-
 @Component({
   templateUrl: 'app.html'
 })
@@ -29,11 +26,6 @@ export class MyApp {
       // Here you can do any higher level native things you might need.
       statusBar.styleDefault();
       splashScreen.hide();
-
-      // Redirect back to app after authenticating
-      (window as any).handleOpenURL = (url: string) => {
-        Auth0Cordova.onRedirectUri(url);
-      }
     });
 
     this.pages = [

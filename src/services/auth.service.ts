@@ -18,7 +18,7 @@ export class AuthService {
 
   constructor(
     public zone: NgZone,
-    private storage: Storage
+    private storage: Storage,
   ) {
     this.storage.get('profile').then(user => this.user = user);
     this.storage.get('access_token').then(token => this.accessToken = token);
@@ -28,21 +28,23 @@ export class AuthService {
     });
   }
 
-  login() {
+  login(navCtrl:any) {
     this.loading = true;
     const options = {
       scope: 'openid profile offline_access email'
     };
     // Authorize login request with Auth0: open login page and get auth results
     this.Client.authorize(options, (err, authResult) => {
+      this.accessToken = authResult.accessToken;
+      this.idToken = authResult.idToken;
+      navCtrl.setRoot('VehiclesListPage');
       if (err) {
         //throw err;
         alert(JSON.stringify(err));
       }
       // Set access token
       this.storage.set('access_token', authResult.accessToken);
-      this.accessToken = authResult.accessToken;
-      this.idToken = authResult.idToken;
+      this.storage.set('id_token', authResult.idToken);
       // Set access token expiration
       const expiresAt = JSON.stringify((authResult.expiresIn * 1000) + new Date().getTime());
       this.storage.set('expires_at', expiresAt);

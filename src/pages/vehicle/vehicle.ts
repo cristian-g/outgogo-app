@@ -20,15 +20,15 @@ import {Vehicle} from "../../models/vehicle";
 export class VehiclePage implements OnInit {
   public vehicleId:string = null;
   public loadingVehicle:boolean;
-  errorsLoadingVehicle: any[];
-  vehicle = new Vehicle();
+  public errorsLoadingVehicle: any[];
+  public vehicle:Vehicle = new Vehicle();
+  public loadedVehicle:boolean = false;
 
   constructor(public navCtrl: NavController,
               public navParams: NavParams,
               public auth: AuthService,
               public vehiclesService: VehiclesService) {
     this.vehicleId = this.navParams.get('vehicleId');
-    alert(this.vehicleId);
   }
 
   ngOnInit(): void {
@@ -57,10 +57,10 @@ export class VehiclePage implements OnInit {
       .subscribe(
         data => {
           this.loadingVehicle = false;
+          this.loadedVehicle = true;
           this.vehicle = data;
         },
         error => {
-          alert('error: ' + JSON.stringify(error));
           this.loadingVehicle = false;
           const errorObject = error.error.errors;
           const dataArray = new Array;
