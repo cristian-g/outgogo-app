@@ -8,10 +8,17 @@
 
   <ion-navbar>
     <ion-title>
-      <span (click)="loadVehicle(this.vehicleId)" *ngIf="!this.loadedVehicle">Vehículos</span>
+      <span (click)="loadVehicle(this.vehicleId)" *ngIf="!this.loadedVehicle">Vehículo</span>
       <span (click)="loadVehicle(this.vehicleId)" *ngIf="this.loadedVehicle">{{ vehicle.brand }} {{ vehicle.model }}</span>
       <img src="assets/imgs/loading.gif" width="30" *ngIf="this.loadingVehicle && this.loadedVehicle" style="vertical-align:middle">
     </ion-title>
+    <ion-buttons end>
+      <button
+        ion-button
+        block
+        color="primary"
+        (click)="goToEditVehiclePage()">Editar</button>
+    </ion-buttons>
   </ion-navbar>
 
 </ion-header>

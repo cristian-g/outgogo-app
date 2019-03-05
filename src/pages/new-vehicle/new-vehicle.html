@@ -5,9 +5,9 @@
   Ionic pages and navigation.
 -->
 <ion-header>
-
   <ion-navbar>
-    <ion-title>Registrar un vehículo</ion-title>
+    <ion-title *ngIf="this.mode == 'new'">Registrar un vehículo</ion-title>
+    <ion-title *ngIf="this.mode == 'edit'">Editar el vehículo</ion-title>
     <ion-buttons end>
       <button
         ion-button
@@ -16,15 +16,12 @@
         (click)="storeVehicle()">Guardar</button>
     </ion-buttons>
   </ion-navbar>
-
-
-
 </ion-header>
 
 
 <ion-content padding>
 
-  <div *ngFor="let error of this.errorsLoadingStoreVehicle; let i = index">
+  <div *ngFor="let error of this.errors; let i = index">
     <span>{{ error }}</span>
   </div>
 

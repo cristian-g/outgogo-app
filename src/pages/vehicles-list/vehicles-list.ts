@@ -40,7 +40,9 @@ export class VehiclesListPage implements OnInit {
   }
 
   goToNewVehiclePage() {
-    this.navCtrl.push('NewVehiclePage');
+    this.navCtrl.push('NewVehiclePage', {
+      mode: 'new',
+    });
   }
 
   goToVehiclePage(id: string) {

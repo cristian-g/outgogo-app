@@ -51,6 +51,13 @@ export class VehiclePage implements OnInit {
     this.navCtrl.pop();
   }
 
+  goToEditVehiclePage() {
+    this.navCtrl.push('NewVehiclePage', {
+      vehicle: this.vehicle,
+      mode: 'edit',
+    });
+  }
+
   public loadVehicle(id:string): void {
     this.loadingVehicle = true;
     this.vehiclesService.show(id).pipe(first())

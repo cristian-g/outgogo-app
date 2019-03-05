@@ -22,20 +22,25 @@ export class NewVehiclePage {
 
   vehicles: any[];
 
-  loadingStoreVehicle: boolean;
-  errorsLoadingStoreVehicle: any[];
+  loading: boolean;
+  errors: any[];
 
   filmId = null;
 
   public anArray = new Array<String>();
 
-  vehicle = new Vehicle();
+  public vehicle:Vehicle = new Vehicle();
+  public mode:string;
 
   constructor(public navCtrl: NavController,
               public navParams: NavParams,
               public auth: AuthService,
               public vehiclesService: VehiclesService,) {
     this.anArray.push('');
+    if (this.navParams.get('vehicle') != null) {
+      this.vehicle = this.navParams.get('vehicle');
+    }
+    this.mode = this.navParams.get('mode');
   }
 
 
@@ -54,16 +59,25 @@ export class NewVehiclePage {
 
 
   public storeVehicle(): void {
-    this.loadingStoreVehicle = true;
+    this.loading = true;
     this.vehicle.emails = this.anArray;
 
-    this.vehiclesService.store(this.vehicle).pipe(first())
+    let method;
+    if (this.mode === 'new') {
+      method = this.vehiclesService.store;
+    }
+    else {
+      method = this.vehiclesService.store;
+    }
+
+    method(this.vehicle).pipe(first())
       .subscribe(
         data => {
-          this.loadingStoreVehicle = false;
+          this.loading = false;
         },
         error => {
-          this.loadingStoreVehicle = false;
+          this.loading = false;
+          alert('error: ' + JSON.stringify(error));
           const errorObject = error.error.errors;
           const dataArray = new Array;
           for (const field in errorObject) {
@@ -71,7 +85,7 @@ export class NewVehiclePage {
               dataArray.push(errorObject[field]);
             }
           }
-          this.errorsLoadingStoreVehicle = dataArray;
+          this.errors = dataArray;
         });
   }
 

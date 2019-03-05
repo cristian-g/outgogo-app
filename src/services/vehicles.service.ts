@@ -126,11 +126,37 @@ export class VehiclesService {
       }));
   }
 
-  // Verb: PUT/PATCH
+  // Verb: PUT
   // URI: /vehicles/{vehicle}
   // Action: update
-  update(vehicleId: number, email: string) {
-    return this.http.post<any>('/api/vehicles/' + vehicleId, { vehicle: Vehicle });
+  update(vehicle: Vehicle) {
+    var headers = null;
+    if (this.auth.idToken == null) {
+      headers = new HttpHeaders({
+        'Content-Type': 'application/json',
+      });
+    }
+    else {
+      headers = new HttpHeaders({
+        'Content-Type': 'application/json',
+        'Authorization': 'Bearer ' + this.auth.idToken
+      });
+    }
+    const vehicleId = vehicle.id;
+    return this.http.put<any>('http://192.168.10.10/api/vehicle/' + vehicleId, {
+      brand: vehicle.brand,
+      model: vehicle.model,
+      key: vehicle.key,
+      year: vehicle.year,
+      price: vehicle.price,
+      emails: vehicle.emails,
+    }, { headers: headers })
+      .pipe(map((data: any) => {
+        if (data) {
+          // Show success message
+          //this.userService.user.showingImportantNotification = true;
+        }
+      }));
   }
 
   // Verb: DELETE
