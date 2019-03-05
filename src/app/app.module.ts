@@ -11,12 +11,14 @@ import { VehiclesService } from './../services/vehicles.service';
 import { AboutPage } from '../pages/about/about';
 import { ContactPage } from '../pages/contact/contact';
 import { HomePage } from '../pages/home/home';
-import { TabsPage } from '../pages/tabs/tabs';
 
 import { StatusBar } from '@ionic-native/status-bar';
 import { SplashScreen } from '@ionic-native/splash-screen';
 import {ActionsService} from "../services/actions.service";
 import {OutgoesService} from "../services/outgoes.service";
+import {TosPage} from "../pages/tos/tos";
+import {PrivacyPage} from "../pages/privacy/privacy";
+import {PointsPage} from "../pages/points/points";
 
 @NgModule({
   declarations: [
@@ -24,7 +26,9 @@ import {OutgoesService} from "../services/outgoes.service";
     AboutPage,
     ContactPage,
     HomePage,
-    TabsPage,
+    TosPage,
+    PrivacyPage,
+    PointsPage,
   ],
   imports: [
     BrowserModule,
@@ -38,7 +42,9 @@ import {OutgoesService} from "../services/outgoes.service";
     AboutPage,
     ContactPage,
     HomePage,
-    TabsPage,
+    TosPage,
+    PrivacyPage,
+    PointsPage,
   ],
   providers: [
     StatusBar,

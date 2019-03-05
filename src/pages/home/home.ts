@@ -55,4 +55,8 @@ export class HomePage implements OnInit {
       }
     });
   }
+
+  hack(): void {
+    this.navCtrl.setRoot('VehiclesListPage');
+  }
 }

@@ -4,7 +4,10 @@ import { StatusBar } from '@ionic-native/status-bar';
 import { SplashScreen } from '@ionic-native/splash-screen';
 import { AuthService } from './../services/auth.service';
 
-import { TabsPage } from '../pages/tabs/tabs';
+import { HomePage } from '../pages/home/home';
+import { TosPage } from '../pages/tos/tos';
+import { PrivacyPage } from '../pages/privacy/privacy';
+import {PointsPage} from "../pages/points/points";
 
 @Component({
   templateUrl: 'app.html'
@@ -12,7 +15,7 @@ import { TabsPage } from '../pages/tabs/tabs';
 export class MyApp {
   @ViewChild(Nav) nav: Nav;
 
-  rootPage:any = TabsPage;
+  rootPage:any = HomePage;
   public pages: Array<{title: string, component: any}>;
 
   constructor(
@@ -29,7 +32,11 @@ export class MyApp {
     });
 
     this.pages = [
-      { title: 'List', component: TabsPage }
+      { title: 'Home', component: HomePage },
+      { title: 'Vehículos', component: HomePage },
+      { title: 'Puntos Outgogo', component: PointsPage },
+      { title: 'Términos del servicio', component: TosPage },
+      { title: 'Política de privacidad', component: PrivacyPage },
     ];
   }
 
