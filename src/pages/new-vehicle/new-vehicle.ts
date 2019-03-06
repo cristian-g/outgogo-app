@@ -43,11 +43,9 @@ export class NewVehiclePage {
     this.mode = this.navParams.get('mode');
   }
 
-
   ionViewDidLoad() {
     console.log('ionViewDidLoad NewVehiclePage');
   }
-
 
   Add(){
     this.anArray.push('');
@@ -57,36 +55,46 @@ export class NewVehiclePage {
     this.navCtrl.pop();
   }
 
-
   public storeVehicle(): void {
     this.loading = true;
     this.vehicle.emails = this.anArray;
 
-    let method;
     if (this.mode === 'new') {
-      method = this.vehiclesService.store;
+      this.vehiclesService.store(this.vehicle).pipe(first())
+        .subscribe(
+          data => {
+            this.loading = false;
+          },
+          error => {
+            this.loading = false;
+            const errorObject = error.error.errors;
+            const dataArray = new Array;
+            for (const field in errorObject) {
+              if (errorObject.hasOwnProperty(field)) {
+                dataArray.push(errorObject[field]);
+              }
+            }
+            this.errors = dataArray;
+          });
     }
     else {
-      method = this.vehiclesService.store;
-    }
-
-    method(this.vehicle).pipe(first())
-      .subscribe(
-        data => {
-          this.loading = false;
-        },
-        error => {
-          this.loading = false;
-          alert('error: ' + JSON.stringify(error));
-          const errorObject = error.error.errors;
-          const dataArray = new Array;
-          for (const field in errorObject) {
-            if (errorObject.hasOwnProperty(field)) {
-              dataArray.push(errorObject[field]);
+      this.vehiclesService.update(this.vehicle).pipe(first())
+        .subscribe(
+          data => {
+            this.loading = false;
+            this.goBack();
+          },
+          error => {
+            this.loading = false;
+            const errorObject = error.error.errors;
+            const dataArray = new Array;
+            for (const field in errorObject) {
+              if (errorObject.hasOwnProperty(field)) {
+                dataArray.push(errorObject[field]);
+              }
             }
-          }
-          this.errors = dataArray;
-        });
+            this.errors = dataArray;
+          });
+    }
   }
-
 }

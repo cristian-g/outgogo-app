@@ -5,6 +5,7 @@ import { SplashScreen } from '@ionic-native/splash-screen';
 import { AuthService } from './../services/auth.service';
 
 import { HomePage } from '../pages/home/home';
+import { VehiclesListPage } from '../pages/vehicles-list/vehicles-list';
 import { TosPage } from '../pages/tos/tos';
 import { PrivacyPage } from '../pages/privacy/privacy';
 import {PointsPage} from "../pages/points/points";
@@ -33,7 +34,7 @@ export class MyApp {
 
     this.pages = [
       { title: 'Home', component: HomePage },
-      { title: 'Vehículos', component: HomePage },
+      { title: 'Vehículos', component: VehiclesListPage },
       { title: 'Puntos Outgogo', component: PointsPage },
       { title: 'Términos del servicio', component: TosPage },
       { title: 'Política de privacidad', component: PrivacyPage },
