@@ -20,11 +20,6 @@ export class HomePage implements OnInit {
 
   vehicles: any[];
 
-  loadingStoreVehicle: boolean;
-  errorsLoadingStoreVehicle: any[];
-
-
-
   constructor(
     public navCtrl: NavController,
     public auth: AuthService,
@@ -54,9 +49,5 @@ export class HomePage implements OnInit {
         this.navCtrl.setRoot('VehiclesListPage');
       }
     });
-  }
-
-  hack(): void {
-    this.navCtrl.setRoot('VehiclesListPage');
   }
 }
