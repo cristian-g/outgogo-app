@@ -111,6 +111,7 @@
     <allow-navigation href="http://172.20.10.2:8100" />
     <allow-navigation href="http://10.6.164.82:8100" />
     <plugin name="cordova-plugin-statusbar" spec="^2.4.2" />
+    <plugin name="card.io.cordova.mobilesdk" spec="^2.1.0" />
     <engine name="ios" spec="4.5.4" />
     <engine name="android" spec="7.1.4" />
 </widget>
