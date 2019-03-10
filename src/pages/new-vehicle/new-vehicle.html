@@ -6,14 +6,8 @@
 -->
 <ion-header>
   <ion-navbar>
-    <ion-title *ngIf="this.mode == 'new'">
-      Registrar un vehículo
-      <img src="assets/imgs/loading.gif" width="30" *ngIf="this.loadingVehicles && this.vehicles.length != 0" style="vertical-align:middle">
-    </ion-title>
-    <ion-title *ngIf="this.mode == 'edit'">
-      Editar el vehículo
-      <img src="assets/imgs/loading.gif" width="30" *ngIf="this.loadingVehicles && this.vehicles.length != 0" style="vertical-align:middle">
-    </ion-title>
+    <ion-title *ngIf="this.mode == 'new'">Registrar un vehículo</ion-title>
+    <ion-title *ngIf="this.mode == 'edit'">Editar el vehículo</ion-title>
     <ion-buttons end>
       <button
         ion-button

@@ -1,14 +1,13 @@
+<ion-header>
+  <ion-navbar>
+    <ion-title>Outgogo</ion-title>
+  </ion-navbar>
+</ion-header>
+
 <ion-content padding>
 
   <p *ngIf="auth.loading" text-center>Loading...</p>
   <ng-template [ngIf]="!auth.loading">
-
-    <span style="text-align: center">
-      <h1 style="margin-top: 150px !important;">
-        <img src="assets/imgs/Logo.jpg" width="200" style="vertical-align:middle">
-      </h1>
-      <h2>Te ayudamos a gestionar los gastos de tu coche compartido</h2>
-    </span>
 
     <!-- Not loading, not logged in: show login button -->
     <button
@@ -16,7 +15,7 @@
       block
       color="primary"
       *ngIf="!auth.loggedIn"
-      (click)="this.login()">Entrar</button>
+      (click)="this.login()">Log In</button>
 
     <!-- Not loading, logged in: show profile and logout button -->
     <ng-template [ngIf]="auth.loggedIn">
@@ -35,6 +34,12 @@
     </ng-template>
 
   </ng-template>
+
+  <button
+    ion-button
+    block
+    color="danger"
+    (click)="hack()">HACK</button>
 
 </ion-content>
 
