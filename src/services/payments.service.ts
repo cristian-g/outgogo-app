@@ -61,7 +61,7 @@ export class PaymentsService {
     return this.http.get<any>('http://192.168.10.10/api/payment/' + paymentId, { headers: headers })
       .pipe(map((data: any) => {
         if (data) {
-          const payment = new Payment;
+          const payment = new Payment();
           payment.id = data.payment.id;
           payment.type = 'payment';
           payment.quantity = data.payment.quantity;
@@ -73,8 +73,28 @@ export class PaymentsService {
   // Verb: PUT/PATCH
   // URI: /payments/{payment}
   // Action: update
-  update(paymentId: number, email: string) {
-    return this.http.post<any>('/api/payments/' + paymentId, { payment: Payment });
+  update(payment: Payment) {
+    var headers = null;
+    if (this.auth.idToken == null) {
+      headers = new HttpHeaders({
+        'Content-Type': 'application/json',
+      });
+    }
+    else {
+      headers = new HttpHeaders({
+        'Content-Type': 'application/json',
+        'Authorization': 'Bearer ' + this.auth.idToken
+      });
+    }
+    const paymentId = payment.id;
+    return this.http.put<any>('http://192.168.10.10/api/payment/' + paymentId, {
+      quantity: payment.quantity,
+    }, { headers: headers })
+      .pipe(map((data: any) => {
+        if (data) {
+          // Show success message
+        }
+      }));
   }
 
   // Verb: DELETE

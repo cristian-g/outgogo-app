@@ -6,7 +6,14 @@
 -->
 <ion-header>
   <ion-navbar>
-    <ion-title>Registrar un pago</ion-title>
+    <ion-title *ngIf="this.mode == 'new'">
+      Registrar un pago
+      <img src="assets/imgs/loading.gif" width="30" *ngIf="this.loading" style="vertical-align:middle">
+    </ion-title>
+    <ion-title *ngIf="this.mode == 'edit'">
+      Editar el pago
+      <img src="assets/imgs/loading.gif" width="30" *ngIf="this.loading" style="vertical-align:middle">
+    </ion-title>
     <ion-buttons end>
       <button
         ion-button
@@ -19,7 +26,7 @@
 
 <ion-content padding>
 
-  <div *ngFor="let error of this.errorsLoadingStorePayment; let i = index">
+  <div *ngFor="let error of this.errors; let i = index">
     <span>{{ error }}</span>
   </div>
 

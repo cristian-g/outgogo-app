@@ -54,10 +54,10 @@
         ion-button
         color="primary"
         style="width: 45%; display: inline"
-        (click)="goToNewOutgoPage()">Registrar un pago</button>
+        (click)="goToNewPaymentPage()">Registrar un pago</button>
     </div>
 
-    <div *ngFor="let action of this.vehicle.actions; let i = index">
+    <div *ngFor="let action of this.vehicle.actions; let i = index" (click)="goToPage(action.type, action)">
       <div *ngIf="i == 0">
         {{ action.formattedDate }}
       </div>

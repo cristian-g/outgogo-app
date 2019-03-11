@@ -17,17 +17,22 @@ import {PaymentsService} from "../../services/payments.service";
   templateUrl: 'new-payment.html',
 })
 export class NewPaymentPage {
-  loadingStorePayment: boolean;
-  errorsLoadingStorePayment: any[];
+  loading: boolean;
+  errors: any[];
   vehicleId = null;
   payment = new Payment();
+  public mode:string;
 
   constructor(
     public navCtrl: NavController,
     public navParams: NavParams,
     public paymentsService: PaymentsService
   ) {
+    this.mode = this.navParams.get('mode');
     this.vehicleId = this.navParams.get('vehicleId');
+    if (this.navParams.get('payment') != null) {
+      this.payment = this.navParams.get('payment');
+    }
   }
 
   ionViewDidLoad() {
@@ -39,24 +44,44 @@ export class NewPaymentPage {
   }
 
   public storePayment(): void {
-    this.loadingStorePayment = true;
-    this.paymentsService.store(this.vehicleId, this.payment).pipe(first())
-      .subscribe(
-        data => {
-          this.loadingStorePayment = false;
-          this.goBack();
-        },
-        error => {
-          alert('error: ' + JSON.stringify(error));
-          this.loadingStorePayment = false;
-          const errorObject = error.error.errors;
-          const dataArray = new Array;
-          for (const field in errorObject) {
-            if (errorObject.hasOwnProperty(field)) {
-              dataArray.push(errorObject[field]);
+    this.loading = true;
+    if (this.mode === 'new') {
+      this.paymentsService.store(this.vehicleId, this.payment).pipe(first())
+        .subscribe(
+          data => {
+            this.loading = false;
+            this.goBack();
+          },
+          error => {
+            this.loading = false;
+            const errorObject = error.error.errors;
+            const dataArray = new Array;
+            for (const field in errorObject) {
+              if (errorObject.hasOwnProperty(field)) {
+                dataArray.push(errorObject[field]);
+              }
             }
-          }
-          this.errorsLoadingStorePayment = dataArray;
-        });
+            this.errors = dataArray;
+          });
+    }
+    else {
+      this.paymentsService.update(this.payment).pipe(first())
+        .subscribe(
+          data => {
+            this.loading = false;
+            this.goBack();
+          },
+          error => {
+            this.loading = false;
+            const errorObject = error.error.errors;
+            const dataArray = new Array;
+            for (const field in errorObject) {
+              if (errorObject.hasOwnProperty(field)) {
+                dataArray.push(errorObject[field]);
+              }
+            }
+            this.errors = dataArray;
+          });
+    }
   }
 }

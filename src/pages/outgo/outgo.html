@@ -7,12 +7,32 @@
 <ion-header>
 
   <ion-navbar>
-    <ion-title>outgo</ion-title>
+    <ion-title>
+      <span (click)="loadOutgo(this.outgoId)">Gasto</span>
+      <img src="assets/imgs/loading.gif" width="30" *ngIf="this.loading && this.loadedOutgo" style="vertical-align:middle">
+    </ion-title>
+    <ion-buttons end>
+      <button
+        ion-button
+        block
+        color="primary"
+        (click)="goToEditOutgoPage()"
+        *ngIf="!this.loading"
+      >Editar</button>
+    </ion-buttons>
   </ion-navbar>
 
 </ion-header>
 
 
 <ion-content padding>
+
+  <span *ngIf="this.loading && !this.loadedOutgo" style="text-align: center !important;">
+    <img src="assets/imgs/loading.gif" width="80" style="display: block; margin: 0 auto;">
+  </span>
+
+  {{ outgo.id }}
+  <br>
+  {{ outgo.quantity }}
 
 </ion-content>

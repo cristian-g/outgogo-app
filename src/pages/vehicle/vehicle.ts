@@ -4,6 +4,9 @@ import {first} from "rxjs/operators";
 import {VehiclesService} from "../../services/vehicles.service";
 import {AuthService} from "../../services/auth.service";
 import {Vehicle} from "../../models/vehicle";
+import {Action} from "../../models/action";
+import {Outgo} from "../../models/outgo";
+import {Payment} from "../../models/payment";
 
 /**
  * Generated class for the VehiclePage page.
@@ -32,7 +35,7 @@ export class VehiclePage implements OnInit {
   }
 
   ngOnInit(): void {
-    //this.loadVehicle(this.vehicleId);
+    //this.loadOutgo(this.vehicleId);
   }
 
   public ionViewWillEnter() {
@@ -40,11 +43,36 @@ export class VehiclePage implements OnInit {
   }
 
   goToNewOutgoPage() {
-    this.navCtrl.push('NewOutgoPage', {vehicleId: this.vehicleId});
+    this.navCtrl.push('NewOutgoPage', {
+      vehicleId: this.vehicleId,
+      mode: 'new',
+    });
   }
 
   goToOutgoPage(id:string) {
     this.navCtrl.push('OutgoPage', {outgoId: id});
+  }
+
+  goToNewPaymentPage() {
+    this.navCtrl.push('NewPaymentPage', {
+      vehicleId: this.vehicleId,
+      mode: 'new',
+    });
+  }
+
+  goToPaymentPage(id:string) {
+    this.navCtrl.push('PaymentPage', {paymentId: id});
+  }
+
+  goToPage(type:string, action:Action) {
+    switch (type) {
+      case 'outgo':
+        this.goToOutgoPage((action as Outgo).id);
+        break;
+      case 'payment':
+        this.goToPaymentPage((action as Payment).id);
+        break;
+    }
   }
 
   goBack() {
