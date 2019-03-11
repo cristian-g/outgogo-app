@@ -64,6 +64,7 @@ export class NewVehiclePage {
         .subscribe(
           data => {
             this.loading = false;
+            this.goBack();
           },
           error => {
             this.loading = false;

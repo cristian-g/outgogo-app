@@ -1,11 +1,11 @@
 import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams } from 'ionic-angular';
-import {Outgo} from "../../models/outgo";
+import {Payment} from "../../models/payment";
 import {first} from "rxjs/operators";
-import {OutgoesService} from "../../services/outgoes.service";
+import {PaymentsService} from "../../services/payments.service";
 
 /**
- * Generated class for the NewOutgoPage page.
+ * Generated class for the NewPaymentPage page.
  *
  * See https://ionicframework.com/docs/components/#navigation for more info on
  * Ionic pages and navigation.
@@ -13,45 +13,42 @@ import {OutgoesService} from "../../services/outgoes.service";
 
 @IonicPage()
 @Component({
-  selector: 'page-new-outgo',
-  templateUrl: 'new-outgo.html',
+  selector: 'page-new-payment',
+  templateUrl: 'new-payment.html',
 })
-export class NewOutgoPage {
-  loadingStoreOutgo: boolean;
-  errorsLoadingStoreOutgo: any[];
+export class NewPaymentPage {
+  loadingStorePayment: boolean;
+  errorsLoadingStorePayment: any[];
   vehicleId = null;
-  outgo = new Outgo();
+  payment = new Payment();
 
   constructor(
     public navCtrl: NavController,
     public navParams: NavParams,
-    public outgoesService: OutgoesService
+    public paymentsService: PaymentsService
   ) {
     this.vehicleId = this.navParams.get('vehicleId');
   }
 
   ionViewDidLoad() {
-    console.log('ionViewDidLoad NewOutgoPage');
+    console.log('ionViewDidLoad NewPaymentPage');
   }
 
   goBack() {
     this.navCtrl.pop();
   }
 
-  public storeOutgo(): void {
-    this.loadingStoreOutgo = true;
-    if (this.outgo.share_outgo == null) {
-      this.outgo.share_outgo = false;
-    }
-    this.outgoesService.store(this.vehicleId, this.outgo).pipe(first())
+  public storePayment(): void {
+    this.loadingStorePayment = true;
+    this.paymentsService.store(this.vehicleId, this.payment).pipe(first())
       .subscribe(
         data => {
-          this.loadingStoreOutgo = false;
+          this.loadingStorePayment = false;
           this.goBack();
         },
         error => {
           alert('error: ' + JSON.stringify(error));
-          this.loadingStoreOutgo = false;
+          this.loadingStorePayment = false;
           const errorObject = error.error.errors;
           const dataArray = new Array;
           for (const field in errorObject) {
@@ -59,7 +56,7 @@ export class NewOutgoPage {
               dataArray.push(errorObject[field]);
             }
           }
-          this.errorsLoadingStoreOutgo = dataArray;
+          this.errorsLoadingStorePayment = dataArray;
         });
   }
 }

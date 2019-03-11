@@ -5,27 +5,27 @@
   </ion-toolbar>
 
   <ion-content>
-    <ion-card>
-      <img [src]="auth.user.picture" width="50">
-      <ion-card-content>
-        <ion-card-title>
-          {{ auth.user.name }}<br>
-          {{ auth.user.email }}<br>
-        </ion-card-title>
-      </ion-card-content>
-    </ion-card>
+
+    <div *ngIf="auth.loggedIn">
+      <ion-card *ngIf="auth.user != null">
+        <img [src]="auth.user.picture">
+        <ion-card-content>
+          <ion-card-title>{{ auth.user.name }}</ion-card-title>
+          <pre>{{ auth.user | json }}</pre>
+        </ion-card-content>
+      </ion-card>
+      <button
+        ion-button
+        block
+        color="danger"
+        (click)="auth.logout()">Log Out</button>
+    </div>
+
     <ion-list>
       <button menuClose ion-item *ngFor="let p of pages" (click)="openPage(p)">
         {{p.title}}
       </button>
     </ion-list>
-
-
-
-
-
-
-
 
   </ion-content>
 

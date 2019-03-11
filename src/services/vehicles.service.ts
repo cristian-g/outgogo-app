@@ -5,6 +5,8 @@ import { map } from 'rxjs/operators';
 import { Storage } from '@ionic/storage';
 import {AuthService} from "./auth.service";
 import {Action} from "../models/action";
+import {Outgo} from "../models/outgo";
+import {Payment} from "../models/payment";
 
 @Injectable()
 export class VehiclesService {
@@ -111,13 +113,68 @@ export class VehiclesService {
           vehicle.price = data.vehicle.purchase_price;
 
           const actionsArray = new Array<Action>();
+          var prevDate:Date = null;
           for (let i = 0; i < data.vehicle.actions.length; i++) {
             const jsonObj = data.vehicle.actions[i];
-            const action = new Action();
-            action.id = jsonObj.id;
-            action.type = 'outgo';
-            action.quantity = jsonObj.quantity;
-            actionsArray.push(action);
+            if (jsonObj.outgo != null) {
+              const action = new Outgo();
+              action.type = 'outgo';
+              action.quantity = jsonObj.quantity;
+              action.description = jsonObj.description;
+              action.notes = jsonObj.notes;
+              action.share_outgo = jsonObj.share_outgo;
+              action.category = jsonObj.category;
+
+              action.id = jsonObj.id;
+              action.createdAt = new Date(jsonObj.created_at);
+
+              // Format date
+              const options = { year: 'numeric', month: 'long', day: 'numeric' };
+              action.formattedDate = action.createdAt.toLocaleDateString("es-ES", options);
+
+              const a = new Date();  // Today
+              const b = new Date();  // Yesterday
+              b.setDate(new Date().getDate() - 1);  // Yesterday
+              const c = new Date(action.createdAt.getTime());
+
+              a.setHours(0,0,0,0);
+              b.setHours(0,0,0,0);
+              c.setHours(0,0,0,0);
+
+              if (a.getTime() == c.getTime())
+                action.formattedDate = "Hoy";
+              else if (b.getTime() == c.getTime())
+                action.formattedDate = "Ayer";
+
+              if (prevDate == null) {
+                action.differentDay = true;
+              }
+              else {
+                const date1 = new Date(action.createdAt.getTime()).setHours(0,0,0,0);
+                const date2 = new Date(prevDate.getTime()).setHours(0,0,0,0);
+                action.differentDay = date1 !== date2;
+              }
+              prevDate = action.createdAt;
+              actionsArray.push(action);
+            }
+            else if (jsonObj.payment != null) {
+              const action = new Payment();
+              action.type = 'payment';
+              action.quantity = jsonObj.quantity;
+
+              action.id = jsonObj.id;
+              action.createdAt = new Date(jsonObj.created_at);
+              if (prevDate == null) {
+                action.differentDay = true;
+              }
+              else {
+                const date1 = new Date(action.createdAt.getTime()).setHours(0,0,0,0);
+                const date2 = new Date(prevDate.getTime()).setHours(0,0,0,0);
+                action.differentDay = date1 !== date2;
+              }
+              prevDate = action.createdAt;
+              actionsArray.push(action);
+            }
           }
           vehicle.actions = actionsArray;
 

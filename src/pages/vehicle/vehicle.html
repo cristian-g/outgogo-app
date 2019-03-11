@@ -57,13 +57,25 @@
         (click)="goToNewOutgoPage()">Registrar un pago</button>
     </div>
 
-    <ion-card *ngFor="let action of this.vehicle.actions; let i = index">
-      <ion-card-header>
-        <ion-card-title>{{ action.type }}: {{ action.quantity }}</ion-card-title>
-      </ion-card-header>
-      <ion-card-content>
-      </ion-card-content>
-    </ion-card>
+    <div *ngFor="let action of this.vehicle.actions; let i = index">
+      <div *ngIf="i == 0">
+        {{ action.formattedDate }}
+      </div>
+      <div *ngIf="i > 0">
+        <span *ngIf="action.differentDay">
+          {{ action.formattedDate }}
+        </span>
+      </div>
+      <ion-card>
+        <ion-card-header>
+          <ion-card-title>{{ action.type }}: {{ action.quantity }}</ion-card-title>
+        </ion-card-header>
+        <ion-card-content>
+          {{ Contenido }}
+        </ion-card-content>
+      </ion-card>
+    </div>
+
   </div>
 
 </ion-content>
