@@ -30,18 +30,41 @@
   </span>
 
   <div *ngIf="this.loadedVehicle">
+
     <div *ngFor="let error of this.errorsLoadingVehicle; let i = index">
       <span>{{ error }}</span>
     </div>
 
     <ion-card>
-      <ion-card-header>
-        <ion-card-title>{{ vehicle.brand }} {{ vehicle.model }}</ion-card-title>
-      </ion-card-header>
-      <ion-card-content>
-        Purchase year: {{ vehicle.year }}<br>
-        Purchase_price: {{ vehicle.price }}
-      </ion-card-content>
+      <ion-item>
+        <ion-grid>
+          <ion-row>
+            <ion-col>
+              <img src= "assets/imgs/CarIcon.png">
+            </ion-col>
+            <ion-col>
+              <ion-row>
+                <ion-col col-12>
+                  <ion-row>
+                    <font size='2' color=#7A7A7A>Carlos Azaústre</font>
+                  </ion-row>
+                  <ion-row>
+                    <ion-row>
+                      {{ vehicle.brand }} {{ vehicle.model }}
+                    </ion-row>
+                  </ion-row>
+                  <ion-row padding-top="100px" >
+                    <font color= "tertiary" size='2'>Debes 95€ </font>
+                  </ion-row>
+                </ion-col>
+              </ion-row>
+              <ion-row>
+                <font size='2' color=#7A7A7A>Ahora mismo lo esta utilizando Víctor</font>
+              </ion-row>
+            </ion-col>
+          </ion-row>
+        </ion-grid>
+      </ion-item>
     </ion-card>
 
     <div style="text-align: center">
@@ -57,7 +80,14 @@
         (click)="goToNewPaymentPage()">Registrar un pago</button>
     </div>
 
+    <ion-label>Hoy</ion-label>
+
+
+
+
+
     <div *ngFor="let action of this.vehicle.actions; let i = index" (click)="goToPage(action.type, action)">
+
       <div *ngIf="i == 0">
         {{ action.formattedDate }}
       </div>
@@ -66,16 +96,44 @@
           {{ action.formattedDate }}
         </span>
       </div>
+
       <ion-card>
-        <ion-card-header>
-          <ion-card-title>{{ action.type }}: {{ action.quantity }}</ion-card-title>
-        </ion-card-header>
-        <ion-card-content>
-          {{ Contenido }}
-        </ion-card-content>
+        <ion-item>
+          <ion-grid>
+            <ion-row *ngIf="action.type === 'outgo'">
+              <ion-col padding-top = "2px" col-10>
+                Taller Rep&Go <font color="primary">{{ action.quantity }} €</font>
+                <br> <font size='2' color=#7A7A7A>Víctor ha ido al taller</font>
+              </ion-col>
+              <ion-col col-2>
+                <ion-icon class="icons" size="large" name="construct" slot="start"></ion-icon>
+              </ion-col>
+            </ion-row>
+            <ion-row *ngIf="action.type === 'payment'">
+              <ion-col padding-top = "2px" col-10>
+                Pago <font color="primary">{{ action.quantity }} €</font>
+                <br> <font size='2' color=#7A7A7A>Víctor ha pagado a Carlos</font>
+              </ion-col>
+              <ion-col col-2>
+                <ion-icon class="icons" size="large" name="cash" slot="start"></ion-icon>
+              </ion-col>
+            </ion-row>
+          </ion-grid>
+        </ion-item>
       </ion-card>
+
     </div>
 
+
+
+
   </div>
+
+
+
+
+
+
+
 
 </ion-content>
