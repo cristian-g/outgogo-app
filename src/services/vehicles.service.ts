@@ -111,6 +111,7 @@ export class VehiclesService {
           vehicle.key = data.vehicle.public_key;
           vehicle.year = data.vehicle.purchase_year;
           vehicle.price = data.vehicle.purchase_price;
+          vehicle.balance = data.vehicle.balance;
 
           const actionsArray = new Array<Action>();
           var prevDate:Date = null;

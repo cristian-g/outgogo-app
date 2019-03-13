@@ -91,11 +91,15 @@ export class VehiclePage implements OnInit {
     this.vehiclesService.show(id).pipe(first())
       .subscribe(
         data => {
+          alert('data: ' + JSON.stringify(data));
+
           this.loadingVehicle = false;
           this.loadedVehicle = true;
           this.vehicle = data;
         },
         error => {
+          alert('error: ' + JSON.stringify(error));
+
           this.loadingVehicle = false;
           const errorObject = error.error.errors;
           const dataArray = new Array;

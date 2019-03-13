@@ -53,6 +53,8 @@ export class NewPaymentPage {
             this.goBack();
           },
           error => {
+            alert('Error: ' + JSON.stringify(error));
+
             this.loading = false;
             const errorObject = error.error.errors;
             const dataArray = new Array;
@@ -72,6 +74,8 @@ export class NewPaymentPage {
             this.goBack();
           },
           error => {
+            alert('Error: ' + JSON.stringify(error));
+
             this.loading = false;
             const errorObject = error.error.errors;
             const dataArray = new Array;

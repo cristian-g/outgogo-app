@@ -53,8 +53,11 @@
                       {{ vehicle.brand }} {{ vehicle.model }}
                     </ion-row>
                   </ion-row>
-                  <ion-row padding-top="100px" >
-                    <font color= "tertiary" size='2'>Debes 95€ </font>
+                  <ion-row padding-top="100px" *ngIf="vehicle.balance > 0.0">
+                    <font color= "tertiary" size='2'>Te deben {{ vehicle.balance }} €</font>
+                  </ion-row>
+                  <ion-row padding-top="100px" *ngIf="vehicle.balance <= 0.0">
+                    <font color= "tertiary" size='2'>Debes {{ vehicle.balance }} €</font>
                   </ion-row>
                 </ion-col>
               </ion-row>
@@ -80,14 +83,8 @@
         (click)="goToNewPaymentPage()">Registrar un pago</button>
     </div>
 
-    <ion-label>Hoy</ion-label>
-
-
-
-
-
     <div *ngFor="let action of this.vehicle.actions; let i = index" (click)="goToPage(action.type, action)">
-
+      
       <div *ngIf="i == 0">
         {{ action.formattedDate }}
       </div>
