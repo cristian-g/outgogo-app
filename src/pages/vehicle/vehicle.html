@@ -54,7 +54,7 @@
                     </ion-row>
                   </ion-row>
                   <ion-row padding-top="100px" *ngIf="vehicle.balance > 0.0">
-                    <font color= "tertiary" size='2'>Te deben {{ vehicle.balance }} €</font>
+                    <font color= "primary" size='2'>Te deben {{ vehicle.balance }} €</font>
                   </ion-row>
                   <ion-row padding-top="100px" *ngIf="vehicle.balance <= 0.0">
                     <font color= "tertiary" size='2'>Debes {{ vehicle.balance }} €</font>
@@ -84,7 +84,7 @@
     </div>
 
     <div *ngFor="let action of this.vehicle.actions; let i = index" (click)="goToPage(action.type, action)">
-      
+
       <div *ngIf="i == 0">
         {{ action.formattedDate }}
       </div>
