@@ -1,0 +1,125 @@
+<ion-header>
+  <ion-navbar>
+    <ion-title>Vehículo</ion-title>
+  </ion-navbar>
+</ion-header>
+
+<ion-content padding  style="background-color: #F1F0F0">
+
+  <p *ngIf="auth.loading" text-center>Loading...</p>
+  <ng-template [ngIf]="!auth.loading">
+
+
+    <ion-card>
+      <ion-item>
+        <ion-grid>
+          <ion-row>
+            <ion-col col-3>
+              <img src= "assets/imgs/CarIcon.png">
+            </ion-col>
+            <ion-col col-9>
+              <ion-row>
+                <ion-col col-8>
+                  <ion-row>
+                    <font size='2' color=#7A7A7A>Carlos Azaústre</font>
+                  </ion-row>
+                  <ion-row>
+                    <ion-row>
+                      Ford Focus
+                    </ion-row>
+                    <ion-row>
+                      <ion-icon name="create" slot="start"></ion-icon>
+                    </ion-row>
+                  </ion-row>
+                  <ion-row padding-top="100px" >
+                    <font color= "tertiary" size='2'>Debes 95€ </font>
+                  </ion-row>
+                </ion-col>
+                <ion-col col-4>
+                  <button
+                    allign="right"
+                    ion-button
+                    round
+                    large
+                    mode = "ios"
+                    color="primary" >+</button>
+                </ion-col>
+              </ion-row>
+              <ion-row>
+                <font size='2' color=#7A7A7A>Ahora mismo lo esta utilizando Víctor</font>
+              </ion-row>
+            </ion-col>
+          </ion-row>
+        </ion-grid>
+      </ion-item>
+    </ion-card>
+
+    <ion-label>Hoy</ion-label>
+    <ion-card>
+      <ion-item>
+        <ion-grid>
+          <ion-row>
+            <ion-col padding-top = "2px" col-10>
+              Pago <font color="primary">50€</font>
+              <br> <font size='2' color=#7A7A7A>Víctor ha pagado a Carlos</font>
+            </ion-col>
+            <ion-col col-2>
+              <ion-icon class="icons" size="large" name="cash" slot="start"></ion-icon>
+            </ion-col>
+          </ion-row>
+        </ion-grid>
+      </ion-item>
+    </ion-card>
+    <ion-card>
+      <ion-item>
+        <ion-grid>
+          <ion-row>
+            <ion-col padding-top = "2px" col-10>
+              28 km <font color="primary">4,1€</font>
+              <br> <font size='2' color=#7A7A7A>Yo 19:18 - 19:40</font>
+            </ion-col>
+            <ion-col col-2>
+              <ion-icon class="icons" size="large" name="navigate" slot="start"></ion-icon>
+            </ion-col>
+          </ion-row>
+        </ion-grid>
+      </ion-item>
+    </ion-card>
+    <ion-card>
+      <ion-item>
+        <ion-grid>
+          <ion-row>
+            <ion-col padding-top = "2px" col-10>
+              60 litros de combustible
+              <br> <font size='2' color=#7A7A7A>Eva ha puesto 60 litros de gasolina</font>
+            </ion-col>
+            <ion-col col-2>
+              <ion-icon class="icons" size="large" name="water" slot="start"></ion-icon>
+            </ion-col>
+          </ion-row>
+        </ion-grid>
+      </ion-item>
+    </ion-card>
+
+    Ayer
+    <ion-card>
+      <ion-item>
+        <ion-grid>
+          <ion-row>
+            <ion-col padding-top = "2px" col-10>
+              Taller Rep&Go <font color="primary">45,90€</font>
+              <br> <font size='2' color=#7A7A7A>Víctor ha ido al taller</font>
+            </ion-col>
+            <ion-col col-2>
+              <ion-icon class="icons" size="large" name="construct" slot="start"></ion-icon>
+            </ion-col>
+          </ion-row>
+        </ion-grid>
+      </ion-item>
+    </ion-card>
+
+
+
+  </ng-template>
+
+</ion-content>
