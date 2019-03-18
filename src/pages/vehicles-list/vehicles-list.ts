@@ -58,6 +58,7 @@ export class VehiclesListPage implements OnInit {
           this.vehicles = data;
         },
         error => {
+          alert('error: ' + JSON.stringify(error));
           this.loadingVehicles = false;
           const errorObject = error.error.errors;
           const dataArray = new Array;
