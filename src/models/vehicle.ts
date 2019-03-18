@@ -9,5 +9,4 @@ export class Vehicle {
     key: string;
     emails: Array<String>;
     actions: Array<Action>;
-    balance: number;
 }

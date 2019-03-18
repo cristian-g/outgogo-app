@@ -64,7 +64,7 @@ export class OutgoesService {
     return this.http.get<any>('http://192.168.10.10/api/outgo/' + outgoId, { headers: headers })
       .pipe(map((data: any) => {
         if (data) {
-          const outgo = new Outgo();
+          const outgo = new Outgo;
           outgo.id = data.outgo.id;
           outgo.type = 'outgo';
           outgo.quantity = data.outgo.quantity;
@@ -80,31 +80,8 @@ export class OutgoesService {
   // Verb: PUT/PATCH
   // URI: /outgoes/{outgo}
   // Action: update
-  update(outgo: Outgo) {
-    var headers = null;
-    if (this.auth.idToken == null) {
-      headers = new HttpHeaders({
-        'Content-Type': 'application/json',
-      });
-    }
-    else {
-      headers = new HttpHeaders({
-        'Content-Type': 'application/json',
-        'Authorization': 'Bearer ' + this.auth.idToken
-      });
-    }
-    const outgoId = outgo.id;
-    return this.http.put<any>('http://192.168.10.10/api/outgo/' + outgoId, {
-      quantity: outgo.quantity,
-      description: outgo.description,
-      notes: outgo.notes,
-      share_outgo: outgo.share_outgo,
-    }, { headers: headers })
-      .pipe(map((data: any) => {
-        if (data) {
-          // Show success message
-        }
-      }));
+  update(outgoId: number, email: string) {
+    return this.http.post<any>('/api/outgoes/' + outgoId, { outgo: Outgo });
   }
 
   // Verb: DELETE

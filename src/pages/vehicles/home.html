@@ -125,4 +125,21 @@
       </ion-card>
     </ion-card>
 
+    <!-- Not loading, logged in: show profile and logout button -->
+    <ng-template [ngIf]="auth.loggedIn">
+      <ion-card *ngIf="auth.user">
+        <img [src]="auth.user.picture">
+        <ion-card-content>
+          <ion-card-title>{{ auth.user.name }}</ion-card-title>
+          <pre>{{ auth.user | json }}</pre>
+        </ion-card-content>
+      </ion-card>
+      <button
+        ion-button
+        block
+        color="danger"
+        (click)="auth.logout()">Log Out</button>
+    </ng-template>
+  </ng-template>
+
 </ion-content>

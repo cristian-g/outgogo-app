@@ -1,0 +1,125 @@
+<ion-header>
+  <ion-navbar>
+    <ion-title>Vehículos</ion-title>
+  </ion-navbar>
+</ion-header>
+
+<ion-content padding style="background-color: #F1F0F0">
+
+  <p *ngIf="auth.loading" text-center>Loading...</p>
+  <ng-template [ngIf]="!auth.loading">
+
+
+    <!-- Cotxe1 -->
+    <ion-card>
+      <ion-item>
+        <ion-grid>
+          <ion-row>
+            <ion-col col-3>
+              <img src= "assets/imgs/CarIcon.png">
+            </ion-col>
+            <ion-col col-9>
+              <ion-row>
+                <font size='2' color=#7A7A7A>Carlos Azaústre</font>
+              </ion-row>
+              <ion-row>
+                Ford Focus
+              </ion-row>
+              <ion-row padding-top="100px" >
+                <font color= "tertiary" size='2'>Debes 95€ </font>
+              </ion-row>
+              <ion-row>
+                <font size='2' color=#7A7A7A>Ahora mismo lo esta utilizando Víctor</font>
+              </ion-row>
+            </ion-col>
+          </ion-row>
+        </ion-grid>
+      </ion-item>
+    </ion-card>
+
+    <!-- Cotxe2 -->
+    <ion-card>
+      <ion-item>
+        <ion-grid>
+          <ion-row>
+            <ion-col col-3>
+              <img src= "assets/imgs/CarIcon.png">
+            </ion-col>
+            <ion-col col-9>
+              <ion-row>
+                <font size='2' color=#7A7A7A>Paula Costa</font>
+              </ion-row>
+              <ion-row>
+                Opel Corsa
+              </ion-row>
+              <ion-row padding-top="100px" >
+                <font color= "tertiary" size='2'>Debes 42€ </font>
+              </ion-row>
+              <ion-row>
+                <font size='2' color=#7A7A7A>Disponible</font>
+              </ion-row>
+            </ion-col>
+          </ion-row>
+        </ion-grid>
+      </ion-item>
+    </ion-card>
+
+    <!-- Cotxe3 -->
+    <ion-card>
+      <ion-item>
+        <ion-grid>
+          <ion-row>
+            <ion-col col-3>
+              <img src= "assets/imgs/CarIcon.png">
+            </ion-col>
+            <ion-col col-9>
+              <ion-row>
+                <font size='2' color=#7A7A7A>Sebastián Alonso</font>
+              </ion-row>
+              <ion-row>
+                Seat León
+              </ion-row>
+              <ion-row padding-top="100px" >
+                <font color= "tertiary" size='2'>Debes 31€ </font>
+              </ion-row>
+              <ion-row>
+                <font size='2' color=#7A7A7A>Ahora mismo lo esta utilizando Noelia</font>
+              </ion-row>
+            </ion-col>
+          </ion-row>
+        </ion-grid>
+      </ion-item>
+    </ion-card>
+
+    <!-- Cotxe4 -->
+    <ion-card>
+      <ion-item>
+        <ion-grid>
+          <ion-row>
+            <ion-col col-3>
+              <img src= "assets/imgs/CarIcon.png">
+            </ion-col>
+            <ion-col col-9>
+              <ion-row>
+                <font size='2' color=#7A7A7A>Compartido con Laura y Sebastián</font>
+              </ion-row>
+              <ion-row>
+                Volkswagen Golf
+              </ion-row>
+              <ion-row padding-top="100px" >
+                <font color= "primary" size='2'>Te deben 10€ </font>
+              </ion-row>
+              <ion-row>
+                <font size='2' color=#7A7A7A>Disponible</font>
+              </ion-row>
+            </ion-col>
+          </ion-row>
+        </ion-grid>
+      </ion-item>
+    </ion-card>
+
+
+  </ng-template>
+
+</ion-content>
+

@@ -19,7 +19,6 @@ import {OutgoesService} from "../services/outgoes.service";
 import {TosPage} from "../pages/tos/tos";
 import {PrivacyPage} from "../pages/privacy/privacy";
 import {PointsPage} from "../pages/points/points";
-import {PaymentsService} from "../services/payments.service";
 
 @NgModule({
   declarations: [
@@ -55,7 +54,6 @@ import {PaymentsService} from "../services/payments.service";
     VehiclesService,
     ActionsService,
     OutgoesService,
-    PaymentsService,
   ]
 })
 export class AppModule {}
