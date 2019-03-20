@@ -11,4 +11,5 @@ export class Vehicle {
     actions: Array<Action>;
     balance: number;
     sharing_status: string;
+    am_i_owner: boolean;
 }

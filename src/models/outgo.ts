@@ -5,4 +5,5 @@ export class Outgo extends Action {
   description: string;
   notes: string;
   share_outgo: boolean;
+  am_i_owner: boolean;
 }
