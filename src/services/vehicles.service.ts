@@ -46,6 +46,8 @@ export class VehiclesService {
             vehicle.key = jsonObj.public_key;
             vehicle.year = jsonObj.purchase_year;
             vehicle.price = jsonObj.purchase_price;
+            vehicle.balance = jsonObj.balance;
+            vehicle.sharing_status = jsonObj.sharing_status;
             vehiclesArray.push(vehicle);
           }
           return vehiclesArray;
@@ -112,6 +114,7 @@ export class VehiclesService {
           vehicle.year = data.vehicle.purchase_year;
           vehicle.price = data.vehicle.purchase_price;
           vehicle.balance = data.vehicle.balance;
+          vehicle.sharing_status = data.vehicle.sharing_status;
 
           const actionsArray = new Array<Action>();
           var prevDate:Date = null;

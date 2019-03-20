@@ -46,7 +46,7 @@
               <ion-row>
                 <ion-col col-12>
                   <ion-row>
-                    <font size='2' color=#7A7A7A>Carlos Azaústre</font>
+                    <font size='2' color=#7A7A7A>{{ vehicle.sharing_status }}</font>
                   </ion-row>
                   <ion-row>
                     <ion-row>
@@ -56,14 +56,17 @@
                   <ion-row padding-top="100px" *ngIf="vehicle.balance > 0.0">
                     <font color= "primary" size='2'>Te deben {{ vehicle.balance }} €</font>
                   </ion-row>
-                  <ion-row padding-top="100px" *ngIf="vehicle.balance <= 0.0">
-                    <font color= "tertiary" size='2'>Debes {{ vehicle.balance }} €</font>
+                  <ion-row padding-top="100px" *ngIf="vehicle.balance === 0.0">
+                    <font color= "primary" size='2'>Debes {{ (vehicle.balance * (-1)) }} €</font>
+                  </ion-row>
+                  <ion-row padding-top="100px" *ngIf="vehicle.balance < 0.0">
+                    <font color= "tertiary" size='2'>Debes {{ (vehicle.balance * (-1)) }} €</font>
                   </ion-row>
                 </ion-col>
               </ion-row>
-              <ion-row>
+              <!--<ion-row>
                 <font size='2' color=#7A7A7A>Ahora mismo lo esta utilizando Víctor</font>
-              </ion-row>
+              </ion-row>-->
             </ion-col>
           </ion-row>
         </ion-grid>

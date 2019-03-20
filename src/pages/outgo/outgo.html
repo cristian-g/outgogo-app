@@ -31,8 +31,55 @@
     <img src="assets/imgs/loading.gif" width="80" style="display: block; margin: 0 auto;">
   </span>
 
-  {{ outgo.id }}
-  <br>
-  {{ outgo.quantity }}
+  <span *ngIf="!this.loading && this.loadedOutgo">
+    <ion-card style="margin-left: 0">
+      <ion-item >
+        <ion-grid style="padding-top: 0" style="padding-bottom: 0">
+          <ion-row>
+            <ion-col col-10>
+              <ion-row>
+                <font>Gasto </font> &ensp; <font color= #002E8B>{{ outgo.quantity }} €</font>
+              </ion-row>
+              <ion-row>
+                <font size='2' color=#7A7A7A>Víctor ha ido al taller</font>
+              </ion-row>
+            </ion-col>
+            <ion-col col-2 style="padding-top: 0">
+              <ion-icon class="icons" size="large" name="cash" slot="start"></ion-icon>
+            </ion-col>
+          </ion-row>
+        </ion-grid>
+      </ion-item>
+    </ion-card>
+
+    <ion-grid>
+      <ion-row>
+        <ion-col col-2 style="align-self: center">
+          <font size='3'> Ayer </font>
+        </ion-col>
+        <ion-col col-7 style="align-self: center">
+          <font size='3' color=#7A7A7A>30 de octubre de 2018</font>
+        </ion-col>
+        <ion-col col-3>
+          <ion-icon class="icons" size="large" name="create" slot="start"></ion-icon>
+        </ion-col>
+      </ion-row>
+    </ion-grid>
+
+    <ion-grid>
+      <ion-row>
+        <font size='3' style="font-weight: bold"> Taller</font>
+      </ion-row>
+      <ion-row style="padding-top: 15px">
+        <font size='3' style="font-weight: bold"> Notas</font>
+      </ion-row>
+      <ion-row style="padding-bottom: 15px">
+        <font size='3' style="font-style: italic"> le han cambiado los frenos</font>
+      </ion-row>
+      <ion-row>
+        <font size='3' style="font-weight: bold"> Gasto compartido con los usuarios del vehículo</font>
+      </ion-row>
+    </ion-grid>
+  </span>
 
 </ion-content>

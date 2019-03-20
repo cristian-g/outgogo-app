@@ -10,4 +10,5 @@ export class Vehicle {
     emails: Array<String>;
     actions: Array<Action>;
     balance: number;
+    sharing_status: string;
 }

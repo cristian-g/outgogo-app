@@ -91,8 +91,6 @@ export class VehiclePage implements OnInit {
     this.vehiclesService.show(id).pipe(first())
       .subscribe(
         data => {
-          alert('data: ' + JSON.stringify(data));
-
           this.loadingVehicle = false;
           this.loadedVehicle = true;
           this.vehicle = data;
