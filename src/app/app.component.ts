@@ -1,5 +1,5 @@
 import { Component, ViewChild } from '@angular/core';
-import { Platform, Nav } from 'ionic-angular';
+import {Platform, Nav} from 'ionic-angular';
 import { StatusBar } from '@ionic-native/status-bar';
 import { SplashScreen } from '@ionic-native/splash-screen';
 import { AuthService } from './../services/auth.service';
@@ -8,7 +8,7 @@ import { HomePage } from '../pages/home/home';
 import { VehiclesListPage } from '../pages/vehicles-list/vehicles-list';
 import { TosPage } from '../pages/tos/tos';
 import { PrivacyPage } from '../pages/privacy/privacy';
-import {PointsPage} from "../pages/points/points";
+//import {PointsPage} from "../pages/points/points";
 
 @Component({
   templateUrl: 'app.html'
@@ -33,7 +33,7 @@ export class MyApp {
     });
 
     this.pages = [
-      { title: 'Home', component: HomePage },
+      //{ title: 'Home', component: HomePage },
       { title: 'Vehículos', component: VehiclesListPage },
       //{ title: 'Puntos Outgogo', component: PointsPage },
       { title: 'Términos del servicio', component: TosPage },
@@ -45,5 +45,10 @@ export class MyApp {
     // Reset the content nav to have just this page
     // we wouldn't want the back button to show in this scenario
     this.nav.setRoot(page.component);
+  }
+
+  logout() {
+    this.auth.logout();
+    this.nav.setRoot(TosPage);
   }
 }

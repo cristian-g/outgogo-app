@@ -8,9 +8,9 @@
   <ion-navbar>
     <ion-title *ngIf="this.mode == 'new'">
       Registrar un vehículo
-      <img src="assets/imgs/loading.gif" width="30" *ngIf="this.loading && this.vehicles.length != 0" style="vertical-align:middle">
+      <img src="assets/imgs/loading.gif" width="30" *ngIf="this.loading" style="vertical-align:middle">
     </ion-title>
-    <ion-title *ngIf="this.mode == 'edit' && !this.loading">
+    <ion-title *ngIf="this.mode == 'edit'">
       Editar el vehículo
       <img src="assets/imgs/loading.gif" width="30" *ngIf="this.loading && this.vehicles.length != 0" style="vertical-align:middle">
     </ion-title>
@@ -19,17 +19,13 @@
         ion-button
         block
         color="primary"
+        *ngIf="!this.loading"
         (click)="storeVehicle()">Guardar</button>
     </ion-buttons>
   </ion-navbar>
 </ion-header>
 
-
 <ion-content padding>
-
-  <div *ngFor="let error of this.errors; let i = index">
-    <span>{{ error }}</span>
-  </div>
 
   <ion-item>
     <ion-label floating>Marca</ion-label>
@@ -68,7 +64,7 @@
 
     <ion-item>
       <ion-label color="primary">1</ion-label>
-      <ion-label color="primary">Yo</ion-label>
+      <ion-input type="text" text-left disabled="true" value="Yo ({{ auth.user.email }})"></ion-input>
     </ion-item>
 
     <ion-item *ngFor="let att of anArray; let idx = index">
@@ -77,7 +73,7 @@
     </ion-item>
 
     <ion-item class="activated" text-right>
-      <button ion-button   (click)="Add()">Add More</button>
+      <button ion-button (click)="Add()">Añadir más</button>
     </ion-item>
 
   </ion-card>

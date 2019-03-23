@@ -19,16 +19,13 @@
         ion-button
         block
         color="primary"
+        *ngIf="!this.loading"
         (click)="storePayment()">Guardar</button>
     </ion-buttons>
   </ion-navbar>
 </ion-header>
 
 <ion-content padding>
-
-  <div *ngFor="let error of this.errors; let i = index">
-    <span>{{ error }}</span>
-  </div>
 
   <ion-item>
     <ion-label floating>Cantidad</ion-label>

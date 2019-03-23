@@ -17,6 +17,7 @@
         ion-button
         block
         color="primary"
+        *ngIf="!this.loading"
         (click)="goToEditVehiclePage()">Editar</button>
     </ion-buttons>
   </ion-navbar>
@@ -88,10 +89,10 @@
 
     <div *ngFor="let action of this.vehicle.actions; let i = index" (click)="goToPage(action.type, action)">
 
-      <div *ngIf="i == 0">
+      <div *ngIf="i == 0" style="padding-top: 5px">
         {{ action.formattedDate }}
       </div>
-      <div *ngIf="i > 0">
+      <div *ngIf="i > 0" style="padding-top: 5px">
         <span *ngIf="action.differentDay">
           {{ action.formattedDate }}
         </span>
@@ -102,11 +103,11 @@
           <ion-grid>
             <ion-row *ngIf="action.type === 'outgo'">
               <ion-col padding-top = "2px" col-10>
-                Taller Rep&Go <font color="primary">{{ action.quantity }} €</font>
+                Gasto <font color="primary">{{ action.quantity }} €</font>
                 <br> <font size='2' color=#7A7A7A>Víctor ha ido al taller</font>
               </ion-col>
               <ion-col col-2>
-                <ion-icon class="icons" size="large" name="construct" slot="start"></ion-icon>
+                <ion-icon class="icons" size="large" name="pricetag" slot="start"></ion-icon>
               </ion-col>
             </ion-row>
             <ion-row *ngIf="action.type === 'payment'">

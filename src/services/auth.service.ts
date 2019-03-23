@@ -73,7 +73,6 @@ export class AuthService {
     this.user = null;
     this.loggedIn = false;
 
-
     this.Client.logout();
 
   }

@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { IonicPage, NavController, NavParams } from 'ionic-angular';
+import {IonicPage, NavController, NavParams, AlertController} from 'ionic-angular';
 import {AuthService} from "../../services/auth.service";
 import {VehiclesService} from "../../services/vehicles.service";
 import {Vehicle} from "../../models/vehicle";
@@ -35,7 +35,9 @@ export class NewVehiclePage {
   constructor(public navCtrl: NavController,
               public navParams: NavParams,
               public auth: AuthService,
-              public vehiclesService: VehiclesService,) {
+              public vehiclesService: VehiclesService,
+              public alertController: AlertController,
+              ) {
     this.anArray.push('');
     if (this.navParams.get('vehicle') != null) {
       this.vehicle = this.navParams.get('vehicle');
@@ -76,6 +78,7 @@ export class NewVehiclePage {
               }
             }
             this.errors = dataArray;
+            this.presentAlert('Error', this.errors.join('\n'));/*.then(_ => do something);*/
           });
     }
     else {
@@ -95,7 +98,17 @@ export class NewVehiclePage {
               }
             }
             this.errors = dataArray;
+            this.presentAlert('Error', this.errors.join('\n'));/*.then(_ => do something);*/
           });
     }
+  }
+
+  presentAlert(title: string, subtitle: string): Promise<any> {
+    const alert = this.alertController.create({
+      title: title,
+      subTitle: subtitle,
+      buttons: [{text: 'OK', role: 'cancel'}]
+    });
+    return alert.present();
   }
 }

@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { IonicPage, NavController, NavParams } from 'ionic-angular';
+import {AlertController, IonicPage, NavController, NavParams} from 'ionic-angular';
 import {Outgo} from "../../models/outgo";
 import {first} from "rxjs/operators";
 import {OutgoesService} from "../../services/outgoes.service";
@@ -26,7 +26,8 @@ export class NewOutgoPage {
   constructor(
     public navCtrl: NavController,
     public navParams: NavParams,
-    public outgoesService: OutgoesService
+    public outgoesService: OutgoesService,
+    public alertController: AlertController,
   ) {
     this.mode = this.navParams.get('mode');
     this.vehicleId = this.navParams.get('vehicleId');
@@ -65,6 +66,7 @@ export class NewOutgoPage {
               }
             }
             this.errors = dataArray;
+            this.presentAlert('Error', this.errors.join('\n'));/*.then(_ => do something);*/
           });
     }
     else {
@@ -84,7 +86,17 @@ export class NewOutgoPage {
               }
             }
             this.errors = dataArray;
+            this.presentAlert('Error', this.errors.join('\n'));/*.then(_ => do something);*/
           });
     }
+  }
+
+  presentAlert(title: string, subtitle: string): Promise<any> {
+    const alert = this.alertController.create({
+      title: title,
+      subTitle: subtitle,
+      buttons: [{text: 'OK', role: 'cancel'}]
+    });
+    return alert.present();
   }
 }

@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { IonicPage, NavController, NavParams } from 'ionic-angular';
+import {AlertController, IonicPage, NavController, NavParams} from 'ionic-angular';
 import {Payment} from "../../models/payment";
 import {first} from "rxjs/operators";
 import {PaymentsService} from "../../services/payments.service";
@@ -26,7 +26,8 @@ export class NewPaymentPage {
   constructor(
     public navCtrl: NavController,
     public navParams: NavParams,
-    public paymentsService: PaymentsService
+    public paymentsService: PaymentsService,
+    public alertController: AlertController,
   ) {
     this.mode = this.navParams.get('mode');
     this.vehicleId = this.navParams.get('vehicleId');
@@ -53,8 +54,6 @@ export class NewPaymentPage {
             this.goBack();
           },
           error => {
-            alert('Error: ' + JSON.stringify(error));
-
             this.loading = false;
             const errorObject = error.error.errors;
             const dataArray = new Array;
@@ -64,6 +63,7 @@ export class NewPaymentPage {
               }
             }
             this.errors = dataArray;
+            this.presentAlert('Error', this.errors.join('\n'));/*.then(_ => do something);*/
           });
     }
     else {
@@ -74,8 +74,6 @@ export class NewPaymentPage {
             this.goBack();
           },
           error => {
-            alert('Error: ' + JSON.stringify(error));
-
             this.loading = false;
             const errorObject = error.error.errors;
             const dataArray = new Array;
@@ -85,7 +83,17 @@ export class NewPaymentPage {
               }
             }
             this.errors = dataArray;
+            this.presentAlert('Error', this.errors.join('\n'));/*.then(_ => do something);*/
           });
     }
+  }
+
+  presentAlert(title: string, subtitle: string): Promise<any> {
+    const alert = this.alertController.create({
+      title: title,
+      subTitle: subtitle,
+      buttons: [{text: 'OK', role: 'cancel'}]
+    });
+    return alert.present();
   }
 }

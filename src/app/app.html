@@ -4,9 +4,9 @@
     <ion-title>Outgogo</ion-title>
   </ion-toolbar>
 
-  <ion-content>
+  <ion-content style="padding-top: 40px !important;">
 
-    <div *ngIf="auth.loggedIn">
+    <div *ngIf="auth.loggedIn" style="padding-top: 40px">
       <ion-card *ngIf="auth.user != null">
         <!--<img [src]="auth.user.picture">-->
         <ion-card-content>
@@ -19,7 +19,7 @@
         ion-button
         block
         color="danger"
-        (click)="auth.logout()">Log Out</button>
+        (click)="this.logout()">Cerrar sesión</button>
     </div>
 
     <ion-list>
