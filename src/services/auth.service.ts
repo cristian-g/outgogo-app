@@ -67,6 +67,7 @@ export class AuthService {
   logout() {
     this.storage.remove('profile');
     this.storage.remove('access_token');
+    this.storage.remove('id_token');
     this.storage.remove('expires_at');
     this.accessToken = null;
     this.user = null;

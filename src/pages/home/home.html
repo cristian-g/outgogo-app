@@ -1,6 +1,9 @@
 <ion-content padding>
 
-  <p *ngIf="auth.loading" text-center>Loading...</p>
+  <!--<span *ngIf="auth.loading" style="text-align: center !important;">
+    <img src="assets/imgs/loading.gif" width="80" style="display: block; margin: 0 auto;">
+  </span>-->
+
   <ng-template [ngIf]="!auth.loading">
 
     <span style="text-align: center">

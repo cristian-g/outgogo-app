@@ -8,10 +8,11 @@
 
     <div *ngIf="auth.loggedIn">
       <ion-card *ngIf="auth.user != null">
-        <img [src]="auth.user.picture">
+        <!--<img [src]="auth.user.picture">-->
         <ion-card-content>
           <ion-card-title>{{ auth.user.name }}</ion-card-title>
-          <pre>{{ auth.user | json }}</pre>
+          <!--<pre>{{ auth.user | json }}</pre>-->
+          {{ auth.user.email }}
         </ion-card-content>
       </ion-card>
       <button

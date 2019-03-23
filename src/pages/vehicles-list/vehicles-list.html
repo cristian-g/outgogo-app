@@ -65,8 +65,8 @@
 
   </ion-card>
 
-  <span *ngIf="!this.loadingVehicles && this.vehicles.length == 0">
-    La señora Outgogo está triste porque aún no has registrado ningún vehículo. ¿A qué esperas? Haz click en "Registrar un vehículo" o pide al propietario del vehículo que te añada al vehículo.
+  <span *ngIf="!this.loadingVehicles && this.vehicles.length == 0" style="text-align: center">
+    Aún no has registrado ningún vehículo. ¿A qué esperas? Haz click en "Registrar un vehículo" o pide al propietario del vehículo que te añada al vehículo.
   </span>
 
   <div *ngFor="let error of this.errorsLoadingVehicles; let i = index">

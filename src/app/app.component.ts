@@ -35,7 +35,7 @@ export class MyApp {
     this.pages = [
       { title: 'Home', component: HomePage },
       { title: 'Vehículos', component: VehiclesListPage },
-      { title: 'Puntos Outgogo', component: PointsPage },
+      //{ title: 'Puntos Outgogo', component: PointsPage },
       { title: 'Términos del servicio', component: TosPage },
       { title: 'Política de privacidad', component: PrivacyPage },
     ];
