@@ -9,8 +9,8 @@ import {Outgo} from "../models/outgo";
 
 @Injectable()
 export class ActionsService {
-  //public domain:string = 'http://192.168.10.10/api';
-  public domain:string = 'http://outgogo.cristiangonzalez.com/api';
+  //public domain:string = 'http://192.168.10.10';
+  public domain:string = 'http://outgogo.cristiangonzalez.com';
 
   constructor(
     private http: HttpClient,
@@ -34,7 +34,7 @@ export class ActionsService {
         'Authorization': 'Bearer ' + this.auth.idToken
       });
     }
-    return this.http.get<any>(this.domain + '/vehicle/' + vehicleId + '/actions', { headers: headers })
+    return this.http.get<any>(this.domain + '/api/vehicle/' + vehicleId + '/actions', { headers: headers })
       .pipe(map((data: any) => {
         if (data) {
           const outgoesArray = new Array<Outgo>();
