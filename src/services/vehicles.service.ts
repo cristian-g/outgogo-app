@@ -7,6 +7,8 @@ import {AuthService} from "./auth.service";
 import {Action} from "../models/action";
 import {Outgo} from "../models/outgo";
 import {Payment} from "../models/payment";
+import {FinancialStatus} from "../models/financialStatus";
+import {User} from "../models/user";
 
 @Injectable()
 export class VehiclesService {
@@ -125,6 +127,7 @@ export class VehiclesService {
               action.type = 'outgo';
               action.quantity = jsonObj.outgo.quantity;
               action.description = jsonObj.outgo.description;
+              action.explanation = action.description;
               action.notes = jsonObj.outgo.notes;
               action.share_outgo = jsonObj.outgo.share_outgo;
               action.category = jsonObj.outgo.category;
@@ -139,6 +142,7 @@ export class VehiclesService {
               const action = new Payment();
               action.type = 'payment';
               action.quantity = jsonObj.payment.quantity;
+              action.explanation = jsonObj.payment.user.name + ' ha pagado a ' + jsonObj.payment.receiver.name;
 
               action.id = jsonObj.payment.id;
               action.createdAt = new Date(jsonObj.created_at);
@@ -148,6 +152,30 @@ export class VehiclesService {
             }
           }
           vehicle.actions = actionsArray;
+
+          // Financial status
+          const balances = new Array<FinancialStatus>();
+          for (let i = 0; i < data.vehicle.balances.length; i++) {
+            const jsonObj = data.vehicle.balances[i];
+            const user:User = new User();
+            user.name = jsonObj.name;
+            const financialStatus:FinancialStatus = new FinancialStatus();
+            financialStatus.user = user;
+            financialStatus.balance = jsonObj.balance;
+            balances.push(financialStatus);
+          }
+          vehicle.balances = balances;
+
+          // Users
+          const users = new Array<User>();
+          for (let i = 0; i < data.vehicle.user_ids.length; i++) {
+            const jsonObj = data.vehicle.user_ids[i];
+            const user:User = new User();
+            user.name = jsonObj.name;
+            user.id = jsonObj.id;
+            users.push(user);
+          }
+          vehicle.users = users;
 
           return vehicle;
         }

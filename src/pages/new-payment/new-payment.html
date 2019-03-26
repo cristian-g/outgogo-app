@@ -32,4 +32,11 @@
     <ion-input [(ngModel)]="payment.quantity"></ion-input>
   </ion-item>
 
+  <ion-item *ngIf="this.mode == 'new'">
+    <ion-label stacked>¿Para quién es este pago?</ion-label>
+    <ion-select [(ngModel)]="payment.receiver.id" name="receiver">
+      <ion-option *ngFor="let user of vehicleUsers" [value]="user.id">{{ user.name }}</ion-option>
+    </ion-select>
+  </ion-item>
+
 </ion-content>

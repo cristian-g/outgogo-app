@@ -17,7 +17,7 @@ import {OutgoesService} from "../../services/outgoes.service";
   templateUrl: 'new-outgo.html',
 })
 export class NewOutgoPage {
-  loadingStoreOutgo: boolean;
+  loading: boolean;
   errors: any[];
   vehicleId = null;
   outgo = new Outgo();
@@ -45,7 +45,7 @@ export class NewOutgoPage {
   }
 
   public storeOutgo(): void {
-    this.loadingStoreOutgo = true;
+    this.loading = true;
     if (this.outgo.share_outgo == null) {
       this.outgo.share_outgo = false;
     }
@@ -53,11 +53,11 @@ export class NewOutgoPage {
       this.outgoesService.store(this.vehicleId, this.outgo).pipe(first())
         .subscribe(
           data => {
-            this.loadingStoreOutgo = false;
+            this.loading = false;
             this.goBack();
           },
           error => {
-            this.loadingStoreOutgo = false;
+            this.loading = false;
             const errorObject = error.error.errors;
             const dataArray = new Array;
             for (const field in errorObject) {
@@ -73,11 +73,11 @@ export class NewOutgoPage {
       this.outgoesService.update(this.outgo).pipe(first())
         .subscribe(
           data => {
-            this.loadingStoreOutgo = false;
+            this.loading = false;
             this.goBack();
           },
           error => {
-            this.loadingStoreOutgo = false;
+            this.loading = false;
             const errorObject = error.error.errors;
             const dataArray = new Array;
             for (const field in errorObject) {

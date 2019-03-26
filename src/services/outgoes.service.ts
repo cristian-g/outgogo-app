@@ -4,6 +4,7 @@ import { Outgo } from '../models/outgo';
 import { map } from 'rxjs/operators';
 import { Storage } from '@ionic/storage';
 import {AuthService} from "./auth.service";
+import {User} from "../models/user";
 
 @Injectable()
 export class OutgoesService {
@@ -72,9 +73,49 @@ export class OutgoesService {
           outgo.notes = data.outgo.notes;
           outgo.share_outgo = data.outgo.share_outgo;
           outgo.category = data.outgo.category;
+          outgo.createdAt = new Date(data.outgo.created_at);
+
+          const distributionsArray = new Array<Outgo>();
+
+          for (let i = 0; i < data.outgo.distributions.length; i++) {
+            const distribution = new Outgo();
+
+            const jsonObj = data.outgo.distributions[i];
+            distribution.quantity = jsonObj.quantity;
+            distribution.user = new User();
+            distribution.user.name = jsonObj.user.name;
+            distribution.receiver = new User();
+            distribution.receiver.name = jsonObj.receiver.name;
+
+            distributionsArray.push(distribution);
+          }
+          outgo.distributions = distributionsArray;
+
+          //this.computeFormattedDate(outgo);
+
           return outgo;
         }
       }));
+  }
+
+  private computeFormattedDate(action: Outgo) {
+    // Format date
+    const options = { year: 'numeric', month: 'long', day: 'numeric' };
+    action.formattedDate = action.createdAt.toLocaleDateString("es-ES", options);
+
+    const a = new Date();  // Today
+    const b = new Date();  // Yesterday
+    b.setDate(new Date().getDate() - 1);  // Yesterday
+    const c = new Date(action.createdAt.getTime());
+
+    a.setHours(0,0,0,0);
+    b.setHours(0,0,0,0);
+    c.setHours(0,0,0,0);
+
+    if (a.getTime() == c.getTime())
+      action.formattedDate = "Hoy";
+    else if (b.getTime() == c.getTime())
+      action.formattedDate = "Ayer";
   }
 
   // Verb: PUT/PATCH

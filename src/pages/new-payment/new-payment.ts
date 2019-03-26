@@ -3,6 +3,7 @@ import {AlertController, IonicPage, NavController, NavParams} from 'ionic-angula
 import {Payment} from "../../models/payment";
 import {first} from "rxjs/operators";
 import {PaymentsService} from "../../services/payments.service";
+import {User} from "../../models/user";
 
 /**
  * Generated class for the NewPaymentPage page.
@@ -20,6 +21,7 @@ export class NewPaymentPage {
   loading: boolean;
   errors: any[];
   vehicleId = null;
+  vehicleUsers:Array<User>;
   payment = new Payment();
   public mode:string;
 
@@ -29,8 +31,10 @@ export class NewPaymentPage {
     public paymentsService: PaymentsService,
     public alertController: AlertController,
   ) {
+    this.payment.receiver = new User();
     this.mode = this.navParams.get('mode');
     this.vehicleId = this.navParams.get('vehicleId');
+    this.vehicleUsers = this.navParams.get('vehicleUsers');
     if (this.navParams.get('payment') != null) {
       this.payment = this.navParams.get('payment');
     }
