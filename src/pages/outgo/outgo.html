@@ -78,7 +78,8 @@
 
     <ion-grid>
       <ion-row *ngFor="let outgo of outgo.distributions">
-        <font size='3'>{{ outgo.user.name }} paga {{ outgo.quantity }} € a {{ outgo.receiver.name }}</font>
+        <font size='3' *ngIf="outgo.quantity >= 0.0">{{ outgo.user.name }} paga {{ outgo.quantity }} € a {{ outgo.receiver.name }}</font>
+        <font size='3' *ngIf="outgo.quantity < 0.0">{{ outgo.receiver.name }} paga {{ (outgo.quantity * (-1)) }} € a {{ outgo.user.name }}</font>
       </ion-row>
     </ion-grid>
   </span>
