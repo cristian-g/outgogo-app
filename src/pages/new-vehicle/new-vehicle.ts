@@ -50,7 +50,7 @@ export class NewVehiclePage {
   }
 
   Add(){
-    this.anArray.push('kksdkkds');
+    this.anArray.push('');
   }
 
   goBack() {
