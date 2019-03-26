@@ -5,7 +5,10 @@ import { HttpClient } from '@angular/common/http';
 
 @Injectable()
 export class UserService {
-    user: User = new User;
+  //public domain:string = 'http://192.168.10.10/api';
+  public domain:string = 'http://outgogo.cristiangonzalez.com/api';
+
+  user: User = new User;
 
     constructor(
         private http: HttpClient,
@@ -15,7 +18,7 @@ export class UserService {
     // URI: /user
     // Action: show
     show() {
-        return this.http.get<any>('/api/user', {})
+        return this.http.get<any>(this.domain + '/api/user', {})
             .pipe(map((data: any) => {
                 if (data) {
                     this.user.id = data.user.id;
@@ -28,7 +31,7 @@ export class UserService {
     // URI: /user
     // Action: update
     update(user: User) {
-        return this.http.patch<any>('/api/user', {
+        return this.http.patch<any>(this.domain + '/api/user', {
             name: user.email,
             //hide_email: user.hideEmail
         });
@@ -38,6 +41,6 @@ export class UserService {
     // URI: /user
     // Action: destroy
     destroy() {
-        return this.http.delete<any>('/api/user', {});
+        return this.http.delete<any>(this.domain + '/api/user', {});
     }
 }

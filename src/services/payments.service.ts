@@ -7,6 +7,8 @@ import {AuthService} from "./auth.service";
 
 @Injectable()
 export class PaymentsService {
+  //public domain:string = 'http://192.168.10.10/api';
+  public domain:string = 'http://outgogo.cristiangonzalez.com/api';
 
   constructor(
     private http: HttpClient,
@@ -30,7 +32,7 @@ export class PaymentsService {
         'Authorization': 'Bearer ' + this.auth.idToken
       });
     }
-    return this.http.post<any>('http://192.168.10.10/api/vehicle/' + vehicleId + '/payment', {
+    return this.http.post<any>(this.domain + '/api/vehicle/' + vehicleId + '/payment', {
       vehicle_id: vehicleId,
       quantity: payment.quantity,
       receiver: payment.receiver.id,
@@ -59,7 +61,7 @@ export class PaymentsService {
         'Authorization': 'Bearer ' + this.auth.idToken
       });
     }
-    return this.http.get<any>('http://192.168.10.10/api/payment/' + paymentId, { headers: headers })
+    return this.http.get<any>(this.domain + '/api/payment/' + paymentId, { headers: headers })
       .pipe(map((data: any) => {
         if (data) {
           const payment = new Payment();
@@ -113,7 +115,7 @@ export class PaymentsService {
       });
     }
     const paymentId = payment.id;
-    return this.http.put<any>('http://192.168.10.10/api/payment/' + paymentId, {
+    return this.http.put<any>(this.domain + '/api/payment/' + paymentId, {
       quantity: payment.quantity,
     }, { headers: headers })
       .pipe(map((data: any) => {
@@ -127,7 +129,7 @@ export class PaymentsService {
   // URI: /payments/{payment}
   // Action: destroy
   destroy(paymentId: number, email: string) {
-    return this.http.post<any>('/api/payments/' + paymentId, {});
+    return this.http.post<any>(this.domain + '/api/payments/' + paymentId, {});
   }
 
   async getaccessToken(key:string): Promise<void>{

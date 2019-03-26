@@ -8,6 +8,8 @@ import {User} from "../models/user";
 
 @Injectable()
 export class OutgoesService {
+  //public domain:string = 'http://192.168.10.10/api';
+  public domain:string = 'http://outgogo.cristiangonzalez.com/api';
 
   constructor(
     private http: HttpClient,
@@ -31,7 +33,7 @@ export class OutgoesService {
         'Authorization': 'Bearer ' + this.auth.idToken
       });
     }
-    return this.http.post<any>('http://192.168.10.10/api/vehicle/' + vehicleId + '/outgo', {
+    return this.http.post<any>(this.domain + '/api/vehicle/' + vehicleId + '/outgo', {
       vehicle_id: vehicleId,
       quantity: outgo.quantity,
       description: outgo.description,
@@ -62,7 +64,7 @@ export class OutgoesService {
         'Authorization': 'Bearer ' + this.auth.idToken
       });
     }
-    return this.http.get<any>('http://192.168.10.10/api/outgo/' + outgoId, { headers: headers })
+    return this.http.get<any>(this.domain + '/api/outgo/' + outgoId, { headers: headers })
       .pipe(map((data: any) => {
         if (data) {
           const outgo = new Outgo();
@@ -135,7 +137,7 @@ export class OutgoesService {
       });
     }
     const outgoId = outgo.id;
-    return this.http.put<any>('http://192.168.10.10/api/outgo/' + outgoId, {
+    return this.http.put<any>(this.domain + '/api/outgo/' + outgoId, {
       quantity: outgo.quantity,
       description: outgo.description,
       notes: outgo.notes,
@@ -152,7 +154,7 @@ export class OutgoesService {
   // URI: /outgoes/{outgo}
   // Action: destroy
   destroy(outgoId: number, email: string) {
-    return this.http.post<any>('/api/outgoes/' + outgoId, {});
+    return this.http.post<any>(this.domain + '/api/outgoes/' + outgoId, {});
   }
 
   async getaccessToken(key:string): Promise<void>{

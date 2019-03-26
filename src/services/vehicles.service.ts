@@ -12,6 +12,8 @@ import {User} from "../models/user";
 
 @Injectable()
 export class VehiclesService {
+  //public domain:string = 'http://192.168.10.10/api';
+  public domain:string = 'http://outgogo.cristiangonzalez.com/api';
 
   constructor(
     private http: HttpClient,
@@ -35,7 +37,7 @@ export class VehiclesService {
         'Authorization': 'Bearer ' + this.auth.idToken
       });
     }
-    return this.http.get<any>('http://192.168.10.10/api/vehicles', { headers: headers })
+    return this.http.get<any>(this.domain + '/api/vehicles', { headers: headers })
       .pipe(map((data: any) => {
         if (data) {
           const vehiclesArray = new Array<Vehicle>();
@@ -73,7 +75,7 @@ export class VehiclesService {
         'Authorization': 'Bearer ' + this.auth.idToken
       });
     }
-    return this.http.post<any>('http://192.168.10.10/api/vehicle', {
+    return this.http.post<any>(this.domain + '/api/vehicle', {
       brand: vehicle.brand,
       model: vehicle.model,
       key: vehicle.key,
@@ -105,7 +107,7 @@ export class VehiclesService {
         'Authorization': 'Bearer ' + this.auth.idToken
       });
     }
-    return this.http.get<any>('http://192.168.10.10/api/vehicle/' + vehicleId, { headers: headers })
+    return this.http.get<any>(this.domain + '/api/vehicle/' + vehicleId, { headers: headers })
       .pipe(map((data: any) => {
         if (data) {
           const vehicle = new Vehicle;
@@ -228,7 +230,7 @@ export class VehiclesService {
       });
     }
     const vehicleId = vehicle.id;
-    return this.http.put<any>('http://192.168.10.10/api/vehicle/' + vehicleId, {
+    return this.http.put<any>(this.domain + '/api/vehicle/' + vehicleId, {
       brand: vehicle.brand,
       model: vehicle.model,
       key: vehicle.key,
@@ -248,7 +250,7 @@ export class VehiclesService {
   // URI: /vehicles/{vehicle}
   // Action: destroy
   destroy(vehicleId: number, email: string) {
-    return this.http.post<any>('/api/vehicles/' + vehicleId, {});
+    return this.http.post<any>(this.domain + '/api/vehicles/' + vehicleId, {});
   }
 
   async getaccessToken(key:string): Promise<void>{
