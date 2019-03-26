@@ -7,9 +7,13 @@ import {AuthService} from "./auth.service";
 import {Action} from "../models/action";
 import {Outgo} from "../models/outgo";
 import {Payment} from "../models/payment";
+import {FinancialStatus} from "../models/financialStatus";
+import {User} from "../models/user";
 
 @Injectable()
 export class VehiclesService {
+  //public domain:string = 'http://192.168.10.10/api';
+  public domain:string = 'http://outgogo.cristiangonzalez.com/api';
 
   constructor(
     private http: HttpClient,
@@ -33,7 +37,7 @@ export class VehiclesService {
         'Authorization': 'Bearer ' + this.auth.idToken
       });
     }
-    return this.http.get<any>('http://192.168.10.10/api/vehicles', { headers: headers })
+    return this.http.get<any>(this.domain + '/api/vehicles', { headers: headers })
       .pipe(map((data: any) => {
         if (data) {
           const vehiclesArray = new Array<Vehicle>();
@@ -71,7 +75,7 @@ export class VehiclesService {
         'Authorization': 'Bearer ' + this.auth.idToken
       });
     }
-    return this.http.post<any>('http://192.168.10.10/api/vehicle', {
+    return this.http.post<any>(this.domain + '/api/vehicle', {
       brand: vehicle.brand,
       model: vehicle.model,
       key: vehicle.key,
@@ -103,7 +107,7 @@ export class VehiclesService {
         'Authorization': 'Bearer ' + this.auth.idToken
       });
     }
-    return this.http.get<any>('http://192.168.10.10/api/vehicle/' + vehicleId, { headers: headers })
+    return this.http.get<any>(this.domain + '/api/vehicle/' + vehicleId, { headers: headers })
       .pipe(map((data: any) => {
         if (data) {
           const vehicle = new Vehicle;
@@ -125,6 +129,7 @@ export class VehiclesService {
               action.type = 'outgo';
               action.quantity = jsonObj.outgo.quantity;
               action.description = jsonObj.outgo.description;
+              action.explanation = action.description;
               action.notes = jsonObj.outgo.notes;
               action.share_outgo = jsonObj.outgo.share_outgo;
               action.category = jsonObj.outgo.category;
@@ -139,6 +144,7 @@ export class VehiclesService {
               const action = new Payment();
               action.type = 'payment';
               action.quantity = jsonObj.payment.quantity;
+              action.explanation = jsonObj.payment.user.name + ' ha pagado a ' + jsonObj.payment.receiver.name;
 
               action.id = jsonObj.payment.id;
               action.createdAt = new Date(jsonObj.created_at);
@@ -148,6 +154,30 @@ export class VehiclesService {
             }
           }
           vehicle.actions = actionsArray;
+
+          // Financial status
+          const balances = new Array<FinancialStatus>();
+          for (let i = 0; i < data.vehicle.balances.length; i++) {
+            const jsonObj = data.vehicle.balances[i];
+            const user:User = new User();
+            user.name = jsonObj.name;
+            const financialStatus:FinancialStatus = new FinancialStatus();
+            financialStatus.user = user;
+            financialStatus.balance = jsonObj.balance;
+            balances.push(financialStatus);
+          }
+          vehicle.balances = balances;
+
+          // Users
+          const users = new Array<User>();
+          for (let i = 0; i < data.vehicle.user_ids.length; i++) {
+            const jsonObj = data.vehicle.user_ids[i];
+            const user:User = new User();
+            user.name = jsonObj.name;
+            user.id = jsonObj.id;
+            users.push(user);
+          }
+          vehicle.users = users;
 
           return vehicle;
         }
@@ -200,7 +230,7 @@ export class VehiclesService {
       });
     }
     const vehicleId = vehicle.id;
-    return this.http.put<any>('http://192.168.10.10/api/vehicle/' + vehicleId, {
+    return this.http.put<any>(this.domain + '/api/vehicle/' + vehicleId, {
       brand: vehicle.brand,
       model: vehicle.model,
       key: vehicle.key,
@@ -220,7 +250,7 @@ export class VehiclesService {
   // URI: /vehicles/{vehicle}
   // Action: destroy
   destroy(vehicleId: number, email: string) {
-    return this.http.post<any>('/api/vehicles/' + vehicleId, {});
+    return this.http.post<any>(this.domain + '/api/vehicles/' + vehicleId, {});
   }
 
   async getaccessToken(key:string): Promise<void>{

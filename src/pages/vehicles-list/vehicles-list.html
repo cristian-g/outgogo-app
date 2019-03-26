@@ -44,9 +44,11 @@
               <font size='2' color=#7A7A7A>{{ vehicle.sharing_status }}</font>
             </ion-row>
             <ion-row>
-              {{ vehicle.brand }} {{ vehicle.model }}
+              <font size='5'>
+                {{ vehicle.brand }} {{ vehicle.model }}
+              </font>
             </ion-row>
-            <ion-row padding-top="100px" *ngIf="vehicle.balance > 0.0">
+            <!--<ion-row padding-top="100px" *ngIf="vehicle.balance > 0.0">
               <font color= "primary" size='2'>Te deben {{ vehicle.balance }} €</font>
             </ion-row>
             <ion-row padding-top="100px" *ngIf="vehicle.balance === 0.0">
@@ -54,7 +56,7 @@
             </ion-row>
             <ion-row padding-top="100px" *ngIf="vehicle.balance < 0.0">
               <font color= "tertiary" size='2'>Debes {{ (vehicle.balance * (-1)) }} €</font>
-            </ion-row>
+            </ion-row>-->
             <!--<ion-row>
               <font size='2' color=#7A7A7A>Disponible</font>
             </ion-row>-->
@@ -65,7 +67,7 @@
 
   </ion-card>
 
-  <span *ngIf="!this.loadingVehicles && this.vehicles.length == 0" style="text-align: center">
+  <span *ngIf="!this.loadingVehicles && this.vehicles.length == 0" style="text-align: center !important;">
     Aún no has registrado ningún vehículo. ¿A qué esperas? Haz click en "Registrar un vehículo" o pide al propietario del vehículo que te añada al vehículo.
   </span>
 

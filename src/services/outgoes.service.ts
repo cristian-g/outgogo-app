@@ -4,9 +4,12 @@ import { Outgo } from '../models/outgo';
 import { map } from 'rxjs/operators';
 import { Storage } from '@ionic/storage';
 import {AuthService} from "./auth.service";
+import {User} from "../models/user";
 
 @Injectable()
 export class OutgoesService {
+  //public domain:string = 'http://192.168.10.10/api';
+  public domain:string = 'http://outgogo.cristiangonzalez.com/api';
 
   constructor(
     private http: HttpClient,
@@ -30,7 +33,7 @@ export class OutgoesService {
         'Authorization': 'Bearer ' + this.auth.idToken
       });
     }
-    return this.http.post<any>('http://192.168.10.10/api/vehicle/' + vehicleId + '/outgo', {
+    return this.http.post<any>(this.domain + '/api/vehicle/' + vehicleId + '/outgo', {
       vehicle_id: vehicleId,
       quantity: outgo.quantity,
       description: outgo.description,
@@ -61,7 +64,7 @@ export class OutgoesService {
         'Authorization': 'Bearer ' + this.auth.idToken
       });
     }
-    return this.http.get<any>('http://192.168.10.10/api/outgo/' + outgoId, { headers: headers })
+    return this.http.get<any>(this.domain + '/api/outgo/' + outgoId, { headers: headers })
       .pipe(map((data: any) => {
         if (data) {
           const outgo = new Outgo();
@@ -72,9 +75,49 @@ export class OutgoesService {
           outgo.notes = data.outgo.notes;
           outgo.share_outgo = data.outgo.share_outgo;
           outgo.category = data.outgo.category;
+          outgo.createdAt = new Date(data.outgo.created_at);
+
+          const distributionsArray = new Array<Outgo>();
+
+          for (let i = 0; i < data.outgo.distributions.length; i++) {
+            const distribution = new Outgo();
+
+            const jsonObj = data.outgo.distributions[i];
+            distribution.quantity = jsonObj.quantity;
+            distribution.user = new User();
+            distribution.user.name = jsonObj.user.name;
+            distribution.receiver = new User();
+            distribution.receiver.name = jsonObj.receiver.name;
+
+            distributionsArray.push(distribution);
+          }
+          outgo.distributions = distributionsArray;
+
+          //this.computeFormattedDate(outgo);
+
           return outgo;
         }
       }));
+  }
+
+  private computeFormattedDate(action: Outgo) {
+    // Format date
+    const options = { year: 'numeric', month: 'long', day: 'numeric' };
+    action.formattedDate = action.createdAt.toLocaleDateString("es-ES", options);
+
+    const a = new Date();  // Today
+    const b = new Date();  // Yesterday
+    b.setDate(new Date().getDate() - 1);  // Yesterday
+    const c = new Date(action.createdAt.getTime());
+
+    a.setHours(0,0,0,0);
+    b.setHours(0,0,0,0);
+    c.setHours(0,0,0,0);
+
+    if (a.getTime() == c.getTime())
+      action.formattedDate = "Hoy";
+    else if (b.getTime() == c.getTime())
+      action.formattedDate = "Ayer";
   }
 
   // Verb: PUT/PATCH
@@ -94,7 +137,7 @@ export class OutgoesService {
       });
     }
     const outgoId = outgo.id;
-    return this.http.put<any>('http://192.168.10.10/api/outgo/' + outgoId, {
+    return this.http.put<any>(this.domain + '/api/outgo/' + outgoId, {
       quantity: outgo.quantity,
       description: outgo.description,
       notes: outgo.notes,
@@ -111,7 +154,7 @@ export class OutgoesService {
   // URI: /outgoes/{outgo}
   // Action: destroy
   destroy(outgoId: number, email: string) {
-    return this.http.post<any>('/api/outgoes/' + outgoId, {});
+    return this.http.post<any>(this.domain + '/api/outgoes/' + outgoId, {});
   }
 
   async getaccessToken(key:string): Promise<void>{

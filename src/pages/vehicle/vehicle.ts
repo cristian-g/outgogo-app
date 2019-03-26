@@ -56,6 +56,7 @@ export class VehiclePage implements OnInit {
   goToNewPaymentPage() {
     this.navCtrl.push('NewPaymentPage', {
       vehicleId: this.vehicleId,
+      vehicleUsers: this.vehicle.users,
       mode: 'new',
     });
   }
@@ -96,7 +97,7 @@ export class VehiclePage implements OnInit {
           this.vehicle = data;
         },
         error => {
-          alert('error: ' + JSON.stringify(error));
+          alert('Error: ' + JSON.stringify(error));
 
           this.loadingVehicle = false;
           const errorObject = error.error.errors;

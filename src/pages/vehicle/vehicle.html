@@ -54,20 +54,21 @@
                       {{ vehicle.brand }} {{ vehicle.model }}
                     </ion-row>
                   </ion-row>
-                  <ion-row padding-top="100px" *ngIf="vehicle.balance > 0.0">
-                    <font color= "primary" size='2'>Te deben {{ vehicle.balance }} €</font>
-                  </ion-row>
-                  <ion-row padding-top="100px" *ngIf="vehicle.balance === 0.0">
-                    <font color= "primary" size='2'>Debes {{ (vehicle.balance * (-1)) }} €</font>
-                  </ion-row>
-                  <ion-row padding-top="100px" *ngIf="vehicle.balance < 0.0">
-                    <font color= "tertiary" size='2'>Debes {{ (vehicle.balance * (-1)) }} €</font>
+                  <ion-row padding-top="100px">
+                    <font color= "tertiary" size='2' *ngFor="let financialStatus of vehicle.balances; let i = index">
+                      <span padding-top="100px" *ngIf="financialStatus.balance > 0.0">
+                        <font color= "primary" size='2'>{{ financialStatus.user.name }} te debe {{ financialStatus.balance }} €</font>
+                      </span>
+                      <span padding-top="100px" *ngIf="financialStatus.balance === 0.0">
+                        <font color= "primary" size='2'>Debes {{ (financialStatus.balance * (-1)) }} € a {{ financialStatus.user.name }}</font>
+                      </span>
+                      <span padding-top="100px" *ngIf="financialStatus.balance < 0.0">
+                        <font color= "tertiary" size='2'>Debes {{ (financialStatus.balance * (-1)) }} € a {{ financialStatus.user.name }}</font>
+                      </span>
+                    </font>
                   </ion-row>
                 </ion-col>
               </ion-row>
-              <!--<ion-row>
-                <font size='2' color=#7A7A7A>Ahora mismo lo esta utilizando Víctor</font>
-              </ion-row>-->
             </ion-col>
           </ion-row>
         </ion-grid>
@@ -104,7 +105,7 @@
             <ion-row *ngIf="action.type === 'outgo'">
               <ion-col padding-top = "2px" col-10>
                 Gasto <font color="primary">{{ action.quantity }} €</font>
-                <br> <font size='2' color=#7A7A7A>Víctor ha ido al taller</font>
+                <br> <font size='2' color=#7A7A7A>{{ action.explanation }}</font>
               </ion-col>
               <ion-col col-2>
                 <ion-icon class="icons" size="large" name="pricetag" slot="start"></ion-icon>
@@ -113,7 +114,7 @@
             <ion-row *ngIf="action.type === 'payment'">
               <ion-col padding-top = "2px" col-10>
                 Pago <font color="primary">{{ action.quantity }} €</font>
-                <br> <font size='2' color=#7A7A7A>Víctor ha pagado a Carlos</font>
+                <br> <font size='2' color=#7A7A7A>{{ action.explanation }}</font>
               </ion-col>
               <ion-col col-2>
                 <ion-icon class="icons" size="large" name="cash" slot="start"></ion-icon>

@@ -10,7 +10,7 @@
       Registrar un gasto
       <img src="assets/imgs/loading.gif" width="30" *ngIf="this.loading" style="vertical-align:middle">
     </ion-title>
-    <ion-title *ngIf="this.mode == 'edit' && !this.loading">
+    <ion-title *ngIf="this.mode == 'edit'">
       Editar el gasto
       <img src="assets/imgs/loading.gif" width="30" *ngIf="this.loading" style="vertical-align:middle">
     </ion-title>
@@ -40,11 +40,6 @@
   <ion-item>
     <ion-label floating>Notas</ion-label>
     <ion-input [(ngModel)]="outgo.notes"></ion-input>
-  </ion-item>
-
-  <ion-item>
-    <ion-label>Compartir gasto</ion-label>
-    <ion-checkbox [(ngModel)]="outgo.share_outgo"></ion-checkbox>
   </ion-item>
 
 </ion-content>
