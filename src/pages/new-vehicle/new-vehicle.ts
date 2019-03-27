@@ -38,7 +38,10 @@ export class NewVehiclePage {
               public vehiclesService: VehiclesService,
               public alertController: AlertController,
               ) {
-    this.anArray.push('');
+
+    this.anArray.push('angela.brunet@gmail.com');
+    this.anArray.push('pol.vales@gmail.com');
+
     if (this.navParams.get('vehicle') != null) {
       this.vehicle = this.navParams.get('vehicle');
     }
@@ -50,7 +53,12 @@ export class NewVehiclePage {
   }
 
   Add(){
-    this.anArray.push('');
+    if (this.anArray.length == 0) {
+      this.anArray.push('angela.brunet@gmail.com');
+    }
+    else {
+      this.anArray.push('pol.vales@gmail.com');
+    }
   }
 
   goBack() {
