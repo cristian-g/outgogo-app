@@ -39,8 +39,8 @@ export class NewVehiclePage {
               public alertController: AlertController,
               ) {
 
-    this.anArray.push('angela.brunet@gmail.com');
-    this.anArray.push('pol.vales@gmail.com');
+    this.anArray.push('usuario2test@cristiangonzalez.com');
+    this.anArray.push('usuario3test@cristiangonzalez.com');
 
     if (this.navParams.get('vehicle') != null) {
       this.vehicle = this.navParams.get('vehicle');
@@ -54,10 +54,10 @@ export class NewVehiclePage {
 
   Add(){
     if (this.anArray.length == 0) {
-      this.anArray.push('angela.brunet@gmail.com');
+      this.anArray.push('usuario2test@cristiangonzalez.com');
     }
     else {
-      this.anArray.push('pol.vales@gmail.com');
+      this.anArray.push('usuario3test@cristiangonzalez.com');
     }
   }
 
