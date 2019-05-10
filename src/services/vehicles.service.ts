@@ -134,6 +134,10 @@ export class VehiclesService {
               action.share_outgo = jsonObj.outgo.share_outgo;
               action.category = jsonObj.outgo.category;
 
+              const user:User = new User();
+              user.name = jsonObj.outgo.user.name;
+              user.id = jsonObj.outgo.user.id;
+              action.user = user;
               action.id = jsonObj.outgo.id;
               action.createdAt = new Date(jsonObj.created_at);
               this.computeFormattedDate(action, prevDate);
@@ -146,6 +150,10 @@ export class VehiclesService {
               action.quantity = jsonObj.payment.quantity;
               action.explanation = jsonObj.payment.user.name + ' ha pagado a ' + jsonObj.payment.receiver.name;
 
+              const user:User = new User();
+              user.name = jsonObj.payment.user.name;
+              user.id = jsonObj.payment.user.id;
+              action.user = user;
               action.id = jsonObj.payment.id;
               action.createdAt = new Date(jsonObj.created_at);
               this.computeFormattedDate(action, prevDate);
@@ -161,9 +169,16 @@ export class VehiclesService {
             const jsonObj = data.vehicle.balances[i];
             const user:User = new User();
             user.name = jsonObj.name;
+            user.id = jsonObj.id;
             const financialStatus:FinancialStatus = new FinancialStatus();
             financialStatus.user = user;
+
             financialStatus.balance = jsonObj.balance;
+
+            const value = (jsonObj.balance < 0) ? jsonObj.balance * (-1) : jsonObj.balance;
+            const decimalPlaces = 2;
+            financialStatus.formattedBalance = Number(Math.round(parseFloat(value + 'e' + decimalPlaces)) + 'e-' + decimalPlaces).toFixed(2);
+
             balances.push(financialStatus);
           }
           vehicle.balances = balances;
@@ -180,6 +195,62 @@ export class VehiclesService {
           vehicle.users = users;
 
           return vehicle;
+        }
+      }));
+  }
+
+  // Verb: GET
+  // URI: /vehicles/{vehicle}/user/{user_id}
+  // Action: show_balance
+  showBalance(vehicleId: string, userId: string) {
+    var headers = null;
+    if (this.auth.idToken == null) {
+      headers = new HttpHeaders({
+        'Content-Type': 'application/json',
+      });
+    }
+    else {
+      headers = new HttpHeaders({
+        'Content-Type': 'application/json',
+        'Authorization': 'Bearer ' + this.auth.idToken
+      });
+    }
+    return this.http.get<any>(this.domain + '/api/vehicle/' + vehicleId + '/user/' + userId, { headers: headers })
+      .pipe(map((data: any) => {
+
+        if (data) {
+          const actionsArray = new Array<Action>();
+          var prevDate:Date = null;
+          for (let i = 0; i < data.actions.length; i++) {
+            const jsonObj = data.actions[i];
+            const action = new Action();
+
+            alert(JSON.stringify(jsonObj));
+            if ('original_outgo' in jsonObj) {
+              action.explanation = jsonObj.description;
+            }
+            if ('original_payment' in jsonObj) {
+              action.explanation = 'Pago';
+            }
+
+            action.quantity = jsonObj.quantity;
+            action.positive = jsonObj.positive == true;
+            action.createdAt = new Date(jsonObj.created_at);
+            this.computeFormattedDate(action, prevDate);
+            prevDate = action.createdAt;
+            actionsArray.push(action);
+          }
+
+          // User info
+          const user = new User();
+          user.name = data.user.name;
+          user.id = data.user.id;
+
+          return {
+            'actions': actionsArray,
+            'total': data.total,
+            'user': user
+          };
         }
       }));
   }

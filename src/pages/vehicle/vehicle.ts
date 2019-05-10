@@ -87,6 +87,13 @@ export class VehiclePage implements OnInit {
     });
   }
 
+  goToActionsPage(userId: string) {
+    this.navCtrl.push('ActionsPage', {
+      vehicleId: this.vehicleId,
+      userId: userId,
+    });
+  }
+
   public loadVehicle(id:string): void {
     this.loadingVehicle = true;
     this.vehiclesService.show(id).pipe(first())

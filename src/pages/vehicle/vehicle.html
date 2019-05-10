@@ -55,17 +55,17 @@
                     </ion-row>
                   </ion-row>
                   <ion-row padding-top="100px">
-                    <font color= "tertiary" size='2' *ngFor="let financialStatus of vehicle.balances; let i = index">
-                      <span padding-top="100px" *ngIf="financialStatus.balance > 0.0">
+                    <button ion-button color="light" outline *ngFor="let financialStatus of vehicle.balances; let i = index" (click)="goToActionsPage(financialStatus.user.id)">
+                      <span *ngIf="financialStatus.balance > 0.0">
                         <font color= "primary" size='2'>{{ financialStatus.user.name }} te debe {{ financialStatus.formattedBalance }} €</font>
                       </span>
-                      <span padding-top="100px" *ngIf="financialStatus.balance === 0.0">
+                      <span *ngIf="financialStatus.balance === 0.0">
                         <font color= "primary" size='2'>Debes {{ financialStatus.formattedBalance }} € a {{ financialStatus.user.name }}</font>
                       </span>
-                      <span padding-top="100px" *ngIf="financialStatus.balance < 0.0">
+                      <span *ngIf="financialStatus.balance < 0.0">
                         <font color= "tertiary" size='2'>Debes {{ financialStatus.formattedBalance }} € a {{ financialStatus.user.name }}</font>
                       </span>
-                    </font>
+                    </button>
                   </ion-row>
                 </ion-col>
               </ion-row>

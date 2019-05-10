@@ -1,0 +1,101 @@
+<!--
+  Generated template for the ActionsPage page.
+
+  See http://ionicframework.com/docs/components/#navigation for more info on
+  Ionic pages and navigation.
+-->
+<ion-header>
+
+  <ion-navbar>
+    <ion-title>
+      <span (click)="loadActions(this.vehicleId, this.userId)" *ngIf="this.loadedActions">{{ user.name }}</span>
+      <img src="assets/imgs/loading.gif" width="30" *ngIf="this.loadingActions && this.loadedActions" style="vertical-align:middle">
+    </ion-title>
+  </ion-navbar>
+
+</ion-header>
+
+<ion-content padding>
+
+  <span *ngIf="this.loadingActions && !this.loadedActions" style="text-align: center !important;">
+    <img src="assets/imgs/loading.gif" width="80" style="display: block; margin: 0 auto;">
+  </span>
+
+  <div *ngIf="this.loadedActions">
+
+    <div *ngFor="let error of this.errorsLoadingActions; let i = index">
+      <span>{{ error }}</span>
+    </div>
+
+    <ion-card style="text-align: center">
+      <ion-item>
+        <ion-grid>
+          <ion-row>
+            <ion-col>
+              <span *ngIf="total > 0.0">
+                <font color= "primary" size='2'>{{ user.name }} te debe {{ total }} €</font>
+              </span>
+              <span *ngIf="total === 0.0">
+                <font color= "primary" size='2'>Debes {{ total }} € a {{ user.name }}</font>
+              </span>
+              <span *ngIf="total < 0.0">
+                <font color= "tertiary" size='2'>Debes {{ total }} € a {{ user.name }}</font>
+              </span>
+            </ion-col>
+          </ion-row>
+        </ion-grid>
+      </ion-item>
+    </ion-card>
+
+    <div *ngFor="let action of this.actions; let i = index">
+
+      <div *ngIf="i == 0" style="padding-top: 5px">
+        {{ action.formattedDate }}
+      </div>
+      <div *ngIf="i > 0" style="padding-top: 5px">
+        <span *ngIf="action.differentDay">
+          {{ action.formattedDate }}
+        </span>
+      </div>
+      <ion-card>
+        <ion-item>
+          <ion-grid>
+            <ion-row>
+              <ion-col padding-top = "2px" col-10>
+                <span *ngIf="action.quantity < 0">
+                  <font color="primary">
+                     <span *ngIf="action.positive">Te debe </span>
+                     <span *ngIf="!action.positive">Le debes </span>
+                    {{ (action.quantity * (-1)) }} €
+                  </font>
+                </span>
+                <span *ngIf="action.quantity >= 0">
+                   <font color="primary">
+                     <span *ngIf="action.positive">Te debe </span>
+                     <span *ngIf="!action.positive">Le debes </span>
+                     {{ action.quantity }} €
+                   </font>
+                </span>
+                <br> <font size='2' color=#7A7A7A>{{ action.explanation }}</font>
+                <br> <font size='2' color=#7A7A7A>{{ action.createdAt }}</font>
+              </ion-col>
+            </ion-row>
+          </ion-grid>
+        </ion-item>
+      </ion-card>
+
+    </div>
+
+
+
+
+  </div>
+
+
+
+
+
+
+
+
+</ion-content>

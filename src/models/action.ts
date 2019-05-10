@@ -6,4 +6,5 @@
     createdAt: Date;
     formattedDate: string;
     differentDay: boolean;
+    positive: boolean;
 }
