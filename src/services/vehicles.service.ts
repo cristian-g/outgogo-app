@@ -126,6 +126,10 @@ export class VehiclesService {
             const jsonObj = data.vehicle.actions[i];
             if (jsonObj.outgo != null) {
               const action = new Outgo();
+
+              action.user = new User();
+              action.user.name = jsonObj.outgo.user.name;
+
               action.type = 'outgo';
               action.quantity = jsonObj.outgo.quantity;
               action.description = jsonObj.outgo.description;
@@ -142,9 +146,13 @@ export class VehiclesService {
             }
             else if (jsonObj.payment != null) {
               const action = new Payment();
+
+              action.user = new User();
+              action.user.name = jsonObj.payment.user.name;
+
               action.type = 'payment';
               action.quantity = jsonObj.payment.quantity;
-              action.explanation = jsonObj.payment.user.name + ' ha pagado a ' + jsonObj.payment.receiver.name;
+              action.explanation = 'Ha pagado a ' + jsonObj.payment.receiver.name;
 
               action.id = jsonObj.payment.id;
               action.createdAt = new Date(jsonObj.created_at);

@@ -104,7 +104,12 @@
           <ion-grid>
             <ion-row *ngIf="action.type === 'outgo'">
               <ion-col padding-top = "2px" col-10>
-                Gasto <font color="primary">{{ action.quantity }} €</font>
+                <span *ngIf="action.quantity < 0">
+                  {{ action.user.name }}: gasto de <font color="primary">{{ (action.quantity * (-1)) }} €</font>
+                </span>
+                <span *ngIf="action.quantity >= 0">
+                  {{ action.user.name }}: consumo de <font color="primary">{{ action.quantity }} €</font>
+                </span>
                 <br> <font size='2' color=#7A7A7A>{{ action.explanation }}</font>
               </ion-col>
               <ion-col col-2>
@@ -113,7 +118,7 @@
             </ion-row>
             <ion-row *ngIf="action.type === 'payment'">
               <ion-col padding-top = "2px" col-10>
-                Pago <font color="primary">{{ action.quantity }} €</font>
+                {{ action.user.name }}: pago de <font color="primary">{{ action.quantity }} €</font>
                 <br> <font size='2' color=#7A7A7A>{{ action.explanation }}</font>
               </ion-col>
               <ion-col col-2>
