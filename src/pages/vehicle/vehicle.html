@@ -57,13 +57,13 @@
                   <ion-row padding-top="100px">
                     <font color= "tertiary" size='2' *ngFor="let financialStatus of vehicle.balances; let i = index">
                       <span padding-top="100px" *ngIf="financialStatus.balance > 0.0">
-                        <font color= "primary" size='2'>{{ financialStatus.user.name }} te debe {{ financialStatus.balance }} €</font>
+                        <font color= "primary" size='2'>{{ financialStatus.user.name }} te debe {{ financialStatus.formattedBalance }} €</font>
                       </span>
                       <span padding-top="100px" *ngIf="financialStatus.balance === 0.0">
-                        <font color= "primary" size='2'>Debes {{ (financialStatus.balance * (-1)) }} € a {{ financialStatus.user.name }}</font>
+                        <font color= "primary" size='2'>Debes {{ financialStatus.formattedBalance }} € a {{ financialStatus.user.name }}</font>
                       </span>
                       <span padding-top="100px" *ngIf="financialStatus.balance < 0.0">
-                        <font color= "tertiary" size='2'>Debes {{ (financialStatus.balance * (-1)) }} € a {{ financialStatus.user.name }}</font>
+                        <font color= "tertiary" size='2'>Debes {{ financialStatus.formattedBalance }} € a {{ financialStatus.user.name }}</font>
                       </span>
                     </font>
                   </ion-row>

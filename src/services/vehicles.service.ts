@@ -163,7 +163,13 @@ export class VehiclesService {
             user.name = jsonObj.name;
             const financialStatus:FinancialStatus = new FinancialStatus();
             financialStatus.user = user;
+
             financialStatus.balance = jsonObj.balance;
+
+            const value = (jsonObj.balance < 0) ? jsonObj.balance * (-1) : jsonObj.balance;
+            const decimalPlaces = 2;
+            financialStatus.formattedBalance = Number(Math.round(parseFloat(value + 'e' + decimalPlaces)) + 'e-' + decimalPlaces).toFixed(2);
+
             balances.push(financialStatus);
           }
           vehicle.balances = balances;
