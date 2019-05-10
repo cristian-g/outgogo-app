@@ -12,8 +12,8 @@ import {User} from "../models/user";
 
 @Injectable()
 export class VehiclesService {
-  //public domain:string = 'http://192.168.10.10';
-  public domain:string = 'http://outgogo.cristiangonzalez.com';
+  public domain:string = 'http://192.168.10.10';
+  //public domain:string = 'http://outgogo.cristiangonzalez.com';
 
   constructor(
     private http: HttpClient,
@@ -126,10 +126,6 @@ export class VehiclesService {
             const jsonObj = data.vehicle.actions[i];
             if (jsonObj.outgo != null) {
               const action = new Outgo();
-
-              action.user = new User();
-              action.user.name = jsonObj.outgo.user.name;
-
               action.type = 'outgo';
               action.quantity = jsonObj.outgo.quantity;
               action.description = jsonObj.outgo.description;
@@ -146,13 +142,9 @@ export class VehiclesService {
             }
             else if (jsonObj.payment != null) {
               const action = new Payment();
-
-              action.user = new User();
-              action.user.name = jsonObj.payment.user.name;
-
               action.type = 'payment';
               action.quantity = jsonObj.payment.quantity;
-              action.explanation = 'Ha pagado a ' + jsonObj.payment.receiver.name;
+              action.explanation = jsonObj.payment.user.name + ' ha pagado a ' + jsonObj.payment.receiver.name;
 
               action.id = jsonObj.payment.id;
               action.createdAt = new Date(jsonObj.created_at);
@@ -171,13 +163,7 @@ export class VehiclesService {
             user.name = jsonObj.name;
             const financialStatus:FinancialStatus = new FinancialStatus();
             financialStatus.user = user;
-
             financialStatus.balance = jsonObj.balance;
-
-            const value = (jsonObj.balance < 0) ? jsonObj.balance * (-1) : jsonObj.balance;
-            const decimalPlaces = 2;
-            financialStatus.formattedBalance = Number(Math.round(parseFloat(value + 'e' + decimalPlaces)) + 'e-' + decimalPlaces).toFixed(2);
-
             balances.push(financialStatus);
           }
           vehicle.balances = balances;

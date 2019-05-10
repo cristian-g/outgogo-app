@@ -9,8 +9,8 @@ import {Outgo} from "../models/outgo";
 
 @Injectable()
 export class ActionsService {
-  //public domain:string = 'http://192.168.10.10';
-  public domain:string = 'http://outgogo.cristiangonzalez.com';
+  public domain:string = 'http://192.168.10.10';
+  //public domain:string = 'http://outgogo.cristiangonzalez.com';
 
   constructor(
     private http: HttpClient,
