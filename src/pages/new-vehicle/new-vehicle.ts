@@ -27,8 +27,6 @@ export class NewVehiclePage {
 
   filmId = null;
 
-  public anArray = new Array<String>();
-
   public vehicle:Vehicle = new Vehicle();
   public mode:string;
 
@@ -38,9 +36,9 @@ export class NewVehiclePage {
               public vehiclesService: VehiclesService,
               public alertController: AlertController,
               ) {
-
-    this.anArray.push('usuario2test@cristiangonzalez.com');
-    this.anArray.push('usuario3test@cristiangonzalez.com');
+    this.vehicle.emails = new Array;
+    this.vehicle.emails.push('usuario2test@cristiangonzalez.com');
+    this.vehicle.emails.push('usuario3test@cristiangonzalez.com');
 
     if (this.navParams.get('vehicle') != null) {
       this.vehicle = this.navParams.get('vehicle');
@@ -49,15 +47,14 @@ export class NewVehiclePage {
   }
 
   ionViewDidLoad() {
-    console.log('ionViewDidLoad NewVehiclePage');
   }
 
   Add(){
-    if (this.anArray.length == 0) {
-      this.anArray.push('usuario2test@cristiangonzalez.com');
+    if (this.vehicle.emails.length == 0) {
+      this.vehicle.emails.push('usuario2test@cristiangonzalez.com');
     }
     else {
-      this.anArray.push('usuario3test@cristiangonzalez.com');
+      this.vehicle.emails.push('usuario3test@cristiangonzalez.com');
     }
   }
 
@@ -67,7 +64,6 @@ export class NewVehiclePage {
 
   public storeVehicle(): void {
     this.loading = true;
-    this.vehicle.emails = this.anArray;
 
     if (this.mode === 'new') {
       this.vehiclesService.store(this.vehicle).pipe(first())
@@ -97,6 +93,7 @@ export class NewVehiclePage {
             this.goBack();
           },
           error => {
+
             this.loading = false;
             const errorObject = error.error.errors;
             const dataArray = new Array;

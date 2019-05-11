@@ -52,7 +52,7 @@
     <ion-input [(ngModel)]="vehicle.key"></ion-input>
   </ion-item>
 
-  <ion-card *ngIf="this.mode == 'new'">
+  <ion-card>
     <ion-item>
       <ion-icon name="pin" slot="start"></ion-icon>
       <ion-label>Usuarios del vehículo</ion-label>
@@ -67,9 +67,9 @@
       <ion-input type="text" text-left disabled="true" value="Yo ({{ auth.user.email }})"></ion-input>
     </ion-item>
 
-    <ion-item *ngFor="let att of anArray; let idx = index">
+    <ion-item *ngFor="let att of vehicle.emails; let idx = index">
       <ion-label color="primary">{{att.label}}{{idx+2}}</ion-label>
-      <ion-input type="text" text-left [(ngModel)]="anArray[idx]"></ion-input>
+      <ion-input type="text" text-left [(ngModel)]="vehicle.emails[idx]"></ion-input>
     </ion-item>
 
     <ion-item class="activated" text-right>

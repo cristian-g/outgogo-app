@@ -120,6 +120,12 @@ export class VehiclesService {
           vehicle.balance = data.vehicle.balance;
           vehicle.sharing_status = data.vehicle.sharing_status;
 
+          // Copy emails
+          vehicle.emails = new Array(data.vehicle.emails.length);
+          for (let i = 0; i < data.vehicle.emails.length; i++) {
+            vehicle.emails[i] = data.vehicle.emails[i];
+          }
+
           const actionsArray = new Array<Action>();
           var prevDate:Date = null;
           for (let i = 0; i < data.vehicle.actions.length; i++) {
@@ -300,6 +306,7 @@ export class VehiclesService {
       });
     }
     const vehicleId = vehicle.id;
+
     return this.http.put<any>(this.domain + '/api/vehicle/' + vehicleId, {
       brand: vehicle.brand,
       model: vehicle.model,
