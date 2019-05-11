@@ -69,12 +69,8 @@ export class ActionsPage implements OnInit {
           this.actions = data.actions;
           this.total = data.total;
           this.user = data.user;
-
-          alert('Success data: ' + JSON.stringify(data));
         },
         error => {
-          alert('Error: ' + JSON.stringify(error));
-
           this.loadingActions = false;
           const errorObject = error.error.errors;
           const dataArray = new Array;

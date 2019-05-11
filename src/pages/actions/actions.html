@@ -32,14 +32,15 @@
         <ion-grid>
           <ion-row>
             <ion-col>
+              TOTAL:
               <span *ngIf="total > 0.0">
-                <font color= "primary" size='2'>{{ user.name }} te debe {{ total }} €</font>
+                <font color= "primary" size='3'>{{ user.name }} te debe {{ total }} €</font>
               </span>
               <span *ngIf="total === 0.0">
-                <font color= "primary" size='2'>Debes {{ total }} € a {{ user.name }}</font>
+                <font color= "primary" size='3'>debes {{ total }} € a {{ user.name }}</font>
               </span>
               <span *ngIf="total < 0.0">
-                <font color= "tertiary" size='2'>Debes {{ total }} € a {{ user.name }}</font>
+                <font color= "tertiary" size='3'>debes {{ (total * (-1)) }} € a {{ user.name }}</font>
               </span>
             </ion-col>
           </ion-row>
@@ -63,18 +64,28 @@
             <ion-row>
               <ion-col padding-top = "2px" col-10>
                 <span *ngIf="action.quantity < 0">
-                  <font color="primary">
-                     <span *ngIf="action.positive">Te debe </span>
-                     <span *ngIf="!action.positive">Le debes </span>
-                    {{ (action.quantity * (-1)) }} €
-                  </font>
+                  <span *ngIf="action.positive">
+                    <font color="primary">
+                      Te debe {{ (action.quantity * (-1)) }} €
+                    </font>
+                  </span>
+                  <span *ngIf="!action.positive">
+                    <font color="tertiary">
+                      Le debes {{ (action.quantity * (-1)) }} €
+                    </font>
+                  </span>
                 </span>
                 <span *ngIf="action.quantity >= 0">
-                   <font color="primary">
-                     <span *ngIf="action.positive">Te debe </span>
-                     <span *ngIf="!action.positive">Le debes </span>
-                     {{ action.quantity }} €
-                   </font>
+                   <span *ngIf="action.positive">
+                     <font color="primary">
+                       Te debe {{ action.quantity }} €
+                     </font>
+                   </span>
+                   <span *ngIf="!action.positive">
+                     <font color="tertiary">
+                       Le debes {{ action.quantity }} €
+                     </font>
+                   </span>
                 </span>
                 <br> <font size='2' color=#7A7A7A>{{ action.explanation }}</font>
                 <br> <font size='2' color=#7A7A7A>{{ action.createdAt }}</font>

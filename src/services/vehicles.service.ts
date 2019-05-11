@@ -148,7 +148,7 @@ export class VehiclesService {
               const action = new Payment();
               action.type = 'payment';
               action.quantity = jsonObj.payment.quantity;
-              action.explanation = jsonObj.payment.user.name + ' ha pagado a ' + jsonObj.payment.receiver.name;
+              action.explanation = 'Ha pagado a ' + jsonObj.payment.receiver.name;
 
               const user:User = new User();
               user.name = jsonObj.payment.user.name;
@@ -225,7 +225,6 @@ export class VehiclesService {
             const jsonObj = data.actions[i];
             const action = new Action();
 
-            alert(JSON.stringify(jsonObj));
             if ('original_outgo' in jsonObj) {
               action.explanation = jsonObj.description;
             }
