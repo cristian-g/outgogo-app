@@ -68,13 +68,34 @@
       <ion-input type="text" text-left disabled="true" value="Yo ({{ auth.user.email }})"></ion-input>
     </ion-item>
 
-    <ion-item *ngFor="let att of vehicle.emails; let idx = index">
-      <ion-label color="primary">{{att.label}}{{idx+2}}</ion-label>
-      <ion-input type="text" text-left [(ngModel)]="vehicle.emails[idx]"></ion-input>
+    <ion-item *ngIf="emailsNum >= 1">
+      <ion-label color="primary">2</ion-label>
+      <ion-input type="text" name="email1" text-left [(ngModel)]="email1"></ion-input>
+    </ion-item>
+
+    <ion-item *ngIf="emailsNum >= 2">
+      <ion-label color="primary">3</ion-label>
+      <ion-input type="text" name="email2" text-left [(ngModel)]="email2"></ion-input>
+    </ion-item>
+
+    <ion-item *ngIf="emailsNum >= 3">
+      <ion-label color="primary">4</ion-label>
+      <ion-input type="text" name="email3" text-left [(ngModel)]="email3"></ion-input>
+    </ion-item>
+
+    <ion-item *ngIf="emailsNum >= 4">
+      <ion-label color="primary">5</ion-label>
+      <ion-input type="text" name="email4" text-left [(ngModel)]="email4"></ion-input>
+    </ion-item>
+
+    <ion-item *ngIf="emailsNum >= 5">
+      <ion-label color="primary">6</ion-label>
+      <ion-input type="text" name="email5" text-left [(ngModel)]="email5"></ion-input>
     </ion-item>
 
     <ion-item class="activated" text-right>
-      <button ion-button (click)="Add()">Añadir más</button>
+      <button ion-button *ngIf="emailsNum > 1" (click)="less()">Uno menos</button>
+      <button ion-button *ngIf="emailsNum < 5" (click)="add()">Añadir más</button>
     </ion-item>
 
   </ion-card>

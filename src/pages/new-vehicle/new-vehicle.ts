@@ -25,10 +25,15 @@ export class NewVehiclePage {
   loading: boolean;
   errors: any[];
 
-  filmId = null;
-
   public vehicle:Vehicle = new Vehicle();
   public mode:string;
+
+  emailsNum: number;
+  email1: string;
+  email2: string;
+  email3: string;
+  email4: string;
+  email5: string;
 
   constructor(public navCtrl: NavController,
               public navParams: NavParams,
@@ -37,8 +42,7 @@ export class NewVehiclePage {
               public alertController: AlertController,
               ) {
     this.vehicle.emails = new Array;
-    this.vehicle.emails.push('usuario2test@cristiangonzalez.com');
-    this.vehicle.emails.push('usuario3test@cristiangonzalez.com');
+    this.emailsNum = 1;
 
     if (this.navParams.get('vehicle') != null) {
       this.vehicle = this.navParams.get('vehicle');
@@ -49,13 +53,12 @@ export class NewVehiclePage {
   ionViewDidLoad() {
   }
 
-  Add(){
-    if (this.vehicle.emails.length == 0) {
-      this.vehicle.emails.push('usuario2test@cristiangonzalez.com');
-    }
-    else {
-      this.vehicle.emails.push('usuario3test@cristiangonzalez.com');
-    }
+  add() {
+    this.emailsNum++;
+  }
+
+  less() {
+    this.emailsNum--;
   }
 
   goBack() {
@@ -64,6 +67,12 @@ export class NewVehiclePage {
 
   public storeVehicle(): void {
     this.loading = true;
+
+    if (this.emailsNum >= 1) this.vehicle.emails.push(this.email1);
+    if (this.emailsNum >= 2) this.vehicle.emails.push(this.email2);
+    if (this.emailsNum >= 3) this.vehicle.emails.push(this.email3);
+    if (this.emailsNum >= 4) this.vehicle.emails.push(this.email4);
+    if (this.emailsNum >= 5) this.vehicle.emails.push(this.email5);
 
     if (this.mode === 'new') {
       this.vehiclesService.store(this.vehicle).pipe(first())
