@@ -72,8 +72,5 @@ export class AuthService {
     this.accessToken = null;
     this.user = null;
     this.loggedIn = false;
-
-    this.Client.logout();
-
   }
 }

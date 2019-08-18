@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { NavController, Platform } from 'ionic-angular';
+import {Events, NavController, Platform} from 'ionic-angular';
 import { AuthService } from './../../services/auth.service';
 import { VehiclesService } from './../../services/vehicles.service';
 import { StatusBar } from '@ionic-native/status-bar';
@@ -29,6 +29,7 @@ export class HomePage implements OnInit {
     splashScreen: SplashScreen,
     public zone: NgZone,
     private storage: Storage,
+    public events: Events
   ) {
     platform.ready().then(() => {
       // Redirect back to app after authenticating
@@ -36,18 +37,35 @@ export class HomePage implements OnInit {
         Auth0Cordova.onRedirectUri(url);
       }
     });
+    const that = this;
+    events.subscribe('user:logout', () => {
+      that.logout();
+    });
   }
 
   public login() {
-    this.auth.login(this.navCtrl);
+    this.storage.get('id_token').then(token => {
+      if (token != null) {
+        this.auth.idToken = token;
+        this.navCtrl.setRoot('VehiclesListPage');
+      }
+      else {
+        this.auth.login(this.navCtrl);
+      }
+    });
   }
 
   ngOnInit(): void {
     this.storage.get('id_token').then(token => {
       if (token != null) {
         this.auth.idToken = token;
-        this.navCtrl.setRoot('VehiclesListPage');
       }
     });
+  }
+
+  logout() {
+    this.auth.logout();
+    this.navCtrl.setRoot('HomePage');
+    this.navCtrl.setRoot('TosPage');
   }
 }

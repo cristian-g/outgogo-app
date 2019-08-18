@@ -1,5 +1,5 @@
 import { Component, ViewChild } from '@angular/core';
-import {Platform, Nav} from 'ionic-angular';
+import {Platform, Nav, Events, MenuController} from 'ionic-angular';
 import { StatusBar } from '@ionic-native/status-bar';
 import { SplashScreen } from '@ionic-native/splash-screen';
 import { AuthService } from './../services/auth.service';
@@ -24,6 +24,8 @@ export class MyApp {
     statusBar: StatusBar,
     splashScreen: SplashScreen,
     public auth: AuthService,
+    public events: Events,
+    public menuCtrl: MenuController
   ) {
     platform.ready().then(() => {
       // Okay, so the platform is ready and our plugins are available.
@@ -33,9 +35,7 @@ export class MyApp {
     });
 
     this.pages = [
-      //{ title: 'Home', component: HomePage },
       { title: 'Vehículos', component: VehiclesListPage },
-      //{ title: 'Puntos Outgogo', component: PointsPage },
       { title: 'Términos del servicio', component: TosPage },
       { title: 'Política de privacidad', component: PrivacyPage },
     ];
@@ -49,6 +49,7 @@ export class MyApp {
 
   logout() {
     this.auth.logout();
-    this.nav.setRoot(TosPage);
+    this.nav.setRoot(HomePage);
+    this.menuCtrl.toggle();
   }
 }
