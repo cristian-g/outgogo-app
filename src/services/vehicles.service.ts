@@ -47,9 +47,6 @@ export class VehiclesService {
             vehicle.id = jsonObj.id;
             vehicle.brand = jsonObj.brand;
             vehicle.model = jsonObj.model;
-            vehicle.key = jsonObj.public_key;
-            vehicle.year = jsonObj.purchase_year;
-            vehicle.price = jsonObj.purchase_price;
             vehicle.balance = jsonObj.balance;
             vehicle.sharing_status = jsonObj.sharing_status;
             vehiclesArray.push(vehicle);
@@ -78,9 +75,6 @@ export class VehiclesService {
     return this.http.post<any>(this.domain + '/api/vehicle', {
       brand: vehicle.brand,
       model: vehicle.model,
-      key: vehicle.key,
-      year: vehicle.year,
-      price: vehicle.price,
       emails: vehicle.emails,
     }, { headers: headers })
       .pipe(map((data: any) => {
@@ -114,9 +108,6 @@ export class VehiclesService {
           vehicle.id = data.vehicle.id;
           vehicle.brand = data.vehicle.brand;
           vehicle.model = data.vehicle.model;
-          vehicle.key = data.vehicle.public_key;
-          vehicle.year = data.vehicle.purchase_year;
-          vehicle.price = data.vehicle.purchase_price;
           vehicle.balance = data.vehicle.balance;
           vehicle.sharing_status = data.vehicle.sharing_status;
 
@@ -310,9 +301,6 @@ export class VehiclesService {
     return this.http.put<any>(this.domain + '/api/vehicle/' + vehicleId, {
       brand: vehicle.brand,
       model: vehicle.model,
-      key: vehicle.key,
-      year: vehicle.year,
-      price: vehicle.price,
       emails: vehicle.emails,
     }, { headers: headers })
       .pipe(map((data: any) => {
