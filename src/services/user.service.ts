@@ -5,8 +5,7 @@ import { HttpClient } from '@angular/common/http';
 
 @Injectable()
 export class UserService {
-  public domain:string = 'http://192.168.10.10';
-  //public domain:string = 'http://outgogo.cristiangonzalez.com';
+  public domain:string = '';
 
   user: User = new User;
 

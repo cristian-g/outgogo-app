@@ -4,7 +4,7 @@ import { IonicApp, IonicModule, IonicErrorHandler } from 'ionic-angular';
 import { IonicStorageModule } from '@ionic/storage';
 import { MyApp } from './app.component';
 
-import { HttpClientModule } from '@angular/common/http';
+import {HTTP_INTERCEPTORS, HttpClientModule} from '@angular/common/http';
 import { AuthService } from './../services/auth.service';
 import { VehiclesService } from './../services/vehicles.service';
 
@@ -20,6 +20,8 @@ import {TosPage} from "../pages/tos/tos";
 import {PrivacyPage} from "../pages/privacy/privacy";
 import {PointsPage} from "../pages/points/points";
 import {PaymentsService} from "../services/payments.service";
+import {APIInterceptor} from "./_helpers/api.interceptor";
+import {JwtInterceptor} from "./_helpers/jwt.interceptor";
 
 @NgModule({
   declarations: [
@@ -56,6 +58,16 @@ import {PaymentsService} from "../services/payments.service";
     ActionsService,
     OutgoesService,
     PaymentsService,
+    {
+      provide: HTTP_INTERCEPTORS,
+      useClass: JwtInterceptor,
+      multi: true
+    },
+    {
+      provide: HTTP_INTERCEPTORS,
+      useClass: APIInterceptor,
+      multi: true
+    },
   ]
 })
 export class AppModule {}

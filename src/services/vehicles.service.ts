@@ -12,8 +12,7 @@ import {User} from "../models/user";
 
 @Injectable()
 export class VehiclesService {
-  public domain:string = 'http://192.168.10.10';
-  //public domain:string = 'http://outgogo.cristiangonzalez.com';
+  public domain:string = '';
 
   constructor(
     private http: HttpClient,
