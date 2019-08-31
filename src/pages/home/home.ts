@@ -66,6 +66,15 @@ export class HomePage implements OnInit {
   logout() {
     this.auth.logout();
     this.navCtrl.setRoot('HomePage');
+  }
+
+  goToTOSPage() {
     this.navCtrl.setRoot('TosPage');
+
+    this.navCtrl.push('TosPage');
+  }
+
+  goToPrivacyPage() {
+    this.navCtrl.push('PrivacyPage');
   }
 }

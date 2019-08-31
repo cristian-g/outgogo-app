@@ -21,6 +21,23 @@
       *ngIf="!auth.loggedIn"
       (click)="this.login()">Entrar</button>
 
+
+
+
+    <button
+      ion-button
+      block
+      color="primary"
+      (click)="this.goToTOSPage()">TOS</button>
+
+    <button
+      ion-button
+      block
+      color="primary"
+      (click)="this.goToPrivacyPage()">Privacy</button>
+
+    <page-tos-text></page-tos-text>
+
   </ng-template>
 
 </ion-content>

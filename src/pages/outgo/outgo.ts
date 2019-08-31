@@ -50,6 +50,13 @@ export class OutgoPage {
     });
   }
 
+  goToEditConsumptionPage() {
+    this.navCtrl.push('NewConsumptionPage', {
+      outgo: this.outgo,
+      mode: 'edit',
+    });
+  }
+
   public loadOutgo(id:string): void {
     this.loading = true;
     this.outgoesService.show(id).pipe(first())

@@ -49,6 +49,13 @@ export class VehiclePage implements OnInit {
     });
   }
 
+  goToNewConsumptionPage() {
+    this.navCtrl.push('NewConsumptionPage', {
+      vehicleId: this.vehicleId,
+      mode: 'new',
+    });
+  }
+
   goToOutgoPage(id:string) {
     this.navCtrl.push('OutgoPage', {outgoId: id});
   }

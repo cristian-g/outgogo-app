@@ -75,6 +75,7 @@ export class OutgoesService {
           outgo.share_outgo = data.outgo.share_outgo;
           outgo.category = data.outgo.category;
           outgo.createdAt = new Date(data.outgo.created_at);
+          this.computeFormattedAbsoluteDate(outgo);
 
           const distributionsArray = new Array<Outgo>();
 
@@ -117,6 +118,12 @@ export class OutgoesService {
       action.formattedDate = "Hoy";
     else if (b.getTime() == c.getTime())
       action.formattedDate = "Ayer";
+  }
+
+  private computeFormattedAbsoluteDate(action: Outgo) {
+    // Format date
+    const options = { year: 'numeric', month: 'long', day: 'numeric', hour: '2-digit', minute:'2-digit', hour12: false };
+    action.formattedAbsoluteDate = action.createdAt.toLocaleString("es-ES", options);
   }
 
   // Verb: PUT/PATCH

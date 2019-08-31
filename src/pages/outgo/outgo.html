@@ -7,16 +7,28 @@
 <ion-header>
 
   <ion-navbar>
-    <ion-title>
-      <span (click)="loadOutgo(this.outgoId)">Gasto</span>
+    <ion-title *ngIf="!this.loading">
+      <span (click)="loadOutgo(this.outgoId)">
+        <span *ngIf="outgo.quantity < 0">Gasto</span>
+        <span *ngIf="outgo.quantity >= 0">Consumo</span>
+      </span>
       <img src="assets/imgs/loading.gif" width="30" *ngIf="this.loading && this.loadedOutgo" style="vertical-align:middle">
     </ion-title>
     <ion-buttons end>
       <button
+        *ngIf="outgo.quantity < 0"
         ion-button
         block
         color="primary"
         (click)="goToEditOutgoPage()"
+        *ngIf="!this.loading"
+      >Editar</button>
+      <button
+        *ngIf="outgo.quantity >= 0"
+        ion-button
+        block
+        color="primary"
+        (click)="goToEditConsumptionPage()"
         *ngIf="!this.loading"
       >Editar</button>
     </ion-buttons>
@@ -38,7 +50,10 @@
           <ion-row>
             <ion-col col-10>
               <ion-row>
-                <font>Gasto </font> &ensp; <font color= #002E8B>{{ outgo.quantity }} €</font>
+                <font>
+                  <span *ngIf="outgo.quantity < 0">Gasto </span>
+                  <span *ngIf="outgo.quantity >= 0">Consumo </span>
+                </font> &ensp; <font color= #002E8B>{{ outgo.quantity }} €</font>
               </ion-row>
               <ion-row>
                 <br><font size='3' color=#7A7A7A>{{ outgo.description }}</font>
@@ -54,12 +69,8 @@
 
     <ion-grid>
       <ion-row>
-        <!--<ion-col col-3 style="align-self: center">
-          <font size='3'> Ayer </font>
-        </ion-col>-->
         <ion-col col-9 style="align-self: center">
-          <!--<font size='3' color=#7A7A7A>{{ outgo.formattedDate }}{{ outgo.createdAt }}</font>-->
-          <font size='3' color=#7A7A7A>{{ outgo.createdAt }}</font>
+          <font size='3' color=#7A7A7A>{{ outgo.formattedAbsoluteDate }}</font>
         </ion-col>
       </ion-row>
     </ion-grid>
@@ -71,7 +82,7 @@
       <ion-row style="padding-bottom: 15px">
         <font size='3' style="font-style: italic">{{ outgo.notes }}</font>
       </ion-row>
-      <ion-row>
+      <ion-row *ngIf="outgo.quantity < 0">
         <font size='3' style="font-weight: bold"> Gasto compartido con los usuarios del vehículo</font>
       </ion-row>
     </ion-grid>

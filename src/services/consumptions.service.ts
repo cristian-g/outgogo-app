@@ -1,12 +1,13 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
-import { Payment } from '../models/payment';
+import { Consumption } from '../models/consumption';
 import { map } from 'rxjs/operators';
 import { Storage } from '@ionic/storage';
 import {AuthService} from "./auth.service";
+import {User} from "../models/user";
 
 @Injectable()
-export class PaymentsService {
+export class ConsumptionsService {
   public domain:string = '';
 
   constructor(
@@ -16,9 +17,9 @@ export class PaymentsService {
   ) {}
 
   // Verb: POST
-  // URI: /payments
+  // URI: /consumptions
   // Action: store
-  store(vehicleId: string, payment: Payment) {
+  store(vehicleId: string, consumption: Consumption) {
     var headers = null;
     if (this.auth.idToken == null) {
       headers = new HttpHeaders({
@@ -31,10 +32,12 @@ export class PaymentsService {
         'Authorization': 'Bearer ' + this.auth.idToken
       });
     }
-    return this.http.post<any>(this.domain + '/api/vehicle/' + vehicleId + '/payment', {
+    return this.http.post<any>(this.domain + '/api/vehicle/' + vehicleId + '/consumption', {
       vehicle_id: vehicleId,
-      quantity: payment.quantity,
-      receiver: payment.receiver.id,
+      notes: consumption.notes,
+      share_consumption: consumption.share_consumption,
+      gas_liters: consumption.gas_liters,
+      gas_price: consumption.gas_price,
     }, { headers: headers })
       .pipe(map((data: any) => {
         if (data) {
@@ -45,9 +48,9 @@ export class PaymentsService {
   }
 
   // Verb: GET
-  // URI: /payments/{payment}
+  // URI: /consumptions/{consumption}
   // Action: show
-  show(paymentId: string) {
+  show(consumptionId: string) {
     var headers = null;
     if (this.auth.idToken == null) {
       headers = new HttpHeaders({
@@ -60,24 +63,45 @@ export class PaymentsService {
         'Authorization': 'Bearer ' + this.auth.idToken
       });
     }
-    return this.http.get<any>(this.domain + '/api/payment/' + paymentId, { headers: headers })
+    return this.http.get<any>(this.domain + '/api/outgo/' + consumptionId, { headers: headers })
       .pipe(map((data: any) => {
         if (data) {
-          const payment = new Payment();
+          const consumption = new Consumption();
+          consumption.id = data.consumption.id;
+          consumption.type = 'consumption';
+          consumption.quantity = data.consumption.quantity;
+          consumption.description = data.consumption.description;
+          consumption.notes = data.consumption.notes;
+          consumption.share_consumption = data.consumption.share_consumption;
+          consumption.gas_liters = data.consumption.gas_liters;
+          consumption.gas_price = data.consumption.gas_price;
+          consumption.category = data.consumption.category;
+          consumption.createdAt = new Date(data.consumption.created_at);
 
-          payment.id = data.payment.id;
-          payment.type = 'payment';
-          payment.quantity = data.payment.quantity;
-          payment.explanation = data.payment.user.name + ' ha pagado a ' + data.payment.receiver.name;
-          payment.createdAt = new Date(data.payment.created_at);
-          this.computeFormattedAbsoluteDate(payment);
+          const distributionsArray = new Array<Consumption>();
 
-          return payment;
+          for (let i = 0; i < data.consumption.distributions.length; i++) {
+            const distribution = new Consumption();
+
+            const jsonObj = data.consumption.distributions[i];
+            distribution.quantity = jsonObj.quantity;
+            distribution.user = new User();
+            distribution.user.name = jsonObj.user.name;
+            distribution.receiver = new User();
+            distribution.receiver.name = jsonObj.receiver.name;
+
+            distributionsArray.push(distribution);
+          }
+          consumption.distributions = distributionsArray;
+
+          //this.computeFormattedDate(consumption);
+
+          return consumption;
         }
       }));
   }
 
-  private computeFormattedDate(action: Payment) {
+  private computeFormattedDate(action: Consumption) {
     // Format date
     const options = { year: 'numeric', month: 'long', day: 'numeric' };
     action.formattedDate = action.createdAt.toLocaleDateString("es-ES", options);
@@ -97,16 +121,10 @@ export class PaymentsService {
       action.formattedDate = "Ayer";
   }
 
-  private computeFormattedAbsoluteDate(action: Payment) {
-    // Format date
-    const options = { year: 'numeric', month: 'long', day: 'numeric', hour: '2-digit', minute:'2-digit', hour12: false };
-    action.formattedAbsoluteDate = action.createdAt.toLocaleString("es-ES", options);
-  }
-
   // Verb: PUT/PATCH
-  // URI: /payments/{payment}
+  // URI: /consumptions/{consumption}
   // Action: update
-  update(payment: Payment) {
+  update(consumption: Consumption) {
     var headers = null;
     if (this.auth.idToken == null) {
       headers = new HttpHeaders({
@@ -119,9 +137,12 @@ export class PaymentsService {
         'Authorization': 'Bearer ' + this.auth.idToken
       });
     }
-    const paymentId = payment.id;
-    return this.http.put<any>(this.domain + '/api/payment/' + paymentId, {
-      quantity: payment.quantity,
+    const consumptionId = consumption.id;
+    return this.http.put<any>(this.domain + '/api/consumption/' + consumptionId, {
+      quantity: consumption.quantity,
+      description: consumption.description,
+      notes: consumption.notes,
+      share_consumption: consumption.share_consumption,
     }, { headers: headers })
       .pipe(map((data: any) => {
         if (data) {
@@ -131,10 +152,10 @@ export class PaymentsService {
   }
 
   // Verb: DELETE
-  // URI: /payments/{payment}
+  // URI: /consumptions/{consumption}
   // Action: destroy
-  destroy(paymentId: number, email: string) {
-    return this.http.post<any>(this.domain + '/api/payments/' + paymentId, {});
+  destroy(consumptionId: number, email: string) {
+    return this.http.post<any>(this.domain + '/api/consumptions/' + consumptionId, {});
   }
 
   async getaccessToken(key:string): Promise<void>{

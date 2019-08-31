@@ -22,6 +22,8 @@ import {PointsPage} from "../pages/points/points";
 import {PaymentsService} from "../services/payments.service";
 import {APIInterceptor} from "./_helpers/api.interceptor";
 import {JwtInterceptor} from "./_helpers/jwt.interceptor";
+import {ConsumptionsService} from "../services/consumptions.service";
+import {TosTextPage} from "../pages/tos-text/tos-text";
 
 @NgModule({
   declarations: [
@@ -30,6 +32,7 @@ import {JwtInterceptor} from "./_helpers/jwt.interceptor";
     ContactPage,
     HomePage,
     TosPage,
+    TosTextPage,
     PrivacyPage,
     PointsPage,
   ],
@@ -46,6 +49,7 @@ import {JwtInterceptor} from "./_helpers/jwt.interceptor";
     ContactPage,
     HomePage,
     TosPage,
+    TosTextPage,
     PrivacyPage,
     PointsPage,
   ],
@@ -57,6 +61,7 @@ import {JwtInterceptor} from "./_helpers/jwt.interceptor";
     VehiclesService,
     ActionsService,
     OutgoesService,
+    ConsumptionsService,
     PaymentsService,
     {
       provide: HTTP_INTERCEPTORS,

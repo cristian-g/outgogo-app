@@ -5,6 +5,7 @@
     quantity: number;
     createdAt: Date;
     formattedDate: string;
+    formattedAbsoluteDate: string;
     differentDay: boolean;
     positive: boolean;
 }
