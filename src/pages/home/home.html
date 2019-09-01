@@ -7,7 +7,7 @@
   <ng-template [ngIf]="!auth.loading">
 
     <span style="text-align: center">
-      <h1 style="margin-top: 150px !important;">
+      <h1 style="margin-top: 100px !important;">
         <img src="assets/imgs/Logo.jpg" width="200" style="vertical-align:middle">
       </h1>
       <h2>Te ayudamos a gestionar los gastos de tu coche compartido</h2>
@@ -21,22 +21,18 @@
       *ngIf="!auth.loggedIn"
       (click)="this.login()">Entrar</button>
 
+    <div class="width-100 text-center little-margin-top">
+        Al entrar aceptas los <a (click)="this.presentModalTos()">términos y condiciones</a> y la <a (click)="this.presentModalPrivacy()">política de privacidad</a> de la plataforma.
+    </div>
 
-
-
-    <button
-      ion-button
-      block
-      color="primary"
-      (click)="this.goToTOSPage()">TOS</button>
-
-    <button
-      ion-button
-      block
-      color="primary"
-      (click)="this.goToPrivacyPage()">Privacy</button>
-
-    <page-tos-text></page-tos-text>
+    <div class="width-100 position-absolute-bottom text-center text-big">
+      <div class="width-50 float-left">
+        <a (click)="this.presentModalHelp()" class="little-margin-right">Cómo funciona</a>
+      </div>
+      <div class="width-50 float-right">
+        <a (click)="this.presentModalAbout()" class="little-margin-left">Sobre Outgogo</a>
+      </div>
+    </div>
 
   </ng-template>
 

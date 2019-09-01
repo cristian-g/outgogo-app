@@ -21,5 +21,4 @@ export class TosPage {
   ionViewDidLoad() {
     console.log('ionViewDidLoad TosPage');
   }
-
 }

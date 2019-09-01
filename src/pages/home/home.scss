@@ -1,3 +1,30 @@
-page-home {
-
+.little-margin-top {
+  margin-top: 30px;
+}
+.position-absolute-bottom {
+  width: 100%;
+  position: absolute;
+  bottom: 40px;
+}
+.position-absolute-bottom a {
+  margin-right: 15px;
+}
+.text-center {
+  text-align: center;
+}
+.width-100 {
+  width: 100%;
+}
+.width-50 {
+  width: 50%;
+}
+.float-left {
+  float: left;
+}
+.float-right {
+  float: right;
+}
+.text-big {
+  font-size: 17px;
+  text-transform: uppercase;
 }

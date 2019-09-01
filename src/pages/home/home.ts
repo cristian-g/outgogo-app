@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import {Events, NavController, Platform} from 'ionic-angular';
+import {Events, NavController, Platform, ModalController} from 'ionic-angular';
 import { AuthService } from './../../services/auth.service';
 import { VehiclesService } from './../../services/vehicles.service';
 import { StatusBar } from '@ionic-native/status-bar';
@@ -9,6 +9,11 @@ import { Storage } from '@ionic/storage';
 
 // Import Auth0Cordova
 import Auth0Cordova from '@auth0/cordova';
+import {TosTextPage} from "../tos-text/tos-text";
+import {TosModalPage} from "../tos-modal/tos-modal";
+import {PrivacyModalPage} from "../privacy-modal/privacy-modal";
+import {HelpModalPage} from "../help-modal/help-modal";
+import {AboutModalPage} from "../about-modal/about-modal";
 
 @Component({
   selector: 'page-home',
@@ -20,6 +25,8 @@ export class HomePage implements OnInit {
 
   vehicles: any[];
 
+  closeResult: string;
+
   constructor(
     public navCtrl: NavController,
     public auth: AuthService,
@@ -29,7 +36,8 @@ export class HomePage implements OnInit {
     splashScreen: SplashScreen,
     public zone: NgZone,
     private storage: Storage,
-    public events: Events
+    public events: Events,
+    public modalController: ModalController,
   ) {
     platform.ready().then(() => {
       // Redirect back to app after authenticating
@@ -41,6 +49,38 @@ export class HomePage implements OnInit {
     events.subscribe('user:logout', () => {
       that.logout();
     });
+  }
+
+  async presentModalTos() {
+    let modal = this.modalController.create(TosModalPage);
+    modal.onDidDismiss(data => {
+      console.log(data);
+    });
+    modal.present();
+  }
+
+  async presentModalPrivacy() {
+    let modal = this.modalController.create(PrivacyModalPage);
+    modal.onDidDismiss(data => {
+      console.log(data);
+    });
+    modal.present();
+  }
+
+  async presentModalHelp() {
+    let modal = this.modalController.create(HelpModalPage);
+    modal.onDidDismiss(data => {
+      console.log(data);
+    });
+    modal.present();
+  }
+
+  async presentModalAbout() {
+    let modal = this.modalController.create(AboutModalPage);
+    modal.onDidDismiss(data => {
+      console.log(data);
+    });
+    modal.present();
   }
 
   public login() {

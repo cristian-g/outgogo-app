@@ -8,7 +8,6 @@ import {HTTP_INTERCEPTORS, HttpClientModule} from '@angular/common/http';
 import { AuthService } from './../services/auth.service';
 import { VehiclesService } from './../services/vehicles.service';
 
-import { AboutPage } from '../pages/about/about';
 import { ContactPage } from '../pages/contact/contact';
 import { HomePage } from '../pages/home/home';
 
@@ -24,16 +23,33 @@ import {APIInterceptor} from "./_helpers/api.interceptor";
 import {JwtInterceptor} from "./_helpers/jwt.interceptor";
 import {ConsumptionsService} from "../services/consumptions.service";
 import {TosTextPage} from "../pages/tos-text/tos-text";
+import {TosModalPage} from "../pages/tos-modal/tos-modal";
+import {PrivacyTextPage} from "../pages/privacy-text/privacy-text";
+import {PrivacyModalPage} from "../pages/privacy-modal/privacy-modal";
+import {HelpPage} from "../pages/help/help";
+import {HelpTextPage} from "../pages/help-text/help-text";
+import {HelpModalPage} from "../pages/help-modal/help-modal";
+import {AboutPage} from "../pages/about/about";
+import {AboutTextPage} from "../pages/about-text/about-text";
+import {AboutModalPage} from "../pages/about-modal/about-modal";
 
 @NgModule({
   declarations: [
     MyApp,
-    AboutPage,
     ContactPage,
     HomePage,
     TosPage,
     TosTextPage,
+    TosModalPage,
     PrivacyPage,
+    PrivacyTextPage,
+    PrivacyModalPage,
+    HelpPage,
+    HelpTextPage,
+    HelpModalPage,
+    AboutPage,
+    AboutTextPage,
+    AboutModalPage,
     PointsPage,
   ],
   imports: [
@@ -45,12 +61,20 @@ import {TosTextPage} from "../pages/tos-text/tos-text";
   bootstrap: [IonicApp],
   entryComponents: [
     MyApp,
-    AboutPage,
     ContactPage,
     HomePage,
     TosPage,
     TosTextPage,
+    TosModalPage,
     PrivacyPage,
+    PrivacyTextPage,
+    PrivacyModalPage,
+    HelpPage,
+    HelpTextPage,
+    HelpModalPage,
+    AboutPage,
+    AboutTextPage,
+    AboutModalPage,
     PointsPage,
   ],
   providers: [

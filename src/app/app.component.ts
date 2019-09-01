@@ -8,6 +8,8 @@ import { HomePage } from '../pages/home/home';
 import { VehiclesListPage } from '../pages/vehicles-list/vehicles-list';
 import { TosPage } from '../pages/tos/tos';
 import { PrivacyPage } from '../pages/privacy/privacy';
+import {HelpPage} from "../pages/help/help";
+import {AboutPage} from "../pages/about/about";
 //import {PointsPage} from "../pages/points/points";
 
 @Component({
@@ -36,6 +38,8 @@ export class MyApp {
 
     this.pages = [
       { title: 'Vehículos', component: VehiclesListPage },
+      { title: 'Cómo funciona', component: HelpPage },
+      { title: 'Sobre Outgogo', component: AboutPage },
       { title: 'Términos del servicio', component: TosPage },
       { title: 'Política de privacidad', component: PrivacyPage },
     ];
