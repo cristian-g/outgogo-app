@@ -79,18 +79,18 @@
       <button
         ion-button
         color="primary"
-        style="width: 100%; display: inline"
-        (click)="goToNewOutgoPage()">Registrar un gasto</button>
+        style="width: 30%; display: inline"
+        (click)="goToNewOutgoPage()">Registrar<br>gasto</button>
       <button
         ion-button
         color="primary"
-        style="width: 100%; display: inline"
-        (click)="goToNewConsumptionPage()">Registrar un consumo</button>
+        style="width: 30%; display: inline"
+        (click)="goToNewConsumptionPage()">Registrar<br>consumo</button>
       <button
         ion-button
         color="primary"
-        style="width: 100%; display: inline"
-        (click)="goToNewPaymentPage()">Registrar un pago</button>
+        style="width: 30%; display: inline"
+        (click)="goToNewPaymentPage()">Registrar<br>pago</button>
     </div>
 
     <div *ngFor="let action of this.vehicle.actions; let i = index" (click)="goToPage(action.type, action)">
