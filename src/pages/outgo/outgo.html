@@ -16,20 +16,18 @@
     </ion-title>
     <ion-buttons end>
       <button
-        *ngIf="outgo.quantity < 0"
+        *ngIf="outgo.quantity < 0 && !this.loading"
         ion-button
         block
         color="primary"
         (click)="goToEditOutgoPage()"
-        *ngIf="!this.loading"
       >Editar</button>
       <button
-        *ngIf="outgo.quantity >= 0"
+        *ngIf="outgo.quantity >= 0 && !this.loading"
         ion-button
         block
         color="primary"
         (click)="goToEditConsumptionPage()"
-        *ngIf="!this.loading"
       >Editar</button>
     </ion-buttons>
   </ion-navbar>

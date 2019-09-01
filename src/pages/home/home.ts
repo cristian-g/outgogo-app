@@ -49,6 +49,9 @@ export class HomePage implements OnInit {
     events.subscribe('user:logout', () => {
       that.logout();
     });
+    if (auth.loggedIn) {
+      this.login();
+    }
   }
 
   async presentModalTos() {
