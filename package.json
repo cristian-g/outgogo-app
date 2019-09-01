@@ -32,6 +32,7 @@
     "auth0-js": "^9.3.3",
     "card.io.cordova.mobilesdk": "^2.1.0",
     "cordova-android": "7.1.4",
+    "cordova-browser": "5.0.4",
     "cordova-ios": "4.5.4",
     "cordova-plugin-customurlscheme": "^4.3.0",
     "cordova-plugin-device": "^1.1.7",
@@ -79,7 +80,8 @@
     },
     "platforms": [
       "ios",
-      "android"
+      "android",
+      "browser"
     ]
   }
 }
