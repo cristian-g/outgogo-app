@@ -11,7 +11,8 @@
     "ionic:build": "ionic-app-scripts build",
     "ionic:serve": "ionic-app-scripts serve",
     "ionic:ios": "ionic cordova run ios --livereload",
-    "ionic:android": "ionic cordova run android --livereload"
+    "ionic:android": "ionic cordova run android --livereload",
+    "compodoc": "./node_modules/.bin/compodoc -d ./docs/ -p ./tsconfig.json"
   },
   "dependencies": {
     "@angular/common": "^5.2.8",
@@ -53,6 +54,7 @@
     "zone.js": "0.8.18"
   },
   "devDependencies": {
+    "@compodoc/compodoc": "^1.1.10",
     "@ionic/app-scripts": "^3.2.2",
     "cordova": "^8.0.0",
     "ionic": "^3.20.0",
