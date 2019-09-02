@@ -1,6 +1,6 @@
-<h1 align="center">Welcome to Outgogo 👋</h1>
+<h1 align="center">Outgogo app con Ionic</h1>
 <p align="center">
-    <img src="docs/sticker-outgogo-net.png" width="300">
+    <img src="docs/sticker-outgogo-net.png">
 </p>
 <p>
   <img alt="Version" src="https://img.shields.io/badge/version-1.0-blue.svg?cacheSeconds=2592000" />
