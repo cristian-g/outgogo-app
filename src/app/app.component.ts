@@ -40,7 +40,7 @@ export class MyApp {
       { title: 'Vehículos', component: VehiclesListPage },
       { title: 'Cómo funciona', component: HelpPage },
       { title: 'Sobre Outgogo', component: AboutPage },
-      { title: 'Términos del servicio', component: TosPage },
+      { title: 'Términos y condiciones', component: TosPage },
       { title: 'Política de privacidad', component: PrivacyPage },
     ];
   }
