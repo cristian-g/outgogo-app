@@ -46,6 +46,13 @@ export class NewVehiclePage {
 
     if (this.navParams.get('vehicle') != null) {
       this.vehicle = this.navParams.get('vehicle');
+
+      this.emailsNum = this.vehicle.emails.length;
+      if (this.emailsNum >= 1) this.email1 = <string> this.vehicle.emails[0];
+      if (this.emailsNum >= 2) this.email2 = <string> this.vehicle.emails[1];
+      if (this.emailsNum >= 3) this.email3 = <string> this.vehicle.emails[2];
+      if (this.emailsNum >= 4) this.email4 = <string> this.vehicle.emails[3];
+      if (this.emailsNum >= 5) this.email5 = <string> this.vehicle.emails[4];
     }
     this.mode = this.navParams.get('mode');
   }
