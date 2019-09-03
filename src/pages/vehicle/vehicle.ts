@@ -111,7 +111,7 @@ export class VehiclePage implements OnInit {
           this.vehicle = data;
         },
         error => {
-          alert('Error: ' + JSON.stringify(error));
+          alert('Error: ' + error.error.message);
 
           this.loadingVehicle = false;
           const errorObject = error.error.errors;
