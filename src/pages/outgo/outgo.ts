@@ -52,7 +52,7 @@ export class OutgoPage {
 
   goToEditConsumptionPage() {
     this.navCtrl.push('NewConsumptionPage', {
-      outgo: this.outgo,
+      consumption: this.outgo,
       mode: 'edit',
     });
   }
