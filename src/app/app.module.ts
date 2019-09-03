@@ -32,12 +32,12 @@ import {HelpModalPage} from "../pages/help-modal/help-modal";
 import {AboutPage} from "../pages/about/about";
 import {AboutTextPage} from "../pages/about-text/about-text";
 import {AboutModalPage} from "../pages/about-modal/about-modal";
+import {HomePageModule} from "../pages/home/home.module";
 
 @NgModule({
   declarations: [
     MyApp,
     ContactPage,
-    HomePage,
     TosPage,
     TosTextPage,
     TosModalPage,
@@ -56,13 +56,13 @@ import {AboutModalPage} from "../pages/about-modal/about-modal";
     BrowserModule,
     IonicModule.forRoot(MyApp),
     IonicStorageModule.forRoot(),
-    HttpClientModule
+    HttpClientModule,
+    HomePageModule
   ],
   bootstrap: [IonicApp],
   entryComponents: [
     MyApp,
     ContactPage,
-    HomePage,
     TosPage,
     TosTextPage,
     TosModalPage,

@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import {Events, NavController, Platform, ModalController} from 'ionic-angular';
+import {Events, NavController, Platform, ModalController, IonicPage} from 'ionic-angular';
 import { AuthService } from './../../services/auth.service';
 import { VehiclesService } from './../../services/vehicles.service';
 import { StatusBar } from '@ionic-native/status-bar';
@@ -15,6 +15,7 @@ import {PrivacyModalPage} from "../privacy-modal/privacy-modal";
 import {HelpModalPage} from "../help-modal/help-modal";
 import {AboutModalPage} from "../about-modal/about-modal";
 
+@IonicPage()
 @Component({
   selector: 'page-home',
   templateUrl: 'home.html'
