@@ -4,8 +4,8 @@ import { Observable } from 'rxjs';
 
 @Injectable()
 export class APIInterceptor implements HttpInterceptor {
-  public apiBasePath:string = 'http://192.168.10.10/api';
-  //public apiBasePath:string = 'http://outgogo.cristiangonzalez.com/api';
+  //public apiBasePath:string = 'http://192.168.10.10/api';
+  public apiBasePath:string = 'https://outgogo.cristiangonzalez.com/api';
 
   intercept(req: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
         const url = req.url;
