@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import {AlertController, IonicPage, NavController, NavParams} from 'ionic-angular';
-import {Consumption} from "../../models/consumption";
+import {Outgo} from "../../models/outgo";
 import {first} from "rxjs/operators";
 import {ConsumptionsService} from "../../services/consumptions.service";
 
@@ -20,7 +20,7 @@ export class NewConsumptionPage {
   loading: boolean;
   errors: any[];
   vehicleId = null;
-  consumption = new Consumption();
+  consumption = new Outgo();
   public mode:string;
 
   constructor(
@@ -46,8 +46,8 @@ export class NewConsumptionPage {
 
   public storeConsumption(): void {
     this.loading = true;
-    if (this.consumption.share_consumption == null) {
-      this.consumption.share_consumption = false;
+    if (this.consumption.share_outgo == null) {
+      this.consumption.share_outgo = false;
     }
     if (this.mode === 'new') {
       this.consumptionsService.store(this.vehicleId, this.consumption).pipe(first())

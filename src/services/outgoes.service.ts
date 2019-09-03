@@ -71,6 +71,8 @@ export class OutgoesService {
           outgo.type = 'outgo';
           outgo.quantity = data.outgo.quantity;
           outgo.description = data.outgo.description;
+          outgo.gas_liters = data.outgo.gas_liters;
+          outgo.gas_price = data.outgo.gas_price;
           outgo.notes = data.outgo.notes;
           outgo.share_outgo = data.outgo.share_outgo;
           outgo.category = data.outgo.category;

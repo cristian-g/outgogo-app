@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
-import { Consumption } from '../models/consumption';
+import { Outgo } from '../models/outgo';
 import { map } from 'rxjs/operators';
 import { Storage } from '@ionic/storage';
 import {AuthService} from "./auth.service";
@@ -19,7 +19,7 @@ export class ConsumptionsService {
   // Verb: POST
   // URI: /consumptions
   // Action: store
-  store(vehicleId: string, consumption: Consumption) {
+  store(vehicleId: string, consumption: Outgo) {
     var headers = null;
     if (this.auth.idToken == null) {
       headers = new HttpHeaders({
@@ -35,7 +35,7 @@ export class ConsumptionsService {
     return this.http.post<any>(this.domain + '/api/vehicle/' + vehicleId + '/consumption', {
       vehicle_id: vehicleId,
       notes: consumption.notes,
-      share_consumption: consumption.share_consumption,
+      share_outgo: consumption.share_outgo,
       gas_liters: consumption.gas_liters,
       gas_price: consumption.gas_price,
     }, { headers: headers })
@@ -66,22 +66,22 @@ export class ConsumptionsService {
     return this.http.get<any>(this.domain + '/api/outgo/' + consumptionId, { headers: headers })
       .pipe(map((data: any) => {
         if (data) {
-          const consumption = new Consumption();
+          const consumption = new Outgo();
           consumption.id = data.consumption.id;
           consumption.type = 'consumption';
           consumption.quantity = data.consumption.quantity;
           consumption.description = data.consumption.description;
           consumption.notes = data.consumption.notes;
-          consumption.share_consumption = data.consumption.share_consumption;
+          consumption.share_outgo = data.consumption.share_outgo;
           consumption.gas_liters = data.consumption.gas_liters;
           consumption.gas_price = data.consumption.gas_price;
           consumption.category = data.consumption.category;
           consumption.createdAt = new Date(data.consumption.created_at);
 
-          const distributionsArray = new Array<Consumption>();
+          const distributionsArray = new Array<Outgo>();
 
           for (let i = 0; i < data.consumption.distributions.length; i++) {
-            const distribution = new Consumption();
+            const distribution = new Outgo();
 
             const jsonObj = data.consumption.distributions[i];
             distribution.quantity = jsonObj.quantity;
@@ -101,7 +101,7 @@ export class ConsumptionsService {
       }));
   }
 
-  private computeFormattedDate(action: Consumption) {
+  private computeFormattedDate(action: Outgo) {
     // Format date
     const options = { year: 'numeric', month: 'long', day: 'numeric' };
     action.formattedDate = action.createdAt.toLocaleDateString("es-ES", options);
@@ -124,7 +124,7 @@ export class ConsumptionsService {
   // Verb: PUT/PATCH
   // URI: /consumptions/{consumption}
   // Action: update
-  update(consumption: Consumption) {
+  update(consumption: Outgo) {
     var headers = null;
     if (this.auth.idToken == null) {
       headers = new HttpHeaders({
@@ -140,9 +140,11 @@ export class ConsumptionsService {
     const consumptionId = consumption.id;
     return this.http.put<any>(this.domain + '/api/consumption/' + consumptionId, {
       quantity: consumption.quantity,
+      gas_liters: consumption.gas_liters,
+      gas_price: consumption.gas_price,
       description: consumption.description,
       notes: consumption.notes,
-      share_consumption: consumption.share_consumption,
+      share_outgo: consumption.share_outgo,
     }, { headers: headers })
       .pipe(map((data: any) => {
         if (data) {

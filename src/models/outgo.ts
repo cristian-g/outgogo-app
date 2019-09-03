@@ -10,4 +10,6 @@ export class Outgo extends Action {
   distributions: Array<Outgo>;
   user: User;
   receiver: User;
+  gas_liters: number;
+  gas_price: number;
 }
