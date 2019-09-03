@@ -35,6 +35,14 @@ export class AuthService {
     };
     // Authorize login request with Auth0: open login page and get auth results
     this.Client.authorize(options, (err, authResult) => {
+
+      // Handle close of Auth0 login request
+      if (authResult == null) {
+        window.location.reload();
+        navCtrl.setRoot('HomePage');
+        return;
+      }
+
       this.accessToken = authResult.accessToken;
       this.idToken = authResult.idToken;
       navCtrl.setRoot('VehiclesListPage');
