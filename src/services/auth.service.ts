@@ -31,7 +31,8 @@ export class AuthService {
   login(navCtrl:any) {
     this.loading = true;
     const options = {
-      scope: 'openid profile offline_access email'
+      scope: 'openid profile offline_access email',
+      prompt: 'login'
     };
     // Authorize login request with Auth0: open login page and get auth results
     this.Client.authorize(options, (err, authResult) => {
